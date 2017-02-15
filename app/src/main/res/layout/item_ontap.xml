@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="@dimen/dp_10"
+    android:padding="@dimen/padding_normal"
+    android:background="@drawable/round_corner_bkg"
+    android:orientation="vertical">
+
+    <TextView
+        android:padding="@dimen/padding_normal"
+        android:id="@+id/ot_i_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:text="Order Number\n1232132414214"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+    <TextView
+        android:padding="@dimen/padding_normal"
+        android:id="@+id/ot_i_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/ot_i_location"
+        android:gravity="center"
+        android:text="Status\npending"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+    <com.example.madiba.venualpha.ui.StateButton
+        android:layout_marginTop="@dimen/padding_normal"
+        android:layout_alignParentRight="true"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:id="@+id/cc_i_unfollow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="Cancel"
+        android:textAllCaps="false"
+        android:textSize="@dimen/app_text_size_small"
+        app:sradius="2dp"
+        app:normalBackgroundColor="@color/venu_blue"
+        app:normalTextColor="@color/white"
+        app:pressedStrokeWidth="1dp"
+        android:textStyle="bold"
+        app:pressedStrokeColor="@android:color/white"
+        app:pressedBackgroundColor="@color/mid_grey_200"
+        app:pressedTextColor="@android:color/white"/>
+
+
+    <View
+
+        android:id="@+id/divider"
+        android:layout_below="@id/ot_i_location"
+        android:background="@color/light_grey_200"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+
+
+    <TextView
+        android:padding="@dimen/padding_normal"
+        android:layout_below="@id/divider"
+        android:id="@+id/ot_i_order_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:text="2 TIcket  kkwame Specvial\n   event"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+
+
+</RelativeLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="150dp"
+    android:layout_height="220dp"
+    android:layout_marginRight="0.4dp"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/live_now_image"
+        android:layout_width="150dp"
+        android:layout_height="220dp"
+        android:src="@color/venu_orange"
+        />
+
+    <TextView
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/white"
+        android:layout_gravity="bottom"
+        android:padding="10dp"
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="#WhereItLongNatureProject34"
+        android:textSize="@dimen/app_text_size_medium"
+        android:textStyle="bold" />
+    <TextView
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_above="@id/title"
+        android:text="22\nDEC"
+        android:id="@+id/ev_status"
+        android:background="@drawable/category_background_default"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/venu_yellow"
+        android:textColor="@color/text_black"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+        android:layout_width="40dp"
+        android:layout_height="40dp" />
+
+
+</RelativeLayout>
+

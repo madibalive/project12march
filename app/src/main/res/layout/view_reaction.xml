@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge android:orientation="horizontal"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:layout_width="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+   <ImageButton
+       android:id="@+id/reaction_icon"
+       android:background="@android:color/transparent"
+       android:src="@drawable/ic_heart_active"
+       android:layout_margin="@dimen/dp_4"
+       android:layout_width="@dimen/avatar_small"
+       android:layout_height="@dimen/avatar_small" />
+
+    <TextView
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:text="12"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:id="@+id/reaction_count"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</merge>

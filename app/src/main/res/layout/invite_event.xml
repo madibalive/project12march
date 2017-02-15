@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:gravity="center_vertical"
+    android:layout_margin="@dimen/dp_22"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/image"
+        android:src="@android:color/holo_orange_dark"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+
+        <RelativeLayout
+            android:layout_margin="@dimen/dp_36"
+            android:gravity="center"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:textSize="50sp"
+                android:textColor="@color/text_black"
+                android:id="@+id/date_day"
+                android:text="22"
+                android:gravity="center"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="48dp"
+                android:layout_marginStart="48dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                />
+
+
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:layout_alignTop="@id/date_day"
+                android:layout_toRightOf="@id/date_day"
+                android:id="@+id/date_month"
+                android:text="December\n9:30pm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+            <TextView
+                android:gravity="center"
+                android:layout_marginTop="@dimen/dp_22"
+                android:layout_below="@id/date_day"
+                android:id="@+id/title"
+                style="@style/veneProfileName"
+                android:text="@string/a_function_that_creates_a_new_instance_of_the_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+
+
+            <LinearLayout
+
+                android:layout_marginTop="@dimen/dp_14"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/title"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/favorites"
+                    android:gravity="center"
+                    android:drawablePadding="4dp"
+                    android:drawableLeft="@drawable/ic_star"
+                    android:text="12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/comments"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:drawablePadding="4dp"
+                    android:drawableLeft="@drawable/ic_chat"
+                    android:text="12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+
+
+
+
+</FrameLayout>

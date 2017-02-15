@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="@dimen/dp_10">
+
+    <com.android.liuzhuang.rcimageview.CircleImageView
+        android:id="@+id/cc_i_avatar"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+       android:layout_marginRight="8dp"
+        android:src="@color/venu_blue"/>
+
+    <TextView
+        android:id="@+id/cc_i_name"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/cc_i_avatar"
+        android:text="sample"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textStyle="bold"
+/>
+
+
+    <com.example.madiba.venualpha.ui.StateButton
+        android:layout_marginLeft="8dp"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:id="@+id/cc_i_unfollow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="Follow"
+        android:textAllCaps="false"
+        android:textSize="@dimen/app_text_size_small"
+        app:sradius="2dp"
+        app:normalBackgroundColor="@color/venu_blue"
+        app:normalTextColor="@color/white"
+        app:pressedStrokeWidth="1dp"
+        android:textStyle="bold"
+        app:pressedStrokeColor="@android:color/white"
+        app:pressedBackgroundColor="@color/mid_grey_200"
+        app:pressedTextColor="@android:color/white"/>
+
+</LinearLayout>

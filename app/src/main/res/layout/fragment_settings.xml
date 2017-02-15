@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/dp_22"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <Button
+        android:id="@+id/account_change_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left|center_vertical"
+        android:drawablePadding="24dp"
+        android:text="Change Username"
+        android:textColor="#880E4F"
+        style="@style/Widget.AppCompat.Button.Borderless" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/light_grey_200"/>
+
+    <Button
+        android:id="@+id/account_change_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="24dp"
+        android:gravity="left|center_vertical"
+        android:text="Change Password"
+        android:textColor="#880E4F"
+        style="@style/Widget.AppCompat.Button.Borderless" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="14dp"
+        android:background="@color/light_grey_200"/>
+
+
+    <Button
+        android:id="@+id/account_change_about"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="24dp"
+        android:gravity="left|center_vertical"
+        android:text="About "
+        android:textColor="#880E4F"
+        style="@style/Widget.AppCompat.Button.Borderless" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/light_grey_200"/>
+
+    <Button
+        android:id="@+id/account_contact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="24dp"
+        android:gravity="left|center_vertical"
+        android:text="Contact Us "
+        android:textColor="#880E4F"
+        style="@style/Widget.AppCompat.Button.Borderless" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/light_grey_200"/>
+
+    <Button
+        android:id="@+id/account_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="24dp"
+        android:gravity="left|center_vertical"
+        android:text="Send Feedback "
+        android:textColor="#880E4F"
+        style="@style/Widget.AppCompat.Button.Borderless" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/light_grey_200"/>
+
+    <Button
+        android:id="@+id/account_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="24dp"
+        android:gravity="left|center_vertical"
+        android:text="Logout"
+        android:textColor="#880E4F"
+        style="@style/Widget.AppCompat.Button.Borderless" />
+
+
+</LinearLayout>

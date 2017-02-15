@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/activity_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        >
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <com.android.liuzhuang.rcimageview.RoundCornerImageView
+                android:id="@+id/user_prof_image"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:scaleType="centerCrop"
+                android:src="@android:color/holo_orange_dark" />
+            <LinearLayout
+                android:padding="@dimen/padding_normal"
+                android:gravity="bottom"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/user_prof_name"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Essie Asantey"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                    />
+
+
+                <com.venu.venutheta.ui.StateButton
+                    android:id="@+id/user_prof_follow_btn"
+                    android:gravity="center"
+                    android:minHeight="20dp"
+                    android:text="Follow"
+                    app:sradius="2dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:normalBackgroundColor="@color/white"
+                    app:normalStrokeColor="@color/venu_flat_color"
+                    app:normalStrokeWidth="2dp"
+                    android:textSize="@dimen/app_text_size_small"
+                    app:normalTextColor="@color/mid_grey_200"
+                    app:pressedBackgroundColor="@color/venu_flat_color"
+                    app:pressedTextColor="@android:color/white"
+                    app:animationDuration="200"
+                    />
+
+
+                <com.venu.venutheta.ui.StateButton
+                    android:gravity="center"
+                    android:minHeight="20dp"
+                    android:minWidth="40dp"
+                    app:sradius="2dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:normalBackgroundColor="@color/white"
+                    app:normalStrokeColor="@color/venu_flat_color"
+                    app:normalStrokeWidth="2dp"
+                    android:textSize="@dimen/app_text_size_small"
+                    app:normalTextColor="@color/mid_grey_200"
+                    app:pressedBackgroundColor="@color/venu_flat_color"
+                    app:pressedTextColor="@android:color/white"
+                    app:animationDuration="200"
+                    />
+
+            </LinearLayout>
+        </FrameLayout>
+
+
+            <LinearLayout
+                android:visibility="gone"
+                android:padding="@dimen/padding_normal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="9096"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="#880E4F"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        android:text="Peeps"
+                        android:textColor="#66424242"
+                        android:textSize="@dimen/app_text_size_small" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#aa424242" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/user_prof_peeps_cnt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="9096"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="#880E4F"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        android:text="Peeps"
+                        android:textColor="#66424242"
+                        android:textSize="@dimen/app_text_size_small" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#aa424242" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/user_prof_following_cnt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="2"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="#880E4F"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        android:text="event"
+                        android:textColor="#66424242"
+                        android:textSize="@dimen/app_text_size_small" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#aa424242" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/user_prof_following"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="1782"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="#880E4F"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        android:text="Fans"
+                        android:textColor="#66424242"
+                        android:textSize="@dimen/app_text_size_small" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+</android.support.v7.widget.CardView>
+
+

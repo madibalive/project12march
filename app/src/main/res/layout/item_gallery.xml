@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.venu.venutheta.ui.SquareImageView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:src="@color/venu_green"
+    android:clickable="true"
+    android:foreground="?android:selectableItemBackground"
+    android:layout_margin="1dp">
+
+
+</com.venu.venutheta.ui.SquareImageView>

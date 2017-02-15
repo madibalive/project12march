@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImageView
+    android:src="@drawable/ic_default_avatar"
+    android:orientation="vertical"
+    android:layout_height="30dp"
+    android:layout_width="30dp"
+    android:layout_margin="@dimen/dp_10"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+</ImageView>

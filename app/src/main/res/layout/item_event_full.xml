@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout android:gravity="center_vertical"
+    android:layout_margin="@dimen/padding_normal"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.android.liuzhuang.rcimageview.RoundCornerImageView
+        android:background="@color/venu_yellow"
+        app:rciv_radius="@dimen/dp_4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <TextView
+        android:layout_alignParentBottom="true"
+        android:id="@+id/title"
+        android:padding="8dp"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:text="TItle here asdad asda "
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_marginLeft="@dimen/dp_10"
+        android:text="22\nDEC"
+        android:layout_above="@id/title"
+        android:id="@+id/main_event_date"
+        android:background="@drawable/category_background_default"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+        android:layout_width="40dp"
+        android:layout_height="40dp" />
+
+
+</RelativeLayout>

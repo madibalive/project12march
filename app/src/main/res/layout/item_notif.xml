@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="?android:selectableItemBackground"
+    android:padding="@dimen/dp_10"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.android.liuzhuang.rcimageview.RoundCornerImageView
+            app:rciv_radius="@dimen/dp_4"
+            android:id="@+id/notif_i_avatar"
+            android:layout_width="@dimen/venu_avatar_medium"
+            android:layout_height="@dimen/venu_avatar_medium"
+            android:layout_marginRight="@dimen/dp_4"
+            android:src="@color/venu_orange" />
+
+        <TextView
+            android:id="@+id/notif_i_name"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/app_text_size_small"
+            tools:text="Nick B" />
+
+
+
+
+        <com.android.liuzhuang.rcimageview.RoundCornerImageView
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:id="@+id/notif_i_rightimage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:src="@color/venu_blue"
+            app:rciv_radius="@dimen/dp_4"
+            />
+    </LinearLayout>
+
+
+
+    <TextView
+        android:gravity="center_vertical"
+        android:id="@+id/date"
+        android:paddingTop="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/app_text_size_large"
+        tools:text="Nick B" />
+
+
+
+</LinearLayout>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="225dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="25dp"
+            android:src="@color/venu_green" />
+
+        <TextView
+            android:id="@+id/hashtag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_22"
+            android:text="#JohnSon"
+            android:textColor="@color/venu_blue"
+            android:textSize="40dp"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_22"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingTop="10dp"
+        android:textSize="@dimen/app_text_size_large"
+        android:text="@string/a_function_that_creates_a_new_instance_of_the_fragment"
+        android:textColor="@color/text_black"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingTop="@dimen/dp_10"
+        android:text="Check your proxy settings or contact your network administrator to make sure the proxy server is working. If you don't believe: "
+        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+
+    <com.example.madiba.venualpha.ui.SegmentControl
+        android:layout_gravity="center"
+        android:id="@+id/segment_control"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/app_text_size_medium"
+        app:selectedColor="#0099CC"
+        app:normalColor="#FFFFFF"
+        app:cornerRadius="4dip"
+        android:orientation="horizontal"
+        app:horizonGap="8dip"
+        app:texts="Global|Friends"
+        app:verticalGap="8dip"/>
+
+
+</LinearLayout>
+

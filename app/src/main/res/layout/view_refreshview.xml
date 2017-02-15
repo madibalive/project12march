@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.example.madiba.venualpha.ui.RotateLoading
+        android:layout_gravity="center"
+        android:id="@+id/progress_bar"
+        app:loading_speed="11"
+        app:loading_color="@android:color/holo_blue_dark"
+        app:loading_width="2dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp" />
+
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/refresh_imageview"
+        android:src="@drawable/quantum_ic_refresh_white_24"
+        android:tint="@color/black"
+        android:layout_gravity="center"
+        android:layout_width="30dp"
+        android:layout_height="30dp" />
+
+</merge>

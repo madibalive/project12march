@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:fitsSystemWindows="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll"
+            app:titleEnabled="false">
+            <!-- minHeight determines the point to fade in the status bar scrim. Ideally it would
+                 fade in when the image has completely collapsed but it needs to be > 0. -->
+
+            <com.venu.venutheta.ui.AspectRatioView
+                android:id="@+id/session_photo_container"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_collapseMode="pin"
+                app:aspectRatio="0.85">
+
+                <ImageView
+                    android:background="@color/venu_blue"
+                    android:id="@+id/session_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
+
+                <View
+                    android:layout_gravity="bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="22dp"/>
+            </com.venu.venutheta.ui.AspectRatioView>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+            <LinearLayout
+                android:padding="@dimen/dp_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/event_page_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/a_function_that_creates_a_new_instance_of_the_fragment"
+                    android:textAllCaps="true"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+
+
+                <RelativeLayout
+                    android:padding="@dimen/dp_10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:layout_marginRight="@dimen/dp_10"
+                        android:layout_alignParentLeft="true"
+                        android:id="@+id/event_page_favs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_star"
+                        android:drawablePadding="@dimen/dp_4"
+                        android:drawableStart="@drawable/ic_star"
+                        android:gravity="center_vertical"
+                        android:text="120k" />
+
+                    <TextView
+                        android:layout_marginRight="@dimen/dp_10"
+                        android:layout_toRightOf="@id/event_page_favs"
+                        android:id="@+id/event_page_cmts"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_chat"
+                        android:drawablePadding="8dp"
+                        android:drawableStart="@drawable/ic_chat"
+                        android:gravity="center_vertical"
+                        android:text="40k" />
+
+                    <ImageButton
+                        android:background="@android:color/transparent"
+                        android:layout_toRightOf="@id/event_page_cmts"
+                        android:src="@drawable/ic_overflow_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.venu.venutheta.ui.StateButton
+                        android:layout_alignParentRight="true"
+                        android:minHeight="0dp"
+                        android:minWidth="0dp"
+                        android:padding="6dp"
+                        app:sradius="@dimen/dp_4"
+                        android:text="share"
+                        app:normalBackgroundColor="@color/venu_blue"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/stateButton" />
+                </RelativeLayout>
+            </LinearLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+
+
+
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/light_grey_200"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/light_grey_200"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+
+
+                <TextView
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:id="@+id/event_page_name"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Kevent bee"
+                    android:textSize="@dimen/app_text_size_medium"
+                    android:textStyle="bold" />
+
+
+                <com.android.liuzhuang.rcimageview.CircleImageView
+                    android:id="@+id/event_page_avatar"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+
+                    android:src="@color/venu_flat_color"
+                    />
+
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#f54f67"/>
+
+            <!--<include-->
+                <!--layout="@layout/event_infor_layout"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content" />-->
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#f54f67"/>
+            <TextView
+                android:id="@+id/event_page_location"
+                style="@style/veneProfileName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_placeholder"
+                android:drawablePadding="8dp"
+                android:text="4th street rooad ,21 avaenu road"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/mid_grey_200" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_margin="@dimen/padding_normal"
+                android:background="@drawable/applozic_map_offline_thumbnail">
+
+                <android.support.design.widget.FloatingActionButton
+                    android:tint="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_margin="@dimen/padding_normal"
+                    android:src="@drawable/ic_cursor" />
+
+            </FrameLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#f54f67"/>
+            <TextView
+                android:id="@+id/event_page_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_22"
+                android:text="DFA stands for deterministic finite automaton. Basically, it is a directed graph where each
+node has edges coming out of it labeled with the letters from a fixed finite alphabet Σ. One
+node is designated as the start node, and a set of nodes are designated as final nodes"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>
+
+
+

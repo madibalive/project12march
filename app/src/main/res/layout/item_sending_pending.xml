@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="@dimen/dp_10">
+
+    <com.android.liuzhuang.rcimageview.RoundCornerImageView
+        android:id="@+id/avatar"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginRight="8dp"
+        app:rciv_radius="@dimen/dp_4"
+        android:src="@color/venu_blue"/>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/cc_i_avatar"
+        android:text="sadadsad adsaa\n dsadsadsadsas"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/venu_blue"
+        android:textStyle="bold"
+        />
+
+    <com.example.madiba.venualpha.ui.RotateLoading
+        android:id="@+id/rotateloading"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerInParent="true"
+        app:loading_speed="11"
+        app:loading_color="@android:color/holo_blue_light"
+        app:loading_width="2dp" />
+
+
+
+
+</LinearLayout>

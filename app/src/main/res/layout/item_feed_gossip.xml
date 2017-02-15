@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.android.liuzhuang.rcimageview.RoundCornerImageView
+        android:id="@+id/f_avatar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_margin="@dimen/padding_normal"
+        android:src="@color/venu_red"
+        app:rciv_radius="2dp"
+        />
+
+    <TextView
+        android:text="Kofi"
+        android:id="@+id/f_name"
+        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/f_avatar"
+        android:layout_toRightOf="@+id/f_avatar"
+        android:layout_toEndOf="@+id/f_avatar" />
+
+
+    <ImageButton
+        android:layout_margin="@dimen/padding_normal"
+        android:id="@+id/f_overflow_ic"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/ic_overflow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_marginRight="@dimen/dp_4"
+        android:layout_marginEnd="4dp"
+        android:id="@+id/f_shared"
+        android:layout_centerVertical="true"
+        android:text="'@steve shared"
+        android:textColor="@color/venu_blue"
+        android:gravity="center"
+        android:textSize="@dimen/app_text_size_small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/f_overflow_ic"
+        android:layout_toLeftOf="@id/f_overflow_ic"
+        android:layout_toStartOf="@id/f_overflow_ic"
+        />
+
+
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/f_other_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/f_avatar"
+        android:layout_alignStart="@id/f_name"
+        android:paddingBottom="8dp"
+        android:paddingTop="@dimen/dp_4"
+        android:text="-@Sample"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/venu_blue"
+        android:textStyle="bold"
+        />
+
+    <LinearLayout
+        android:id="@+id/main_gossip_title"
+        android:paddingRight="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:layout_below="@id/f_avatar"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:id="@+id/gossip_title"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Vestibulum posuere velit nisl velsadas  idunt felis vitae leugiat at "
+            android:textColor="@color/dark_grey"
+            />
+
+        <TextView
+            android:gravity="center"
+            android:drawablePadding="@dimen/dp_4"
+            android:text="12"
+            android:textStyle="bold"
+            android:textAppearance="@style/AdobeImageWidget.TextAppearance.Small"
+            android:drawableTop="@drawable/gossip_round"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginLeft="@dimen/padding_normal"
+        android:id="@+id/f_gossip_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/dp_4"
+        android:text="12 hour left"
+        android:background="@color/light_grey"
+        android:textSize="10sp"
+        android:layout_below="@id/main_gossip_title"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:padding="8dp"
+        android:textColor="@color/venu_blue"
+        android:textStyle="bold"
+        />
+
+    <ImageButton
+        android:layout_below="@id/main_gossip_title"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        android:id="@+id/f_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_return"
+        android:layout_marginRight="@dimen/padding_normal"
+        android:drawablePadding="@dimen/dp_4"
+        android:gravity="center"
+        android:textStyle="bold" />
+
+</RelativeLayout>
