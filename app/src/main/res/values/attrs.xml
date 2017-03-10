@@ -48,6 +48,15 @@
         <attr name="metaButtonBarButtonStyle" format="reference" />
     </declare-styleable>
 
+
+    <declare-styleable name="AnimateCheckBox">
+        <attr name="unCheckColor" format="color"/>
+        <attr name="checkedColor" format="color"/>
+        <attr name="lineColor" format="color"/>
+        <attr name="lineWidth" format="dimension"/>
+        <attr name="animDuration" format="integer"/>
+    </declare-styleable>
+
     <!-- Declare custom theme attributes that allow changing which styles are
          used for button bars depending on the API level.
          ?android:attr/buttonBarStyle is new as of API 11 so this is
@@ -227,6 +236,10 @@
         <attr name="icvp_medium_scaled"/>
         <attr name="icvp_scroll_duration"/>
         <attr name="icvp_interpolator"/>
+    </declare-styleable>
+    <declare-styleable name="VariableLayout">
+        <attr name="VariableLayoutMode" format="boolean" />
+
     </declare-styleable>
 
 </resources>

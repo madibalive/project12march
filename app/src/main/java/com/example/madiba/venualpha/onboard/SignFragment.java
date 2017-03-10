@@ -87,7 +87,7 @@ public class SignFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_signup, container, false);
+        View view=inflater.inflate(R.layout.fragment_onboard_signup, container, false);
 
         mEmailView = (AutoCompleteTextView) view.findViewById(R.id.signup_email);
         mPhoneView = (EditText) view.findViewById(R.id.signup_phone);

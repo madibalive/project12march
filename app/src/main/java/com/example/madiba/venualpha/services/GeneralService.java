@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.example.madiba.venualpha.adapter.SingletonDataSource;
 import com.example.madiba.venualpha.models.GlobalConstants;
 import com.example.madiba.venualpha.util.NotificationUtils;
 import com.parse.ParseException;
@@ -17,6 +18,8 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import static android.R.attr.action;
 
 
 public class GeneralService extends IntentService {
@@ -34,6 +37,13 @@ public class GeneralService extends IntentService {
     private static final String ACTION_STARTUP = "com.example.madiba.venu_v2.action.STARTUP";
     private static final String ACTION_PENDING_INVITES = "com.example.madiba.venu_v2.action.PENDING_INVITES";
 
+
+
+
+    private static final String ACTION_ONBOARD_ADDUSERS = "com.example.madiba.venu_v2.action.ONBOARD_ADDUSERS";
+    private static final String ACTION_ONBOARD_ADDCATEGORIES = "com.example.madiba.venu_v2.action.ONBOARD_ADDCATEGORIES";
+
+
     public GeneralService() {
         super("GeneralService");
     }
@@ -43,6 +53,17 @@ public class GeneralService extends IntentService {
         intent.setAction(ACTION_NOTIFICATIONS);
         intent.putExtra("object_id", id);
         intent.putExtra("className", classname);
+        context.startService(intent);
+    }
+    public static void startActionOnboardAddUsers(Context context) {
+        Intent intent = new Intent(context, GeneralService.class);
+        intent.setAction(ACTION_ONBOARD_ADDUSERS);
+        context.startService(intent);
+    }
+
+    public static void startActionOnboardAddCategories(Context context) {
+        Intent intent = new Intent(context, GeneralService.class);
+        intent.setAction(ACTION_ONBOARD_ADDCATEGORIES);
         context.startService(intent);
     }
 
@@ -76,22 +97,18 @@ public class GeneralService extends IntentService {
         context.startService(intent);
     }
 
-    public static void startActionFollow(Context context,  String id, String className,int type) {
+    public static void startActionFollow(Context context,  String id) {
         Intent intent = new Intent(context, GeneralService.class);
         intent.setAction(ACTION_FOLLOW);
         intent.putExtra("id", id);
-        intent.putExtra("type", type);
-
-        intent.putExtra("className", className);
-        context.startService(intent);
+       context.startService(intent);
     }
 
-    public static void startActionUnFollow(Context context,  String id, String className,int type) {
+    public static void startActionUnFollow(Context context,  String id) {
         Intent intent = new Intent(context, GeneralService.class);
         intent.setAction(ACTION_UNFOLLOW);
         intent.putExtra("id", id);
-        intent.putExtra("type", type);
-        intent.putExtra("className", className);
+
         context.startService(intent);
     }
 
@@ -200,18 +217,27 @@ public class GeneralService extends IntentService {
                 final String id = intent.getStringExtra("id");
                 handlePendingInvites(param1, id, className);
 
-            } else if (ACTION_SEND_PUSH_MSG.equals(action)) {
-
-                final String param1 = intent.getStringExtra("Recipient_Id");
-                final String param2 = intent.getStringExtra("Conversation_Id");
-                final String message = intent.getStringExtra("message");
-                handleActionPushMsg(param1, param2, message);
-
-            }else {
-                Log.i(TAG, "onHandleIntent: no action matched");
             }
+        } else if (ACTION_ONBOARD_ADDUSERS.equals(action)) {
+
+            handleAddUsers();
+
+        } else if (ACTION_ONBOARD_ADDUSERS.equals(action)) {
+
+            handleAddCategories();
+
+        } else if (ACTION_SEND_PUSH_MSG.equals(action)) {
+
+            final String param1 = intent.getStringExtra("Recipient_Id");
+            final String param2 = intent.getStringExtra("Conversation_Id");
+            final String message = intent.getStringExtra("message");
+            handleActionPushMsg(param1, param2, message);
+
+        }else {
+            Log.i(TAG, "onHandleIntent: no action matched");
         }
     }
+
 
 
 
@@ -474,35 +500,35 @@ public class GeneralService extends IntentService {
 
     private void handleActionShare( String id, String className) {
         Log.i(TAG, "handleActionLike: started id : " + id + " classname: " + className);
-
-        if (id != null && className != null) {
-            ParseObject m = ParseObject.createWithoutData(className, id);
-            try {
-
-                ParseQuery<ParseObject> shareQ = ParseQuery.getQuery(GlobalConstants.CLASS_SHARE);
-                shareQ.whereEqualTo("object", m);
-                shareQ.whereEqualTo("from", ParseUser.getCurrentUser());
-
-                ParseObject exist = shareQ.getFirst();
-
-                if (exist == null) {
-                    m.fetch();
-                    m.increment("shares");
-                    m.save();
-
-                    ParseObject shareObject= new ParseObject(GlobalConstants.CLASS_SHARE);
-                    shareObject.put("from", ParseUser.getCurrentUser());
-                    shareObject.put("fromID", ParseUser.getCurrentUser().getObjectId());
-                    shareObject.put("object",m);
-                    shareObject.save();
-
-                    // TODO: 12/18/2016 added feed
-                }
-            } catch (ParseException e) {
-
-            }
-
-        }
+//
+//        if (id != null && className != null) {
+//            ParseObject m = ParseObject.createWithoutData(className, id);
+//            try {
+//
+//                ParseQuery<ParseObject> shareQ = ParseQuery.getQuery(GlobalConstants.CLASS_SHARE);
+//                shareQ.whereEqualTo("object", m);
+//                shareQ.whereEqualTo("from", ParseUser.getCurrentUser());
+//
+//                ParseObject exist = shareQ.getFirst();
+//
+//                if (exist == null) {
+//                    m.fetch();
+//                    m.increment("shares");
+//                    m.save();
+//
+//                    ParseObject shareObject= new ParseObject(GlobalConstants.CLASS_SHARE);
+//                    shareObject.put("from", ParseUser.getCurrentUser());
+//                    shareObject.put("fromID", ParseUser.getCurrentUser().getObjectId());
+//                    shareObject.put("object",m);
+//                    shareObject.save();
+//
+//                    // TODO: 12/18/2016 added feed
+//                }
+//            } catch (ParseException e) {
+//
+//            }
+//
+//        }
     }
 
     private void handlePendingInvites(ArrayList<String> numbers, String id, String className){
@@ -522,6 +548,44 @@ public class GeneralService extends IntentService {
             }
 
             // onsuncess create invites
+        }
+    }
+
+
+    private void handleAddUsers(){
+
+        for (ParseUser user: SingletonDataSource.getInstance().getOnboardUserList()) {
+            ParseObject follow=new ParseObject(GlobalConstants.CLASS_PENDING);
+            follow.put("from", ParseUser.getCurrentUser());
+            follow.put("to",user);
+            follow.put("fromId", ParseUser.getCurrentUser().getObjectId());
+            follow.put("toId",user.getObjectId());
+            try {
+                follow.save();
+
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+
+                // TODO: 3/1/2017 add notification to repeat
+            }
+
+        }
+    }
+
+    private void handleAddCategories(){
+
+        ParseUser user = ParseUser.getCurrentUser();
+        ParseRelation<ParseObject> relation = user.getRelation("likes");
+
+        for (ParseObject category: SingletonDataSource.getInstance().getOnboardCategories())
+            relation.add(category);
+        try {
+            user.save();
+        } catch (ParseException e) {
+            e.printStackTrace();
+
+            // TODO: 3/1/2017 add notification to repeat
         }
     }
 

@@ -8,10 +8,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.android.liuzhuang.rcimageview.RoundCornerImageView
+        android:id="@+id/image_view"
         android:background="@color/venu_yellow"
         app:rciv_radius="@dimen/dp_4"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+
+    <TextView
+        android:layout_alignParentTop="true"
+        android:id="@+id/avatar_roll"
+        android:padding="8dp"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+        android:text="TItle here asdad asda "
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 
     <TextView
@@ -27,7 +38,7 @@
         android:layout_marginLeft="@dimen/dp_10"
         android:text="22\nDEC"
         android:layout_above="@id/title"
-        android:id="@+id/main_event_date"
+        android:id="@+id/date"
         android:background="@drawable/category_background_default"
         android:gravity="center"
         android:textColor="@color/white"

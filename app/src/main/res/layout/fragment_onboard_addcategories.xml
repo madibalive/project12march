@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+
+    <FrameLayout
+        android:padding="@dimen/padding_normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <com.example.madiba.venualpha.ui.StateButton
+            android:id="@+id/previous"
+            android:layout_gravity="right|center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/card_corner_radius_0dp"
+            android:text="Proceed"
+            app:normalBackgroundColor="@color/colorAccent"
+            app:normalTextColor="@color/white"
+            app:pressedBackgroundColor="@color/venu_flat_color"
+            app:pressedTextColor="@android:color/white" />
+
+
+        <com.example.madiba.venualpha.ui.StateButton
+            android:id="@+id/next"
+            android:layout_gravity="left|center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/card_corner_radius_0dp"
+            android:text="Back"
+            app:normalTextColor="@color/colorAccent"
+            app:pressedBackgroundColor="@color/venu_flat_color"
+            app:pressedTextColor="@android:color/white" />
+
+
+    </FrameLayout>
+
+</LinearLayout>

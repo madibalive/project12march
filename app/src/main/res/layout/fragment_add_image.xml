@@ -1,0 +1,426 @@
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:padding="@dimen/padding_normal"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        >
+
+        <ImageButton
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+    <EditText
+        android:layout_marginTop="@dimen/padding_normal"
+        android:id="@+id/pe_title"
+        android:padding="10dp"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:maxLines="2"
+        android:hint="Event Title" />
+
+
+    <LinearLayout
+        android:id="@+id/tag_holder"
+        android:padding="@dimen/padding_normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:background="@android:color/transparent"
+            android:id="@+id/pe_tag"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            android:hint="#Create Hashtag" />
+
+
+
+        <ProgressBar
+            android:id="@+id/progressBar2"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"/>
+
+
+
+
+
+    </LinearLayout>
+
+    <TextView
+        android:padding="@dimen/padding_normal"
+        android:textSize="10sp"
+        android:text="Notice day of event is automatically added to end of hashtag :eg #example14"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <LinearLayout
+        android:layout_margin="@dimen/padding_normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:drawableLeft="@drawable/ic_event"
+            android:padding="@dimen/dp_10"
+            android:id="@+id/pe_date"
+            android:text="Date\n24 dec"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/light_grey_300" />
+
+        <Button
+            android:drawableLeft="@drawable/ic_time_small"
+            android:padding="@dimen/dp_10"
+            android:id="@+id/pe_time"
+            android:text="Time\n 00:00"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:layout_width="0dp"
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+
+        android:layout_height="wrap_content"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/light_grey_300" />
+
+        <Button
+            android:textAllCaps="false"
+            android:id="@+id/pe_btn_location"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:drawableLeft="@drawable/ic_placeholder"
+            android:padding="@dimen/dp_10"
+            android:text="Add Location"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+
+
+    <EditText
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:id="@+id/pe_desc"
+        android:layout_gravity="center"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_width="match_parent"
+        android:maxLines="6"
+        android:singleLine="false"
+        android:minLines="2"
+        android:inputType="textMultiLine"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+        android:hint="Description"
+        android:layout_height="60dp" />
+
+
+    <EditText
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:id="@+id/pe_contact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+        android:hint="Contact Number" />
+
+
+    <TextView
+        android:visibility="gone"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textSize="11sp"
+        android:text="Notice day of event is automatically added to end of hashtag :eg #example14"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Spinner
+            android:gravity="right"
+            android:id="@+id/spinner_type"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+
+
+
+        <Spinner
+            android:gravity="right"
+            android:id="@+id/spinner_category"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginLeft="@dimen/padding_normal"
+        android:layout_marginRight="@dimen/padding_normal"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/light_grey_300"/>
+
+    <com.example.madiba.venualpha.ui.expandable.ExpandableLinearLayout
+        android:padding="@dimen/padding_normal"
+        android:orientation="vertical"
+        android:id="@+id/extra_options_expandableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:ael_duration="400"
+        app:ael_expanded="false"
+        >
+
+        <LinearLayout
+            android:id="@+id/pricing_layout"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:padding="@dimen/dp_10"
+                android:layout_alignParentLeft="true"
+                android:clickable="true"
+                android:text="Starting Price "
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="fill_horizontal|center_vertical"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/pe_pricing"
+                android:background="@android:color/transparent"
+                android:paddingLeft="@dimen/dp_22"
+                android:paddingRight="@dimen/dp_22"
+                android:textColor="@color/text_black"
+                android:layout_alignParentRight="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:hint="Gh 50"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/isFriendInvitable"
+            android:padding="@dimen/dp_14"
+            android:textColor="@color/colorAccent"
+            android:checked="false"
+            android:text="Allow Friends to invite friends"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.example.madiba.venualpha.ui.expandable.ExpandableLinearLayout>
+    <Button
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:id="@+id/more_options"
+        android:drawableRight="@drawable/ic_add"
+        android:padding="@dimen/padding_normal"
+        android:textSize="11sp"
+        android:text="More Options"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <com.example.madiba.venualpha.ui.expandable.ExpandableLinearLayout
+        android:padding="@dimen/padding_normal"
+        android:orientation="vertical"
+        android:id="@+id/more_expandableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:ael_duration="400"
+        app:ael_expanded="true"
+        >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/bare_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            />
+
+        <LinearLayout
+            android:padding="@dimen/padding_normal"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:id="@+id/pe_isverify"
+                android:padding="@dimen/dp_14"
+                android:textColor="@color/colorAccent"
+                android:checked="true"
+                android:text="Request Verification"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:id="@+id/pe_check_is18"
+                android:padding="@dimen/dp_14"
+                android:textColor="@color/colorAccent"
+                android:checked="true"
+                android:text="18+"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <GridLayout
+            android:padding="@dimen/padding_normal"
+            android:columnCount="2"
+            android:rowCount="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/pe_wifi"
+                android:padding="@dimen/dp_14"
+                android:textColor="@color/colorAccent"
+                android:checked="true"
+                android:text="Wifi"
+                android:layout_rowSpan="1"
+                android:layout_columnSpan="1"
+                />
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/pe_photoshop"
+                android:padding="@dimen/dp_14"
+                android:textColor="@color/colorAccent"
+                android:checked="true"
+                android:text="Photoshot"
+                android:layout_columnSpan="1"
+                android:layout_rowSpan="1"
+                />
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/pe_bus"
+                android:padding="@dimen/dp_14"
+                android:textColor="@color/colorAccent"
+                android:checked="true"
+                android:text="Bus"
+                android:layout_rowSpan="1"
+                android:layout_columnSpan="1"
+                />
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/pe_fnd"
+                android:padding="@dimen/dp_14"
+                android:textColor="@color/colorAccent"
+                android:checked="true"
+                android:text="Food and Drinks"
+                android:layout_columnSpan="1"
+                android:layout_rowSpan="1"
+                />
+
+        </GridLayout>
+
+    </com.example.madiba.venualpha.ui.expandable.ExpandableLinearLayout>
+
+
+
+
+
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_36" />
+
+    <com.example.madiba.venualpha.ui.StateButton
+        android:id="@+id/pe_btn_invite"
+        android:padding="@dimen/dp_10"
+        android:drawablePadding="@dimen/dp_4"
+        android:layout_marginBottom="@dimen/dp_4"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:text="Invite Friends"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:normalBackgroundColor="@android:color/holo_blue_dark"
+        app:normalTextColor="@color/white"
+        app:pressedBackgroundColor="@color/white"
+        app:pressedTextColor="@color/light_grey_200"
+        app:animationDuration="200"/>
+
+    <com.example.madiba.venualpha.ui.StateButton
+        android:layout_marginBottom="@dimen/dp_4"
+        android:id="@+id/pe_request_btn"
+        android:padding="@dimen/dp_10"
+        android:drawablePadding="@dimen/dp_4"
+        android:gravity="center"
+        android:text="Request OnTap"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:normalBackgroundColor="@android:color/holo_blue_dark"
+        app:normalTextColor="@color/white"
+        app:pressedBackgroundColor="@color/colorPrimary"
+        app:pressedTextColor="@color/white"
+        app:animationDuration="200"/>
+
+
+    <com.example.madiba.venualpha.ui.StateButton
+        android:layout_gravity="bottom"
+        android:id="@+id/submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="60dp"
+        android:text="Request"
+        android:textAllCaps="false"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        app:normalBackgroundColor="@android:color/holo_blue_dark"
+        app:normalTextColor="@color/white"
+        app:pressedStrokeWidth="1dp"
+        app:pressedStrokeColor="@android:color/white"
+        app:pressedBackgroundColor="@color/white"
+        app:pressedTextColor="@android:color/holo_blue_dark"/>
+</LinearLayout>

@@ -18,6 +18,7 @@ import com.example.madiba.venualpha.models.PhoneContact;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.parse.ParseException;
+import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -699,6 +700,75 @@ public class LoaderGeneral {
 
     }
 
+    public static Observable<List<ParseUser>> onboardFindUser(Context context,Boolean isFbEnable){
+        List<PhoneContact> alContacts=new ArrayList<>();
+        ArrayList<String> phoneNumbers = new ArrayList<>();
+        ArrayList<String> facebookIds = new ArrayList<>();
+
+
+        return Observable.create((Observable.OnSubscribe<List<ParseUser>>) subscriber -> {
+            try {
+                getAll(context,alContacts,phoneNumbers);
+
+                ParseQuery<ParseObject> query = ParseQuery.getQuery(GlobalConstants.CLASS_FOLLOW);
+                query.whereExists("from");
+                query.whereEqualTo("from", ParseUser.getCurrentUser());
+
+                // FIND  CONTACT NOT IN ARRAY
+
+                ParseQuery<ParseUser> syncQuery = ParseUser.getQuery();
+                syncQuery.whereContainedIn("phone", phoneNumbers);
+                syncQuery.whereDoesNotMatchKeyInQuery(GlobalConstants.FROM, "to", query);
+
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "friends");
+
+                GraphRequest request = GraphRequest.newMeRequest(
+                        AccessToken.getCurrentAccessToken(),
+                        (object, response) -> {
+                            try {
+                                JSONArray dataArrya = response.getJSONObject().getJSONArray("data");
+                                for (int i = 0; i < dataArrya.length(); i++) {
+                                    facebookIds.add(dataArrya.getJSONObject(i).getString("id"));
+                                }
+                                ParseQuery<ParseUser> syncQuery2 = ParseUser.getQuery();
+                                syncQuery2.whereExists("fbId");
+                                syncQuery2.whereContainedIn("fbId", facebookIds);
+                                syncQuery2.whereDoesNotMatchKeyInQuery(GlobalConstants.FROM, "to", query);
+
+                                List<ParseQuery<ParseUser>> queries = new ArrayList<>();
+                                queries.add(syncQuery);
+                                queries.add(syncQuery2);
+
+                                ParseQuery<ParseUser> mainQuery = ParseQuery.or(queries);
+                                mainQuery.orderByDescending("createdAt");
+                                mainQuery.include("from");
+                                mainQuery.include("object");
+                                mainQuery.whereExists("from");
+
+                                subscriber.onNext(mainQuery.find());
+                                subscriber.onCompleted();
+
+                            } catch (JSONException |ParseException e) {
+
+                            }
+                        });
+
+
+                if (isFbEnable){
+                    request.setParameters(parameters);
+                    request.executeAndWait();
+                }else {
+                    subscriber.onNext(syncQuery.find());
+                    subscriber.onCompleted();
+                }
+            } catch (Exception  e) {
+                subscriber.onError(e);
+                e.printStackTrace();
+            }
+        }).subscribeOn(Schedulers.io());
+
+    }
 
     public static Observable<List<ModelOtherContact>> ContactLoadOnce(Context context){
         List<PhoneContact> alContacts=new ArrayList<>();
@@ -721,33 +791,6 @@ public class LoaderGeneral {
                 syncQuery.whereContainedIn("phone", phoneNumbers);
                 syncQuery.whereDoesNotMatchKeyInQuery(GlobalConstants.FROM, "to", query);
 
-                ModelOtherContact model = new ModelOtherContact();
-                model.setType(ModelOtherContact.TYPE_PARSE);
-
-                final  List<ParseUser>  users = syncQuery.find();
-
-                model.setParseContacts(users);
-                returnData.add(model);
-                Timber.e("succes one");
-
-                // FIND INVERSE CONTACT NOT IN ARRAY
-
-                for (int i = 0; i < phoneNumbers.size(); i++) {
-                    for (int j = 0; j < users.size() ; j++) {
-                        if (alContacts.get(i).getPhoneNumber().equals(users.get(j).getString("phone"))){
-                            alContacts.remove(i);
-                        }
-                    }
-                }
-
-                ModelOtherContact model2 = new ModelOtherContact();
-                model2.setType(ModelOtherContact.TYPE_LOCAL);
-                model2.setLocalContact(alContacts);
-                returnData.add(model2);
-                Timber.e("succes two");
-
-
-                //LOADING FROM FACE BOOK HRE
                 Bundle parameters = new Bundle();
                 parameters.putString("fields", "friends");
 
@@ -759,15 +802,42 @@ public class LoaderGeneral {
                                 for (int i = 0; i < dataArrya.length(); i++) {
                                     facebookIds.add(dataArrya.getJSONObject(i).getString("id"));
                                 }
+
+
+
                                 ParseQuery<ParseUser> syncQuery2 = ParseUser.getQuery();
-                                syncQuery2.whereContainedIn("phone", facebookIds);
+                                syncQuery2.whereContainedIn("fbId", facebookIds);
                                 syncQuery2.whereDoesNotMatchKeyInQuery(GlobalConstants.FROM, "to", query);
 
-                                ModelOtherContact model3 = new ModelOtherContact();
-                                model3.setType(ModelOtherContact.TYPE_PARSE);
-                                model3.setFacebookContacts(syncQuery2.find());
-                                returnData.add(model3);
-                                Timber.e("succes three");
+
+                                List<ParseQuery<ParseUser>> queries = new ArrayList<>();
+                                queries.add(syncQuery);
+                                queries.add(syncQuery2);
+
+                                ParseQuery<ParseUser> mainQuery = ParseQuery.or(queries);
+                                mainQuery.orderByDescending("createdAt");
+                                mainQuery.include("from");
+                                mainQuery.whereExists("from");
+
+                                ModelOtherContact model = new ModelOtherContact();
+                                model.setType(ModelOtherContact.TYPE_PARSE);
+                                List<ParseUser>  users = mainQuery.find();
+                                model.setParseContacts(users);
+                                returnData.add(model);
+
+
+                                for (int i = 0; i < phoneNumbers.size(); i++) {
+                                    for (int j = 0; j < users.size() ; j++) {
+                                        if (alContacts.get(i).getPhoneNumber().equals(users.get(j).getString("phone"))){
+                                            alContacts.remove(i);
+                                        }
+                                    }
+                                }
+
+                                ModelOtherContact model2 = new ModelOtherContact();
+                                model2.setType(ModelOtherContact.TYPE_LOCAL);
+                                model2.setLocalContact(alContacts);
+                                returnData.add(model2);
 
                                 subscriber.onNext(returnData);
                                 subscriber.onCompleted();
@@ -777,24 +847,36 @@ public class LoaderGeneral {
                             }
                         });
 
-                request.setParameters(parameters);
-                request.executeAndWait();
+                if (!ParseFacebookUtils.isLinked(ParseUser.getCurrentUser())) {
+                    request.setParameters(parameters);
+                    request.executeAndWait();
+                }else {
+                    ModelOtherContact model = new ModelOtherContact();
+                    model.setType(ModelOtherContact.TYPE_PARSE);
+                    final  List<ParseUser>  users = syncQuery.find();
+                    model.setParseContacts(users);
+                    returnData.add(model);
 
+                    for (int i = 0; i < phoneNumbers.size(); i++) {
+                        for (int j = 0; j < users.size() ; j++) {
+                            if (alContacts.get(i).getPhoneNumber().equals(users.get(j).getString("phone"))){
+                                alContacts.remove(i);
+                            }
+                        }
+                    }
 
+                    ModelOtherContact model2 = new ModelOtherContact();
+                    model2.setType(ModelOtherContact.TYPE_LOCAL);
+                    model2.setLocalContact(alContacts);
+                    returnData.add(model2);
 
-
-
-
-
-
-
+                    subscriber.onNext(returnData);
+                    subscriber.onCompleted();
+                }
             } catch (Exception  e) {
                 subscriber.onError(e);
                 e.printStackTrace();
             }
-
-
-
         }).subscribeOn(Schedulers.io());
 
     }

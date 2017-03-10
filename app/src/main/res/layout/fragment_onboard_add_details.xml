@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:id="@+id/signup_sign_up_form"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/signup_email_sign_up_form"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin">
+
+                <FrameLayout
+                    android:layout_marginBottom="@dimen/dp_22"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp">
+
+                    <android.support.v7.widget.CardView
+                        app:cardCornerRadius="@dimen/dp_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp">
+
+
+                        <com.android.liuzhuang.rcimageview.RoundCornerImageView
+                            android:id="@+id/avatar"
+                            app:rciv_radius="@dimen/dp_4"
+                            android:src="@color/venu_orange"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/fab"
+                        app:fab_size="mini"
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="bottom|center"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_add" />
+                </FrameLayout>
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="Choose Gender "
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+
+                    <Spinner
+                        android:id="@+id/gender_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    </Spinner>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="Age "
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+
+                    <Button
+                        style="@style/Base.Widget.AppCompat.Button.Borderless"
+                        android:id="@+id/date_of_birth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="1995"
+                        android:inputType="phone"
+                        android:maxLines="1" />
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_marginTop="@dimen/dp_22"
+                    android:id="@+id/continue_signup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dp_10"
+                    android:text="@string/a_function_that_creates_a_new_instance_of_the_fragment"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/university"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:hint="University or HighSch0ol"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                    <ImageButton
+                        android:id="@+id/search_btn"
+
+                        android:background="@android:color/transparent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_search"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </ScrollView>
+        <FrameLayout
+            android:padding="@dimen/padding_normal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <com.example.madiba.venualpha.ui.StateButton
+                android:id="@+id/previous"
+                android:layout_gravity="right|center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/card_corner_radius_0dp"
+                android:text="Proceed"
+                app:normalBackgroundColor="@color/colorAccent"
+                app:normalTextColor="@color/white"
+                app:pressedBackgroundColor="@color/venu_flat_color"
+                app:pressedTextColor="@android:color/white" />
+
+
+
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>
+

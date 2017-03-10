@@ -14,11 +14,14 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.madiba.venualpha.R;
 import com.example.madiba.venualpha.services.LoaderGeneral;
+import com.example.madiba.venualpha.ui.AnimateCheckBox;
 import com.example.madiba.venualpha.util.NetUtils;
 import com.parse.ParseObject;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import me.tatarka.rxloader.RxLoaderManager;
 import me.tatarka.rxloader.RxLoaderManagerCompat;
@@ -29,7 +32,7 @@ import timber.log.Timber;
 public class PendingInvitesFragment extends Fragment {
 
     private RecyclerView mRecyclerview;
-    private OnTapDirAdapter mAdapter;
+    private MainAdapter mAdapter;
     private List<ParseObject> mDatas=new ArrayList<>();
 
     RxLoaderManager loaderManager;
@@ -61,7 +64,7 @@ public class PendingInvitesFragment extends Fragment {
 
     }
     private void initAdapter() {
-        mAdapter = new OnTapDirAdapter(R.layout.item_ontap, mDatas);
+        mAdapter = new MainAdapter(R.layout.item_ontap, mDatas);
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerview.setHasFixedSize(true);
         mRecyclerview.setAdapter(mAdapter);
@@ -123,17 +126,39 @@ public class PendingInvitesFragment extends Fragment {
     }
 
 
-    private class OnTapDirAdapter
+    private class MainAdapter
             extends BaseQuickAdapter<ParseObject> {
+        private Set<ParseObject> checkedSet = new HashSet<>();
 
-        public OnTapDirAdapter(int layoutResId, List<ParseObject> data) {
+        public MainAdapter(int layoutResId, List<ParseObject> data) {
             super(layoutResId, data);
         }
         @Override
-        protected void convert(BaseViewHolder holder, final ParseObject request) {
-            holder.setText(R.id.ot_i_location, request.getString("categoryName"))
-                    .setText(R.id.ot_i_order_item,request.getString("number"))
-                    .setText(R.id.ot_i_location,request.getObjectId());
+        protected void convert(BaseViewHolder holder, final ParseObject data) {
+            holder.setText(R.id.ot_i_location, data.getString("categoryName"))
+                    .setText(R.id.ot_i_order_item,data.getString("number"))
+                    .setText(R.id.ot_i_location,data.getObjectId());
+
+
+            final AnimateCheckBox checkBox = ((AnimateCheckBox) holder.getView(R.id.checkbox));
+
+            if(checkedSet.contains(data)){
+                checkBox.setChecked(true);
+            }else {
+                //checkBox.setChecked(false); //has animation
+                checkBox.setUncheckStatus();
+            }
+            checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) {
+                    checkedSet.add(data);
+                } else {
+                    checkedSet.remove(data);
+                }
+            });
+        }
+
+        public Set<ParseObject> returnData(){
+            return checkedSet;
         }
     }
 
@@ -149,5 +174,4 @@ public class PendingInvitesFragment extends Fragment {
             initload();
         }
     }
-
 }

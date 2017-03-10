@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:map="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="@dimen/card_corner_radius_0dp"
+        >
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:fitsSystemWindows="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll"
+            app:titleEnabled="false">
+            <!-- minHeight determines the point to fade in the status bar scrim. Ideally it would
+                 fade in when the image has completely collapsed but it needs to be > 0. -->
+
+            <com.venu.venutheta.ui.AspectRatioView
+                android:id="@+id/session_photo_container"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:visibility="gone"
+                app:layout_collapseMode="pin"
+                app:aspectRatio="0.8">
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:background="@color/venu_blue"
+                        android:id="@+id/main_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        />
+                    <ImageButton
+                        android:id="@+id/full_screen"
+                        android:layout_margin="@dimen/padding_normal"
+                        android:src="@drawable/ic_chat_2"
+                        android:background="@android:color/transparent"
+                        android:layout_gravity="bottom|right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:id="@+id/interaction_layout"
+                        android:background="@color/white"
+                        android:layout_gravity="bottom|right"
+                        android:layout_margin="@dimen/padding_normal"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+
+                        <com.android.liuzhuang.rcimageview.RoundCornerImageView
+                            android:id="@+id/interaction_avatar"
+                            android:layout_width="20dp"
+                            android:layout_marginRight="4dp"
+                            android:layout_height="20dp"
+                            android:src="@color/venu_orange"/>
+
+                        <TextView
+                            android:id="@+id/interaction_name"
+                            android:text="Steve Invited Your"
+                            android:textSize="@dimen/app_text_size_small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <ImageView
+                            android:id="@+id/interaction_close"
+                            android:src="@drawable/ic_close"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+
+            </com.venu.venutheta.ui.AspectRatioView>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/AppTheme.Toolbar"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+            <LinearLayout
+                android:padding="@dimen/dp_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:padding="@dimen/padding_normal"
+                    android:id="@+id/event_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/a_function_that_creates_a_new_instance_of_the_fragment"
+                    android:textAllCaps="true"
+                    android:textColor="@color/text_black"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+
+                <RelativeLayout
+                    android:padding="@dimen/dp_10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:layout_marginRight="@dimen/dp_10"
+                        android:layout_alignParentLeft="true"
+                        android:id="@+id/event_trackin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_star"
+                        android:drawablePadding="@dimen/dp_4"
+                        android:drawableStart="@drawable/ic_star"
+                        android:layout_centerVertical="true"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:gravity="center"
+                        android:text="120k" />
+
+                    <TextView
+                        android:layout_marginRight="@dimen/dp_10"
+                        android:layout_toRightOf="@id/event_trackin"
+                        android:id="@+id/event_cmts"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_chat"
+                        android:drawablePadding="8dp"
+                        android:drawableStart="@drawable/ic_chat"
+                        android:layout_centerVertical="true"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:gravity="center"
+                        android:text="40k" />
+
+                    <ImageButton
+                        android:id="@+id/event_more_btn"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/event_cmts"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_overflow_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.venu.venutheta.ui.StateButton
+                        android:layout_alignParentRight="true"
+                        android:minHeight="0dp"
+                        android:minWidth="0dp"
+                        android:padding="6dp"
+                        app:sradius="@dimen/dp_4"
+                        android:text="Accept Invite gh 50"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        app:normalBackgroundColor="@color/venu_blue"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/event_action_btn" />
+                </RelativeLayout>
+            </LinearLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_normal"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:id="@+id/org_name"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Organise\nKevent bee"
+                    android:textSize="@dimen/app_text_size_medium"
+                    />
+
+                <com.android.liuzhuang.rcimageview.RoundCornerImageView
+                    android:id="@+id/org_avatar"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    app:rciv_radius="@dimen/dp_4"
+                    android:src="@color/venu_flat_color"
+                    />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/mutual_attendees"
+                android:text="Kwesia,james and 4 other also going "
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <HorizontalScrollView
+                    android:id="@+id/attendees_container"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:requiresFadingEdge="horizontal"
+                    android:fadingEdgeLength="@dimen/padding_normal"
+                    >
+
+                    <LinearLayout
+                        android:id="@+id/attendees_layout"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:minHeight="50dp" >
+
+
+                    </LinearLayout>
+                </HorizontalScrollView>
+                <TextView
+                    android:id="@+id/attendees_count"
+                    android:text="44 more > "
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+
+            </LinearLayout>
+
+
+
+            <HorizontalScrollView
+                android:id="@+id/feature_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:requiresFadingEdge="horizontal"
+                android:fadingEdgeLength="@dimen/padding_normal"
+                >
+
+                <LinearLayout
+                    android:id="@+id/feature_layout"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:minHeight="50dp" >
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+
+
+
+
+
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+                <TextView
+                    android:layout_marginLeft="@dimen/padding_normal"
+                    android:id="@+id/event_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="22"
+                    android:textSize="40sp" />
+                <TextView
+                    android:layout_marginLeft="@dimen/padding_normal"
+                    android:id="@+id/event_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="December\n2:30pm"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/event_location_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_placeholder"
+                android:drawablePadding="8dp"
+                android:text="4th street rooad ,21 avaenu road"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/padding_normal"
+                />
+
+            <LinearLayout
+                android:id="@+id/mapLayout"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+                <!--<fragment-->
+                <!--android:id="@+id/map"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:name="com.google.android.gms.maps.SupportMapFragment"-->
+                <!--map:cameraZoom="13"-->
+                <!--map:mapType="normal"-->
+                <!--map:liteMode="true"-->
+                <!--/>-->
+
+                <FrameLayout
+                    android:background="@drawable/applozic_map_offline_thumbnail"
+                    android:id="@+id/container"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"/>
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/uber_btn"
+                    android:tint="@color/white"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="bottom"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/ic_cursor" />
+            </LinearLayout>
+
+
+            <HorizontalScrollView
+                android:id="@+id/session_tags_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:requiresFadingEdge="horizontal"
+                android:fadingEdgeLength="@dimen/padding_normal"
+                android:layout_marginBottom="@dimen/padding_normal">
+
+                <LinearLayout
+                    android:id="@+id/session_tags"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="170dp"
+                    android:minHeight="70dp" />
+            </HorizontalScrollView>
+
+
+
+
+            <TextView
+                android:id="@+id/event_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Descripttion\n\nDFA stands for deterministic finite automaton. Basically, it is a directed graph where each
+node has edges coming out of it labeled with the letters from a fixed finite alphabet Σ. One
+node is designated as the start node, and a set of nodes are designated as final nodes"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>
+
+
+

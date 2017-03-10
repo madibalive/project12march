@@ -45,5 +45,8 @@
     <dimen name="padding_horizontal">4dp</dimen>
     <dimen name="stroke_width_avatar">4dp</dimen>
     <dimen name="venu_avatar_medium">38dp</dimen>
+    <dimen name="enchanted_view_pager_margin">30dp</dimen>
+    <dimen name="list_item_spacing">16dp</dimen>
+    <dimen name="list_item_spacing_half">8dp</dimen>
 
 </resources>

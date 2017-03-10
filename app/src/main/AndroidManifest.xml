@@ -29,17 +29,23 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity"
-            android:label="@string/title_activity_maps">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:name=".chateu.ChateuListFragAct"
+            android:label="@string/title_activity_chateu_list" />
         <activity
-            android:name=".post.MainPost"
-            android:label="@string/title_activity_main_post"></activity>
+            android:name=".viewer.GalleryActFrag"
+            android:label="@string/title_activity_gallery_act_frag" />
+        <activity
+            android:name=".discover.DiscoverActivity"
+            android:label="@string/title_activity_discover" />
+        <activity
+            android:name=".discover.CategoryExploreActivity"
+            android:label="@string/title_activity_category_explore" />
+        <activity
+            android:name=".channels.MainChannelActivity"
+            android:label="@string/title_activity_main_channel" />
+        <activity
+            android:name=".post.CreateEventActivity"
+            android:label="@string/title_activity_create_event"></activity>
     </application>
 
 </manifest>

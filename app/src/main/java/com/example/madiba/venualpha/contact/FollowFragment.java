@@ -16,6 +16,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.madiba.venualpha.R;
 import com.example.madiba.venualpha.models.GlobalConstants;
+import com.example.madiba.venualpha.services.GeneralService;
 import com.example.madiba.venualpha.services.LoaderGeneral;
 import com.example.madiba.venualpha.util.NetUtils;
 import com.parse.ParseObject;
@@ -36,21 +37,23 @@ public class FollowFragment extends Fragment implements SwipeRefreshLayout.OnRef
     private List<ParseObject> mDatas = new ArrayList<>();
     private List<ParseObject> mSortedList = new ArrayList<>();
     private MainAdapter mAdapter;
-
     RxLoaderManager loaderManager;
-    private Boolean loadFollowers;
+    private int type;
     private String userId;
+
 
     public FollowFragment() {
     }
 
     public static FollowFragment newInstance(String id, Boolean followers) {
         FollowFragment frg = new FollowFragment();
-//        Bundle extras= new Bundle();
-//        extras.putBoolean("loadFollowers",followers);
-//        extras.putString(GlobalConstants.INTENT_ID,id);
-//
-//        frg.setArguments(extras);
+        Bundle extras= new Bundle();
+        if (followers)
+            extras.putInt(GlobalConstants.INTENT_ID,0);
+        else
+            extras.putInt(GlobalConstants.INTENT_ID,1);
+
+        frg.setArguments(extras);
 
         return frg;
     }
@@ -83,7 +86,7 @@ public class FollowFragment extends Fragment implements SwipeRefreshLayout.OnRef
         loaderManager = RxLoaderManagerCompat.get(this);
         if (getArguments() != null){
             userId = getArguments().getString(GlobalConstants.INTENT_ID);
-            loadFollowers = getArguments().getBoolean("followers");
+            type = getArguments().getInt("followers");
         }else {
         }
         initAdapter();
@@ -103,6 +106,18 @@ public class FollowFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
     }
 
+
+    private void addUser(String id,int pos){
+        GeneralService.startActionFollow(getActivity().getApplicationContext(),id);
+        mAdapter.remove(pos);
+        mAdapter.notifyDataSetChanged();
+    }
+    private void removeUser(String id,int pos){
+        GeneralService.startActionUnFollow(getActivity().getApplicationContext(),id);
+        mAdapter.remove(pos);
+        mAdapter.notifyDataSetChanged();
+    }
+
     @Override
     public void onRefresh() {
         if (NetUtils.hasInternetConnection(getActivity().getApplicationContext())){
@@ -113,7 +128,7 @@ public class FollowFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
     void initload(){
         loaderManager.create(
-                LoaderGeneral.loadUsersContacts(userId,1),
+                LoaderGeneral.loadUsersContacts(userId,type),
                 new RxLoaderObserver<List<ParseObject>>() {
                     @Override
                     public void onNext(List<ParseObject> value) {

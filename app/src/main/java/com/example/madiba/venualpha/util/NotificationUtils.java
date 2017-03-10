@@ -8,6 +8,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
+import android.support.design.widget.Snackbar;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.madiba.venualpha.R;
 
@@ -111,5 +120,33 @@ public class NotificationUtils {
 
             notificationManager.notify(nId, noti);
         }
+    }
+
+    public static boolean hasInternetConnection(Context context) {
+        ConnectivityManager cm =
+                (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        if (!isConnected){
+            Toast.makeText(context,"Network Unavailable",Toast.LENGTH_LONG).show();
+        }
+
+        return isConnected;
+    }
+
+    public static void showSnackBar(View v, String message, Context context, Boolean error) {
+        // parametrised constructor
+
+        Snackbar snack = Snackbar.make(v, "" + message, Snackbar.LENGTH_SHORT);
+        View view = snack.getView();
+        TextView tv = (TextView) view.findViewById(android.support.design.R.id.snackbar_text);
+        tv.setTextColor(Color.WHITE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
+            tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        else
+            tv.setGravity(Gravity.CENTER_HORIZONTAL);
+        snack.show();
     }
 }

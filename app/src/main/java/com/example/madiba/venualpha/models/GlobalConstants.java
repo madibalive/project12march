@@ -121,10 +121,19 @@ public class GlobalConstants {
     public static final int SHARE_TYPE_EVENT= 2;
 
 
+    public static final int CHANNEL_TYPE_VENU_HIGHLIST = 1;
+    public static final int CHANNEL_TYPE_VENU_EVENTS = 2;
+    public static final int CHANNEL_TYPE_VENU_SPORTS= 3;
+
+
     public static final int EVENT_TYPE_GENERAL= 3;
     public static final int EVENT_TYPE_REGISTRATION= 3;
     public static final int EVENT_TYPE_INVITED= 3;
     public static final int EVENT_TYPE_PAID= 3;
+
+
+
+
 
 
 

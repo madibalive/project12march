@@ -168,5 +168,18 @@
         <item>Vietnam</item>
     </string-array>
     <string name="title_activity_main_post">MainPost</string>
+    <string name="title_activity_chateu_list">Chat</string>
+    <string name="title_activity_gallery_act_frag">GalleryActFrag</string>
+    <string name="title_activity_category_explore">Explore</string>
+    <string name="title_activity_engaged_event">Events</string>
+    <string name="title_activity_main_channel">Channel</string>
+
+    <string name="provider_settings_message">Your GPS seems to be disabled, do you want to enable it?</string>
+    <string name="provider_settings_yes">Yes</string>
+    <string name="provider_settings_no">No</string>
+    <string name="crop_image_menu_rotate_left">rotate left</string>
+    <string name="crop_image_menu_rotate_right">right</string>
+    <string name="crop_image_menu_crop">crop</string>
+    <string name="title_activity_create_event">Event</string>
 
 </resources>

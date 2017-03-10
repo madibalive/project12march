@@ -91,7 +91,7 @@ public class NavigateTo {
 //        frg.show(manager,"id");
     }
     public static void gotoGoingList(Context context, String id, String className, FragmentManager manager){
-//        DialogFragment frg = GoingListFragment.newInstance(id,className);
+//        DialogFragment frg = UserListFragment.newInstance(id,className);
 //        frg.show(manager,"id");
     }
 

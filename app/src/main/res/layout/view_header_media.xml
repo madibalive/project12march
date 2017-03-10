@@ -17,7 +17,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.android.liuzhuang.rcimageview.CircleImageView
+        <ImageButton
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_close"
+            android:tint="@color/white"
+            android:id="@+id/md_closeBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/padding_normal"
+            />
+
+        <com.android.liuzhuang.rcimageview.RoundCornerImageView
             android:id="@+id/md_avatar"
             android:src="@color/venu_blue"
             android:layout_width="28dp"
@@ -36,10 +47,10 @@
             android:background="@android:color/transparent"
             android:src="@drawable/ic_close"
             android:tint="@color/white"
-            android:id="@+id/md_closeBtn"
+            android:id="@+id/md_toggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|center_vertical"
+            android:layout_gravity="center_vertical"
             />
 
     </LinearLayout>

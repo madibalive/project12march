@@ -53,6 +53,7 @@ public class UserInviteDialog extends DialogFragment {
     private Boolean isActive=false;
     private AppCompatCheckBox mSelectAll;
     private StateButton stateButton;
+    private int mode;
 
     public UserInviteDialog() {
     }

@@ -7,7 +7,7 @@
     android:orientation="horizontal"
     android:padding="@dimen/dp_10">
 
-    <com.android.liuzhuang.rcimageview.CircleImageView
+    <com.android.liuzhuang.rcimageview.RoundCornerImageView
         android:id="@+id/cc_i_avatar"
         android:layout_width="45dp"
         android:layout_height="45dp"

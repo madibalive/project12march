@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/padding_normal"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_alignParentLeft="true"
+        android:layout_width="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content">
+
+
+        <Button
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:text="add Images"
+            android:textAllCaps="false"
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/light_grey_300" />
+
+        <Button
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:text="edit"
+            android:textAllCaps="false"
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/light_grey_300" />
+        <Button
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:text="promote"
+            android:textAllCaps="false"
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <RelativeLayout android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <com.android.liuzhuang.rcimageview.RoundCornerImageView
+
+            android:id="@+id/image_view"
+            android:background="@color/venu_yellow"
+            app:rciv_radius="@dimen/dp_4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+
+
+
+
+        <TextView
+
+            android:layout_margin="@dimen/dp_10"
+            android:text="22\nDEC"
+            android:id="@+id/date"
+            android:background="@drawable/category_background_default"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:layout_alignParentBottom="true"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+
+        <TextView
+            android:layout_alignBottom="@id/date"
+            android:id="@+id/title"
+            android:padding="8dp"
+            android:layout_toRightOf="@id/date"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:text="TItle here asdad asda "
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </RelativeLayout>
+
+
+
+    <com.example.madiba.venualpha.ui.expandable.ExpandableLinearLayout
+        android:orientation="vertical"
+        android:id="@+id/extra_options_expandableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:ael_duration="100"
+        app:ael_expanded="true"
+        >
+
+        <LinearLayout
+            android:id="@+id/pricing_layout"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+
+        </LinearLayout>
+
+    </com.example.madiba.venualpha.ui.expandable.ExpandableLinearLayout>
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <HorizontalScrollView
+            android:id="@+id/attendees_container"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:requiresFadingEdge="horizontal"
+            android:fadingEdgeLength="@dimen/padding_normal"
+            >
+
+            <LinearLayout
+                android:id="@+id/attendees_layout"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:minHeight="50dp" >
+
+
+            </LinearLayout>
+        </HorizontalScrollView>
+        <TextView
+            android:id="@+id/attendees_count"
+            android:text="44 more > "
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

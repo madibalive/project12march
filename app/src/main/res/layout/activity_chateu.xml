@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <include layout="@layout/toolbar"/>
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.jaychang.srv.SimpleRecyclerView
+            android:id="@+id/linearVerRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="4dp"
+            app:srv_showDivider="true"
+            app:srv_layoutMode="linearVertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:srv_spacing="4dp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/messageInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="textAutoCorrect|textAutoComplete|textMultiLine"/>
+
+            <android.support.v4.widget.Space
+                android:id="@+id/buttonSpace"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+              />
+
+            <ImageButton
+                android:id="@+id/messageSendButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+               />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</android.support.design.widget.CoordinatorLayout>

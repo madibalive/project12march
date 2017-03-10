@@ -5,7 +5,9 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Madiba on 12/8/2016.
@@ -24,6 +26,8 @@ public class SingletonDataSource {
 
     //    INVITE DATA FILE
     private List<ParseUser> inviteUserList = new ArrayList<>();
+    private Set<ParseUser> onboardUserList = new ArrayList<>();
+    private Set<ParseObject> onboardCategories = new HashSet<>();
     private List<String> inviteIdList = new ArrayList<>();
 
     public int getRotateX() {
@@ -132,5 +136,21 @@ public class SingletonDataSource {
 
     public void setEventPageEvent(ParseObject eventPageObject) {
         this.eventPageObject = eventPageObject;
+    }
+
+    public Set<ParseUser> getOnboardUserList() {
+        return onboardUserList;
+    }
+
+    public void setOnboardUserList(Set<ParseUser> onboardUserList) {
+        this.onboardUserList = onboardUserList;
+    }
+
+    public Set<ParseObject> getOnboardCategories() {
+        return onboardCategories;
+    }
+
+    public void setOnboardCategories(Set<ParseObject> onboardCategories) {
+        this.onboardCategories = onboardCategories;
     }
 }

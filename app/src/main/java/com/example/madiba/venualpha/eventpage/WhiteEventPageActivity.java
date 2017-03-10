@@ -3,6 +3,7 @@ package com.example.madiba.venualpha.eventpage;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.location.Address;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -12,18 +13,22 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.liuzhuang.rcimageview.CircleImageView;
+import com.android.liuzhuang.rcimageview.RoundCornerImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -37,8 +42,11 @@ import com.example.madiba.venualpha.adapter.SingletonDataSource;
 import com.example.madiba.venualpha.dailogs.CommentActivityFragment;
 import com.example.madiba.venualpha.dailogs.EventReactionFragment;
 import com.example.madiba.venualpha.dailogs.RequestFragment;
+import com.example.madiba.venualpha.map.MapEnterLocationActivity;
+import com.example.madiba.venualpha.models.MdEventItem;
+import com.example.madiba.venualpha.models.MdMediaItem;
+import com.example.madiba.venualpha.models.MdUserItem;
 import com.example.madiba.venualpha.models.ModelEventFeature;
-import com.example.madiba.venualpha.models.ModelFeedItem;
 import com.example.madiba.venualpha.services.GeneralService;
 import com.example.madiba.venualpha.ui.StateButton;
 import com.example.madiba.venualpha.ui.venubutton.AllAngleExpandableButton;
@@ -52,6 +60,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -65,39 +74,44 @@ import me.tatarka.rxloader.RxLoaderManagerCompat;
 import me.tatarka.rxloader.RxLoaderObserver;
 import timber.log.Timber;
 
+import static android.R.attr.data;
+import static android.R.id.list;
+import static android.os.Build.VERSION_CODES.M;
+import static com.example.madiba.venualpha.R.id.desc;
+import static com.example.madiba.venualpha.R.id.event_action_btn;
+import static com.example.madiba.venualpha.R.id.fab;
+import static com.example.madiba.venualpha.R.id.stateButton;
+
 public class WhiteEventPageActivity extends FragmentActivity {
     private static final String MAP_FRAGMENT_TAG = "map";
 
-
     RxLoaderManager loaderManager;
-    private RecyclerView mGoingRcview;
     private RecyclerView mMediaRcview;
-    private EventGoingAdapter mGoingAdapter;
     private EventMediaAdapter mMediaAdapter;
-    private List<ParseObject> mAttendeeDatas=new ArrayList<>();
-    private List<ParseObject> mMediaDatas=new ArrayList<>();
-    private ParseObject mCurrentEvent;
-    private TextView mTime,mDate,mActionMsg,mActionType,mInviteName;
-    private TextView mTitle,mDesc,mName,mLocation,mAttendeeCnt,mMediaMore,mFavBtn,mCmtBtn;
-    private FloatingActionButton actionBtn;
-    private CircleImageView mAvatar,mInviteAvatar;
-    private StateButton mActionBtn;
-    private ModelFeedItem dataItem;
-    private AllAngleExpandableButton mMoreButton;
-    private FrameLayout mapContainer;
-    private LinearLayout mInviteBar;
-    private Button mFirstBtn,mSecondBtn;
+    private Drawable mMapIcon;
+    private TextView mTitle,mDesc,mName,mLocation,mInteractionName,
+            mAttendeeCount,mMutualAttendee,mFavBtn,mCmtBtn,
+            mDay,mDate,mActionMsg,mActionType,mVerifiedBar;
+
     private ProgressDialog progressDialog;
+    private ImageView mMainImage,mInteractionClose;
+    private ImageButton mFullScreenBtn,mMoreBtn;
+    private PopupMenu popupMenu;
+    private StateButton mActionBtn;
+    private RoundCornerImageView mAvatar,mInteractionAvatar;
+    private FloatingActionButton mUberBtn;
+    private FrameLayout mapContainer;
+
     private Boolean waiting;
-    private Drawable icon ;
-    private ImageView imageView;
-    private StateButton stateButton;
-    private LinearLayout mTags;
-    private ViewGroup mTagsContainer;
-    private LinearLayout mTagsPeopl;
-    private ViewGroup mTagsPeoplContainer;
+    private ParseObject currentEvent;
+    private MdEventItem eventItem;
+    private List<MdMediaItem> memeoryDatas=new ArrayList<>();
+    private List<ParseUser> attendeeDatas=new ArrayList<>();
 
-
+    private LinearLayout mAttendeesLayout,mInteractionLayout;
+    private ViewGroup mAttendeesContainers;
+    private LinearLayout mFeaturesLayout;
+    private ViewGroup mFeaturesContainer;
     private SupportMapFragment mapFragment;
 
 
@@ -107,55 +121,13 @@ public class WhiteEventPageActivity extends FragmentActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_white_event_page);
-
-        //        FloatingActionButton fab = (FloatingActionButton) root.findViewById(R.id.fab);
-//        mMoreButton= (AllAngleExpandableButton) root.findViewById(R.id.button_expandable_90_180);
-//        mTitle = (TextView) root.findViewById(R.id.event_page_title);
-//        mFavBtn = (TextView) root.findViewById(R.id.event_page_favs);
-        mCmtBtn = (TextView) findViewById(R.id.event_page_cmts);
-//        mName = (TextView) root.findViewById(R.id.event_page_name);
-//        mTime = (TextView) root.findViewById(R.id.event_page_time);
-//        mDate = (TextView) root.findViewById(R.id.event_page_date);
-//        mLocation = (TextView) root.findViewById(R.id.event_page_location);
-//        mDesc = (TextView) root.findViewById(R.id.event_page_desc);
-        imageView= (ImageView) findViewById(R.id.session_photo);
-//        mActionMsg= (TextView) root.findViewById(R.id.event_page_action_msg);
-//        mFirstBtn = (Button) root.findViewById(R.id.event_page_action_btn);
-//        mGoingRcview = (RecyclerView) root.findViewById(R.id.recycler_no_frame);
-//        mMediaRcview = (RecyclerView) root.findViewById(R.id.recycler_no_frame);
-        stateButton = (StateButton) findViewById(R.id.stateButton);
-        mTags = (LinearLayout) findViewById(R.id.session_tags);
-        mTagsContainer = (ViewGroup) findViewById(R.id.session_tags_container);
-        mTagsPeopl = (LinearLayout) findViewById(R.id.session_tags);
-        mTagsPeoplContainer = (ViewGroup) findViewById(R.id.session_tags_container);
-        mapContainer = (FrameLayout) findViewById(R.id.container);
-
-//        Toolbar toolbar = (Toolbar) root.findViewById(R.id.toolbar);
-//        toolbar.setNavigationOnClickListener(view -> this.finish());
-//        fab.setOnClickListener(view -> openRequest());
-
-
+        setContentView(R.layout.activity_main_event_page);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(view -> this.finish());
         loaderManager = RxLoaderManagerCompat.get(this);
+        initVariables();
 
-        //avatar
-        Glide.with(this)
-                .load(SingletonDataSource.getInstance().getEventPageEvent().getParseFile("image100").getUrl())
-                .crossFade()
-                .placeholder(R.drawable.ic_default_avatar)
-                .error(R.drawable.placeholder_error_media)
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .centerCrop()
-                .fallback(R.drawable.ic_default_avatar)
-                .thumbnail(0.4f)
-                .into(imageView);
-//        initAdapter();
-
-        displayTags(SingletonDataSource.getInstance().getEventPageEvent());
-        isMapAvailabe(SingletonDataSource.getInstance().getEventPageEvent());
-
-
-        stateButton.setOnClickListener(new View.OnClickListener() {
+        mActionBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DialogFragment newFragment = EventReactionFragment.newInstance();
@@ -163,88 +135,225 @@ public class WhiteEventPageActivity extends FragmentActivity {
             }
         });
 
-        mCmtBtn.setOnClickListener(view -> {
-            DialogFragment newFragment = CommentActivityFragment.newInstance(SingletonDataSource.getInstance().getEventPageEvent().getObjectId(),SingletonDataSource.getInstance().getEventPageEvent().getClassName(),true);
-            newFragment.show(getSupportFragmentManager(), "comment");
+
+    }
+
+
+    private void initVariables(){
+        FloatingActionButton fab = (FloatingActionButton) findViewById(fab);
+        mTitle = (TextView) findViewById(R.id.event_title);
+        mFavBtn = (TextView) findViewById(R.id.event_trackin);
+        mCmtBtn = (TextView) findViewById(R.id.event_cmts);
+        mAttendeeCount = (TextView) findViewById(R.id.attendees_count);
+        mMutualAttendee = (TextView) findViewById(R.id.mutual_attendees);
+        mName = (TextView) findViewById(R.id.org_name);
+        mDay = (TextView) findViewById(R.id.event_day);
+        mDate = (TextView) findViewById(R.id.event_date);
+        mLocation = (TextView) findViewById(R.id.event_location_name);
+        mDesc = (TextView) findViewById(R.id.event_desc);
+        mMainImage= (ImageView) findViewById(R.id.main_image);
+        mMediaRcview = (RecyclerView) findViewById(R.id.recycler_no_frame);
+        mActionBtn = (StateButton) findViewById(event_action_btn);
+        mMoreBtn = (ImageButton) findViewById(R.id.event_more_btn);
+        mFullScreenBtn = (ImageButton) findViewById(R.id.full_screen);
+
+        mFeaturesLayout = (LinearLayout) findViewById(R.id.feature_layout);
+        mFeaturesContainer = (ViewGroup) findViewById(R.id.feature_container);
+        mAttendeesLayout = (LinearLayout) findViewById(R.id.attendees_layout);
+        mAttendeesContainers = (ViewGroup) findViewById(R.id.attendees_container);
+        mapContainer = (FrameLayout) findViewById(R.id.container);
+    }
+
+    private void setMainImage(String url){
+
+        Glide.with(this)
+                .load(url)
+                .crossFade()
+                .placeholder(R.drawable.ic_default_avatar)
+                .error(R.drawable.placeholder_error_media)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .centerCrop()
+                .fallback(R.drawable.ic_default_avatar)
+                .thumbnail(0.4f)
+                .into(mMainImage);
+
+        mFullScreenBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO: 3/5/2017 toogle fullscreen
+            }
         });
     }
 
 
 
-    private void initView(){
+    private void displayToolbar(){
 
-        Intent data = this.getIntent();
-        if (data.hasExtra("fromFeed")){
+        mTitle.setText("");
+        mCmtBtn.setText("");
+        mFavBtn.setText("");
 
+        mCmtBtn.setOnClickListener(view -> {
+            DialogFragment newFragment = CommentActivityFragment.newInstance(dataItem.getParseId(),dataItem.getClassName(),true);
+            newFragment.show(getSupportFragmentManager(), "comment");
+        });
 
-            dataItem = SingletonDataSource.getInstance().getCurrentFeedItem();
-            if (dataItem !=null) {
+        mFavBtn.setOnClickListener(view -> {
 
-                mTitle.setText(String.format("%s%s", dataItem.getEvTitle(), dataItem.getHashtag()));
-//            mDesc.setText(dataItem.getpa());
-                mLocation.setText(dataItem.getEvLocation());
-                mName.setText(dataItem.getName());
+        });
 
-                mDate.setText(dataItem.getEvDateToString());
-                mTime.setText(dataItem.getEvTimeToString());
+        mMoreBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popupMenu = new PopupMenu(WhiteEventPageActivity.this, view);
+                popupMenu.getMenu().add(Menu.NONE, 1, 1, "share");
+                popupMenu.getMenu().add(Menu.NONE, 2, 2, "share");
+                popupMenu.getMenu().add(Menu.NONE, 3, 3, "share");
+                popupMenu.setOnMenuItemClickListener(item -> {
 
-                mFavBtn.setText(dataItem.getReactions());
-                mCmtBtn.setText(dataItem.getComment());
+                    int i = item.getItemId();
 
+                    return false;
 
-                //avatar
-                Glide.with(this)
-                        .load(dataItem.getAvatar())
-                        .crossFade()
-                        .placeholder(R.drawable.ic_default_avatar)
-                        .error(R.drawable.placeholder_error_media)
-                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                        .centerCrop()
-                        .fallback(R.drawable.ic_default_avatar)
-                        .thumbnail(0.4f)
-                        .into(mAvatar);
-
-
-            }else {
-                mCurrentEvent =SingletonDataSource.getInstance().getCurrentEvent();
-                mTitle.setText(String.format("%s%s", mCurrentEvent.getString("title"), mCurrentEvent.getString("hashTag")));
-                mDesc.setText(mCurrentEvent.getString("desc"));
-                mLocation.setText(mCurrentEvent.getString("location"));
-                mName.setText(mCurrentEvent.getParseUser("from").getUsername());
-
-                mDate.setText(TimeUitls.Format_dayOnly(mCurrentEvent.getDate("time")));
-                mTime.setText(TimeUitls.getRelativeTime(mCurrentEvent.getDate("time")));
-
-                mFavBtn.setText(String.valueOf(mCurrentEvent.getInt("comment")));
-                mCmtBtn.setText(String.valueOf(mCurrentEvent.getInt("reactions")));
-
-
-                //avatar
-                Glide.with(this)
-                        .load(mCurrentEvent.getParseUser("from").getParseFile("avatar"))
-                        .crossFade()
-                        .placeholder(R.drawable.ic_default_avatar)
-                        .error(R.drawable.placeholder_error_media)
-                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                        .centerCrop()
-                        .fallback(R.drawable.ic_default_avatar)
-                        .thumbnail(0.4f)
-                        .into(mAvatar);
-
-
-//                isMapAvailabe(mCurrentEvent);
-
-
-
+                });
             }
-            // initialise views
+        });
+
+        mActionBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showActionView();
+            }
+        });
+    }
+
+    private void showActionView() {
+
+        // TODO: 3/5/2017 add actionview
+    }
+
+
+    private void displayOrganiser(MdUserItem userItem){
+
+        if (userItem ==null){
+            return;
+        }
+        //avatar
+        Glide.with(this)
+                .load(currentEvent.getParseUser("from").getParseFile("avatar"))
+                .crossFade()
+                .placeholder(R.drawable.ic_default_avatar)
+                .error(R.drawable.placeholder_error_media)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .centerCrop()
+                .fallback(R.drawable.ic_default_avatar)
+                .thumbnail(0.4f)
+                .into(mAvatar);
+        mName.setText("");
+
+        // TODO: 3/5/2017 goto profile
+    }
+
+    private void displayAttendees(List<ParseUser> attendeeDatas,@Nullable String mutualState,Boolean isMutualExist){
+
+        if (isMutualExist){
+            mMutualAttendee.setText(mutualState);
+        }
+        if (attendeeDatas.size()<0) {
+            mAttendeesContainers.setVisibility(View.GONE);
+            return;
+        }
+
+        else {
+            mAttendeesContainers.setVisibility(View.VISIBLE);
+            mAttendeesLayout.removeAllViews();
+            LayoutInflater inflater = LayoutInflater.from(this);
+
+//            for (final ParseObject feature : attendeeDatas) {
+//                ImageView chipView = (ImageView) inflater.inflate(
+//                        R.layout.draw_layout, mTags, false);
+////                chipView.setText(feature.getTitle());
+////                chipView.setContentDescription(feature.getTitle());
+////                chipView.setOnClickListener(new View.OnClickListener() {
+////                    @Override
+////                    public void onClick(View view) {
+////                        Intent intent = new Intent(getContext(), ExploreSessionsActivity.class)
+////                                .putExtra(ExploreSessionsActivity.EXTRA_FILTER_TAG, tag.getId())
+////                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+////                        getActivity().startActivity(intent);
+////                    }
+////                });
+//
+//                mTags.addView(chipView);
+//            }
         }
 
     }
+    private void displayFeatures(@Nullable String data) {
 
-    private void isMapAvailabe(ParseObject parseObject) {
+        if (TextUtils.isEmpty(data)) {
+            mFeaturesContainer.setVisibility(View.GONE);
+        } else {
+            mFeaturesContainer.setVisibility(View.VISIBLE);
+            mFeaturesLayout.removeAllViews();
+            LayoutInflater inflater = LayoutInflater.from(this);
+            String[] mFeatures = data.split(",");
+
+            List<ModelEventFeature> tags = new ArrayList<>();
+            for (String featureItem : mFeatures) {
+
+                ModelEventFeature feature = new ModelEventFeature(featureItem);
+
+                if (ModelEventFeature.FEATURE_BUS.equals(featureItem)) {
+                    feature.setResourceId("");
+                }else if(ModelEventFeature.FEATURE_FOOD_AND_DRINKS.equals(featureItem)){
+                    feature.setResourceId("");
+                }else if (ModelEventFeature.FEATURE_WIFI.equals(featureItem)){
+                    feature.setResourceId("");
+                }else if (ModelEventFeature.FEATURE_BUS.equals(featureItem)){
+                    feature.setResourceId("");
+                }
+                tags.add(feature);
+            }
+
+            if (tags.size() == 0) {
+                mFeaturesLayout.setVisibility(View.GONE);
+                return;
+            }
+
+
+            for (final ModelEventFeature feature : tags) {
+//                ImageView chipView = (ImageView) inflater.inflate(
+//                        R.layout.draw_layout, mFeatures, false);
+////                chipView.setText(feature.getTitle());
+////                chipView.setContentDescription(feature.getTitle());
+////                chipView.setOnClickListener(new View.OnClickListener() {
+////                    @Override
+////                    public void onClick(View view) {
+////                        Intent intent = new Intent(getContext(), ExploreSessionsActivity.class)
+////                                .putExtra(ExploreSessionsActivity.EXTRA_FILTER_TAG, tag.getId())
+////                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+////                        getActivity().startActivity(intent);
+////                    }
+////                });
+//
+//                mTags.addView(chipView);
+            }
+        }
+    }
+
+
+    private void displayInfo(String day,String date){
+        mDay.setText(day);
+        mDate.setText(date);
+    }
+
+    private void isMapAvailabe(LatLng coordinates) {
+        if (coordinates== null) {
+            return;
+        }
+
         FragmentTransaction fragmentTransaction;
-
         mapFragment = (SupportMapFragment)
                 getSupportFragmentManager().findFragmentByTag(MAP_FRAGMENT_TAG);
 
@@ -264,161 +373,38 @@ public class WhiteEventPageActivity extends FragmentActivity {
             fragmentTransaction.add(R.id.container, mapFragment, MAP_FRAGMENT_TAG);
             fragmentTransaction.commit();
 
-
         }
-
-        if (parseObject.getParseGeoPoint("cordinate") != null) {
 
 //            getSupportFragmentManager().beginTransaction().show(mapFragment).commit();
-            mapFragment.getMapAsync(googleMap -> {
-                LatLng latLng = new LatLng(parseObject.getParseGeoPoint("cordinate").getLatitude(), parseObject.getParseGeoPoint("cordinate").getLongitude());
-                CameraPosition selfLoc = CameraPosition.builder()
-                        .target(latLng)
-                        .zoom(13)
-                        .build();
-                googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(selfLoc));
+        mapFragment.getMapAsync(googleMap -> {
+            LatLng latLng = new LatLng(coordinates.latitude, coordinates.longitude);
+            CameraPosition selfLoc = CameraPosition.builder()
+                    .target(latLng)
+                    .zoom(13)
+                    .build();
+            googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(selfLoc));
 
-                googleMap.addMarker(new MarkerOptions()
-                        .position(latLng)
-                        .snippet("SAMPLE LOCATION")
-//                        .icon(BitmapDescriptorFactory
+            googleMap.addMarker(new MarkerOptions()
+                    .position(latLng)
+                    .snippet("SAMPLE LOCATION")
+//                        .mMapIcon(BitmapDescriptorFactory
 //                                .fromResource(R.drawable.ic_panorama))
-                        .title("Event Location!"));
-            });
-        } else {
-//            getSupportFragmentManager().beginTransaction().hide(mapFragment).commit();
-        }
-    }
-
-    private void setReactionButton(Boolean aBoolean){
-        // get eventype
-        // get if going record exist
-        //if yes negate
-
-
-
-        // if   true - cancel -- unRegister -- not going
-        if (aBoolean){
-
-        }else {
-
-        }
-        // else if false -- Accept Invite -- Register -- Attend --Buy
-
-
-
-    }
-
-
-    private void setAvailableAction(ActionEvantPageBuy action){
-        new Handler().postDelayed(() -> {
-            if (action.getInvited()){
-                // show liniear layout
-
-                Glide.with(this)
-                        .load(mCurrentEvent.getParseUser("from").getParseFile("avatar"))
-                        .crossFade()
-                        .placeholder(R.drawable.ic_default_avatar)
-                        .error(R.drawable.placeholder_error_media)
-                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                        .centerCrop()
-                        .fallback(R.drawable.ic_default_avatar)
-                        .thumbnail(0.4f)
-                        .into(mAvatar);
-
-                mName.setText(String.format("%s Invited you", mCurrentEvent.getParseUser("from").getUsername()));
-
-
-                mInviteBar.setVisibility(View.VISIBLE);
-
-            }
-
-            if (action.isGoing()){
-
-                // set button cancel
-                mFirstBtn.setText(action.getMsg());
-                mFirstBtn.setOnClickListener(view -> {
-                    waiting =true;
-                    progressDialog.show();
-                    GeneralService.startActionCancelGoing(this.getApplicationContext(),mCurrentEvent.getObjectId(),mCurrentEvent.getClassName());
-
-                });
-
-
-            }else {
-                // set button cancel
-                mFirstBtn.setText(action.getMsg());
-                mFirstBtn.setOnClickListener(view -> {
-
-                });
-                if (action.getSecondButton()){
-                    // set second buton
-                    mSecondBtn.setText(action.getMsg());
-//                    mSecondBtn.setOnClickListener(view -> GeneralService.startActionSetGoing(this.getApplicationContext(),mCurrentEvent.getObjectId(),mCurrentEvent.getClassName()));
-                }
-            }
-
-            if (waiting){
-                progressDialog.dismiss();
-            }
-
-        },500);
-    }
-
-
-
-    private void setListeners(){
-        mCmtBtn.setOnClickListener(view -> {
-            DialogFragment newFragment = CommentActivityFragment.newInstance(dataItem.getParseId(),dataItem.getClassName(),true);
-            newFragment.show(getSupportFragmentManager(), "comment");
+                    .title("Event Location!"));
         });
 
-        mFavBtn.setOnClickListener(view -> {
 
-        });
-
-        mMoreButton.setButtonEventListener(new ButtonEventListener() {
+        mUberBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onButtonClicked(int index) {
+            public void onClick(View view) {
 
-                switch (index){
-                    case 4:
-
-                        break;
-                    case 2:
-                        break;
-
-                    case 3:
-                        break;
-                    case 1:
-                        break;
-                    default:
-                        return;                }
-            }
-
-            @Override
-            public void onExpand() {
-//                showToast("onExpand");
-            }
-
-            @Override
-            public void onCollapse() {
-//                showToast("onCollapse");
             }
         });
 
     }
 
-    private void checkFavs(){
 
-    }
-
-    private void setListener(AllAngleExpandableButton button) {
-
-
-        mMoreButton.setOnClickListener(view -> openMedia());
-
-
+    private void displayText(TextView textView,String desc){
+        textView.setText(desc);
     }
 
 
@@ -458,14 +444,14 @@ public class WhiteEventPageActivity extends FragmentActivity {
 
 //        mGoingAdapter.setOnRecyclerViewItemClickListener((view, i) -> {
 //
-//            NavigateTo.gotoGoingList(this,mCurrentEvent.getObjectId(),mCurrentEvent.getClassName(),getSupportFragmentManager());
+//            NavigateTo.gotoGoingList(this,currentEvent.getObjectId(),currentEvent.getClassName(),getSupportFragmentManager());
 //
 //        });
 
         mMediaAdapter.setOnRecyclerViewItemClickListener((view, i) -> {
 
-            SingletonDataSource.getInstance().setCurrentEvent(mCurrentEvent);
-            NavigateTo.goToHashtagGallery(this,mCurrentEvent.getObjectId(),mCurrentEvent.getClassName(),mCurrentEvent.getString("hashTag"));
+            SingletonDataSource.getInstance().setCurrentEvent(currentEvent);
+            NavigateTo.goToHashtagGallery(this,currentEvent.getObjectId(),currentEvent.getClassName(),currentEvent.getString("hashTag"));
 
         });
     }
@@ -474,13 +460,37 @@ public class WhiteEventPageActivity extends FragmentActivity {
 
     }
 
-    private void openMedia(){
+    private void display_Interation(String name,String url){
+        if (name==null || url==null)
+            return;
+
+        new Handler().postDelayed(() -> {
+            mInteractionLayout.setVisibility(View.VISIBLE);
+
+            Glide.with(WhiteEventPageActivity.this)
+                    .load(currentEvent.getParseUser("from").getParseFile("avatar"))
+                    .crossFade()
+                    .placeholder(R.drawable.ic_default_avatar)
+                    .error(R.drawable.placeholder_error_media)
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .centerCrop()
+                    .fallback(R.drawable.ic_default_avatar)
+                    .thumbnail(0.4f)
+                    .into(mInteractionAvatar);
+
+            mInteractionName.setText(String.format("%s Invited you", currentEvent.getParseUser("from").getUsername()));
+            mInteractionClose.setOnClickListener(view -> mInteractionLayout.setVisibility(View.GONE));
+        },500);
+
 
     }
 
-    private void openMap(){
-
+    private void showPopup(View view,String infoMsg) {
+        popupMenu = new PopupMenu(WhiteEventPageActivity.this, view);
+        popupMenu.getMenu().add(Menu.NONE, 1, 1, infoMsg);
+        popupMenu.show();
     }
+
 
     private void openRequest(){
         if (NetUtils.hasInternetConnection(getApplicationContext())){
@@ -489,98 +499,9 @@ public class WhiteEventPageActivity extends FragmentActivity {
         }
     }
 
-    private void displayTags(ParseObject data) {
-        if (data.getString("features") == null) {
-            mTagsContainer.setVisibility(View.GONE);
-            return;
-        }
-
-        if (TextUtils.isEmpty(data.getString("features"))) {
-            mTagsContainer.setVisibility(View.GONE);
-        } else {
-            mTagsContainer.setVisibility(View.VISIBLE);
-            mTags.removeAllViews();
-            LayoutInflater inflater = LayoutInflater.from(this);
-            String[] tagIds = data.getString("features").split(",");
-
-            List<ModelEventFeature> tags = new ArrayList<>();
-            for (String tagId : tagIds) {
-
-                ModelEventFeature feature = new ModelEventFeature(tagId);
-
-                if (ModelEventFeature.FEATURE_BUS.equals(tagId)) {
-                    feature.setResourceId("");
-                }else if(ModelEventFeature.FEATURE_FOOD_AND_DRINKS.equals(tagId)){
-                    feature.setResourceId("");
-                }else if (ModelEventFeature.FEATURE_WIFI.equals(tagId)){
-                    feature.setResourceId("");
-                }else if (ModelEventFeature.FEATURE_BUS.equals(tagId)){
-                    feature.setResourceId("");
-                }
-                tags.add(feature);
-            }
-
-            if (tags.size() == 0) {
-                mTagsContainer.setVisibility(View.GONE);
-                return;
-            }
-
-
-            for (final ModelEventFeature feature : tags) {
-//                ImageView chipView = (ImageView) inflater.inflate(
-//                        R.layout.draw_layout, mTags, false);
-////                chipView.setText(feature.getTitle());
-////                chipView.setContentDescription(feature.getTitle());
-////                chipView.setOnClickListener(new View.OnClickListener() {
-////                    @Override
-////                    public void onClick(View view) {
-////                        Intent intent = new Intent(getContext(), ExploreSessionsActivity.class)
-////                                .putExtra(ExploreSessionsActivity.EXTRA_FILTER_TAG, tag.getId())
-////                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-////                        getActivity().startActivity(intent);
-////                    }
-////                });
-//
-//                mTags.addView(chipView);
-            }
-        }
-    }
-
-
-    private void displayPeople(List<ParseObject> data) {
-        if (data.size()<0) {
-            mTagsPeoplContainer.setVisibility(View.GONE);
-            return;
-        }
-
-        else {
-            mTagsPeoplContainer.setVisibility(View.VISIBLE);
-            mTags.removeAllViews();
-            LayoutInflater inflater = LayoutInflater.from(this);
-
-//            for (final ParseObject feature : data) {
-//                ImageView chipView = (ImageView) inflater.inflate(
-//                        R.layout.draw_layout, mTags, false);
-////                chipView.setText(feature.getTitle());
-////                chipView.setContentDescription(feature.getTitle());
-////                chipView.setOnClickListener(new View.OnClickListener() {
-////                    @Override
-////                    public void onClick(View view) {
-////                        Intent intent = new Intent(getContext(), ExploreSessionsActivity.class)
-////                                .putExtra(ExploreSessionsActivity.EXTRA_FILTER_TAG, tag.getId())
-////                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-////                        getActivity().startActivity(intent);
-////                    }
-////                });
-//
-//                mTags.addView(chipView);
-//            }
-        }
-    }
-
     private void initload(){
         loaderManager.create(
-                LoaderEventPage.loadMedia(mCurrentEvent.getObjectId(),mCurrentEvent.getClassName()),
+                LoaderEventPage.loadMedia(currentEvent.getObjectId(),currentEvent.getClassName()),
                 new RxLoaderObserver<List<ParseObject>>() {
                     @Override
                     public void onNext(List<ParseObject> value) {
@@ -614,7 +535,7 @@ public class WhiteEventPageActivity extends FragmentActivity {
         ).start();
 
 //        loaderManager.create(
-//                LoaderEventPage.loadGoingFull(mCurrentEvent.getObjectId(),mCurrentEvent.getClassName()),
+//                LoaderEventPage.loadGoingFull(currentEvent.getObjectId(),currentEvent.getClassName()),
 //                new RxLoaderObserver<List<ParseObject>>() {
 //                    @Override
 //                    public void onNext(List<ParseObject> value) {
@@ -643,14 +564,44 @@ public class WhiteEventPageActivity extends FragmentActivity {
 //        ).start();
     }
 
+
+
+
+
+    private class EventMediaAdapter
+            extends BaseQuickAdapter<ParseObject> {
+
+        public EventMediaAdapter(int layoutResId, List<ParseObject> data) {
+            super(layoutResId, data);
+        }
+        @Override
+        protected void convert(BaseViewHolder holder, final ParseObject request) {
+
+            if (holder.getAdapterPosition()>3){
+                holder.setText(R.id.going_count,"+"+request.getString("number"))
+                        .setOnClickListener(R.id.going_bgrnd,new OnItemChildClickListener());
+            }else {
+//                Glide.with(mContext)
+//                        .load(request.getString("url"))
+//                        .crossFade()
+//                        .placeholder(R.drawable.ic_default_avatar)
+//                        .error(R.drawable.placeholder_error_media)
+//                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                        .centerCrop()
+//                        .fallback(R.drawable.ic_default_avatar)
+//                        .thumbnail(0.4f)
+//                        .into(((RoundCornerImageView) holder.getView(R.id.going_imageview)));
+            }
+        }
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ActionMediaCheckIslike action) {
         if (action.status) {
-            icon = ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_heart_active);
-            mFavBtn.setCompoundDrawables(icon, null, null, null);
+//            mFavBtn.setCompoundDrawables(mMapIcon, null, null, null);
         } else {
-            icon = ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_heart);
-            mFavBtn.setCompoundDrawables(icon, null, null, null);
+            Drawable Icon= ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_heart);
+            mFavBtn.setCompoundDrawables(Icon, null, null, null);
         }
     }
 
@@ -704,56 +655,4 @@ public class WhiteEventPageActivity extends FragmentActivity {
         super.onDestroy();
     }
 
-    private class EventGoingAdapter
-            extends BaseQuickAdapter<ParseObject> {
-
-        public EventGoingAdapter(int layoutResId, List<ParseObject> data) {
-            super(layoutResId, data);
-        }
-        @Override
-        protected void convert(BaseViewHolder holder, final ParseObject request) {
-            if (holder.getAdapterPosition()>3){
-                holder.setText(R.id.going_count,"+"+request.getString("number"))
-                        .setOnClickListener(R.id.going_bgrnd,new OnItemChildClickListener());
-            }else {
-//                Glide.with(mContext)
-//                        .load(request.getString("avatar"))
-//                        .crossFade()
-//                        .placeholder(R.drawable.ic_default_avatar)
-//                        .error(R.drawable.placeholder_error_media)
-//                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                        .centerCrop()
-//                        .fallback(R.drawable.ic_default_avatar)
-//                        .thumbnail(0.4f)
-//                        .into(((RoundCornerImageView) holder.getView(R.id.going_imageview)));
-            }
-        }
-    }
-
-    private class EventMediaAdapter
-            extends BaseQuickAdapter<ParseObject> {
-
-        public EventMediaAdapter(int layoutResId, List<ParseObject> data) {
-            super(layoutResId, data);
-        }
-        @Override
-        protected void convert(BaseViewHolder holder, final ParseObject request) {
-
-            if (holder.getAdapterPosition()>3){
-                holder.setText(R.id.going_count,"+"+request.getString("number"))
-                        .setOnClickListener(R.id.going_bgrnd,new OnItemChildClickListener());
-            }else {
-//                Glide.with(mContext)
-//                        .load(request.getString("url"))
-//                        .crossFade()
-//                        .placeholder(R.drawable.ic_default_avatar)
-//                        .error(R.drawable.placeholder_error_media)
-//                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                        .centerCrop()
-//                        .fallback(R.drawable.ic_default_avatar)
-//                        .thumbnail(0.4f)
-//                        .into(((RoundCornerImageView) holder.getView(R.id.going_imageview)));
-            }
-        }
-    }
 }

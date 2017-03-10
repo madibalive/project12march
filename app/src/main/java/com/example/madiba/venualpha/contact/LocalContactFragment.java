@@ -14,8 +14,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -62,21 +60,14 @@ public class LocalContactFragment extends Fragment implements SwipeRefreshLayout
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ModelOtherContact livenow = new ModelOtherContact();
         ModelOtherContact mGossip = new ModelOtherContact();
         ModelOtherContact event = new ModelOtherContact();
-//        List<ModelOtherContact> mdata = new ArrayList<>();
 
-        livenow.setType(ModelOtherContact.TYPE_FACEBOOK);
         mGossip.setType(ModelOtherContact.TYPE_PARSE);
         event.setType(ModelOtherContact.TYPE_LOCAL);
 
-        mDatas.add(livenow);
         mDatas.add(mGossip);
         mDatas.add(event);
-
-
-
     }
 
     @Override
@@ -95,7 +86,6 @@ public class LocalContactFragment extends Fragment implements SwipeRefreshLayout
         loaderManager = RxLoaderManagerCompat.get(this);
         initAdapter();
         if (NetUtils.hasInternetConnection(getActivity().getApplicationContext())){
-            Timber.e("passed the network test ");
 //            load();
         }
     }
@@ -108,8 +98,6 @@ public class LocalContactFragment extends Fragment implements SwipeRefreshLayout
         mRecyclerview.setAdapter(mAdapter);
         mAdapter.setOnRecyclerViewItemClickListener((view, i) -> {
         });
-
-
     }
 
     @Override
@@ -147,9 +135,7 @@ public class LocalContactFragment extends Fragment implements SwipeRefreshLayout
                         Timber.e("return complete ");
                     }
                 }).start();
-
     }
-
 
     private class LocalAdapter
             extends BaseQuickAdapter<PhoneContact> {
@@ -168,86 +154,27 @@ public class LocalContactFragment extends Fragment implements SwipeRefreshLayout
         }
     }
 
-    private class PraseAdapter
-            extends BaseQuickAdapter<ParseUser> implements Filterable{
-
-        List<ParseUser> originalDataSource;
-
-        PraseAdapter(int layoutResId, List<ParseUser> data) {
-            super(layoutResId, data);
-        }
-
-        @Override
-        protected void convert(BaseViewHolder holder, final ParseUser data) {
-//
-//
-//            holder.setText(R.id.cc_i_name, data.getUsername())
-//                    .setOnClickListener(R.id.cc_i_unfollow,new OnItemChildClickListener());
-//            Glide.with(mContext).load(data.getParseFile("avatar").getUrl())
-//                    .thumbnail(0.1f).dontAnimate().into((ImageView) holder.getView(R.id.cc_i_avatar));
-
-        }
-
-
-
-        @Override
-        public Filter getFilter() {
-            return new Filter() {
-                @Override
-                protected FilterResults performFiltering(CharSequence constraint) {
-                    FilterResults results = new FilterResults();
-                    List<ParseUser> filterList = new ArrayList<>();
-
-                    if (constraint != null && constraint.toString().length() > 0) {
-
-                        for (int index = 0; index < mData.size(); index++) {
-                            ParseUser item = mData.get(index);
-                            String itemText = item.getUsername();
-
-                            if (itemText.toLowerCase().startsWith(constraint.toString().toLowerCase())) {
-                                filterList.add(item);
-                            }
-                        }
-                        results.values = filterList;
-                        results.count = filterList.size();
-                    } else {
-                        synchronized (mData) {
-                            results.values = mData;
-                            results.count = mData.size();
-                        }
-                    }
-                    return results;
-                }
-
-                @Override
-                protected void publishResults(CharSequence constraint, FilterResults results) {
-                    originalDataSource = getData();
-                    notifyDataSetChanged();
-                }
-            };
-        }
-    }
-
-    private class FacebookAdapter
+    private class ParseAdapter
             extends BaseQuickAdapter<ParseUser> {
 
-        FacebookAdapter(int layoutResId, List<ParseUser> data) {
+        List<ParseUser> data;
+
+        ParseAdapter(int layoutResId, List<ParseUser> data) {
             super(layoutResId, data);
         }
 
         @Override
         protected void convert(BaseViewHolder holder, final ParseUser data) {
-//
 
 //            holder.setText(R.id.cc_i_name, data.getUsername())
 //                    .setOnClickListener(R.id.cc_i_unfollow,new OnItemChildClickListener());
-//
+
 //            Glide.with(mContext).load(data.getParseFile("avatar").getUrl())
 //                    .thumbnail(0.1f).dontAnimate().into((ImageView) holder.getView(R.id.cc_i_avatar));
 
         }
-    }
 
+    }
 
 
     public class MainAdapter extends BaseQuickAdapter<ModelOtherContact> {
@@ -266,11 +193,7 @@ public class LocalContactFragment extends Fragment implements SwipeRefreshLayout
 
         @Override
         protected int getDefItemViewType(int position) {
-
-            if (getItem(position).getType() == ModelOtherContact.TYPE_FACEBOOK)
-                return ModelOtherContact.TYPE_FACEBOOK;
-
-            else if (getItem(position).getType() == ModelOtherContact.TYPE_PARSE)
+        if (getItem(position).getType() == ModelOtherContact.TYPE_PARSE)
                 return ModelOtherContact.TYPE_PARSE;
 
             else if (getItem(position).getType() == ModelOtherContact.TYPE_LOCAL)
@@ -281,15 +204,11 @@ public class LocalContactFragment extends Fragment implements SwipeRefreshLayout
 
         @Override
         protected BaseViewHolder onCreateDefViewHolder(ViewGroup parent, int viewType) {
-            if (viewType == ModelOtherContact.TYPE_FACEBOOK)
-                return new FacebookContactViewHolder(getItemView(R.layout.container_box_header, parent));
-
-            else if (viewType == ModelOtherContact.TYPE_PARSE)
+           if (viewType == ModelOtherContact.TYPE_PARSE)
                 return new ParseContactViewHolder(getItemView(R.layout.container_box_header, parent));
 
             else if (viewType == ModelOtherContact.TYPE_LOCAL)
                 return new LocalContactViewHolder(getItemView(R.layout.container_box_header, parent));
-
 
             return super.onCreateDefViewHolder(parent, viewType);
         }
@@ -300,46 +219,12 @@ public class LocalContactFragment extends Fragment implements SwipeRefreshLayout
             try {
                 n = getItem(position);
 
-                if (holder instanceof LocalContactViewHolder) {
-                    RecyclerView rview = ((LocalContactViewHolder) holder).getView(R.id.box_recyclerview);
-                    TextView title = ((LocalContactViewHolder) holder).getView(R.id.box_title);
-                    title.setText("Facebook here");
-                    FacebookAdapter mAdapter = new FacebookAdapter (R.layout.item_person, datas);
-//                    LocalAdapter mAdapter = new LocalAdapter(R.layout.item_person, datas); // n.getLocalContact()
-                    rview.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
-                    rview.setHasFixedSize(true);
-
-                    rview.setAdapter(mAdapter);
-                    mAdapter.setOnRecyclerViewItemChildClickListener((baseQuickAdapter, view, i) -> {
-                        if (view.getId() == R.id.cc_i_unfollow){
-                            // TODO: 12/29/2016  call follow here
-                        }
-                    });
-                }
-
-                else if (holder instanceof FacebookContactViewHolder) {
-                    RecyclerView rview = ((FacebookContactViewHolder) holder).getView(R.id.box_recyclerview);
-                    TextView title = ((FacebookContactViewHolder) holder).getView(R.id.box_title);
-                    title.setText("Parse Contact");
-//                    FacebookAdapter mAdapter = new FacebookAdapter (R.layout.item_person, n.getFacebookContacts());
-                    FacebookAdapter mAdapter = new FacebookAdapter (R.layout.item_person, datas);
-                    rview.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
-                    rview.setHasFixedSize(true);
-
-                    rview.setAdapter(mAdapter);
-                    mAdapter.setOnRecyclerViewItemChildClickListener((baseQuickAdapter, view, i) -> {
-                        if (view.getId() == R.id.cc_i_unfollow){
-                            // TODO: 12/29/2016  call follow here
-                        }
-                    });
-                }
-
-                else if (holder instanceof ParseContactViewHolder) {
+               if (holder instanceof ParseContactViewHolder) {
                     RecyclerView rview = ((ParseContactViewHolder) holder).getView(R.id.box_recyclerview);
                     TextView title = ((ParseContactViewHolder) holder).getView(R.id.box_title);
                     title.setText("Local Contact");
-                    PraseAdapter mAdapter = new PraseAdapter (R.layout.item_person,datas);
-//                    PraseAdapter mAdapter = new PraseAdapter (R.layout.item_person, n.getParseContacts());
+                    ParseAdapter mAdapter = new ParseAdapter (R.layout.item_person,datas);
+//                    ParseAdapter mAdapter = new ParseAdapter (R.layout.item_person, n.getParseContacts());
                     rview.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
                     rview.setHasFixedSize(true);
 
@@ -350,16 +235,28 @@ public class LocalContactFragment extends Fragment implements SwipeRefreshLayout
                         }
                     });
                 }
+                else if (holder instanceof LocalContactViewHolder) {
+                    RecyclerView rview = ((LocalContactViewHolder) holder).getView(R.id.box_recyclerview);
+                    TextView title = ((LocalContactViewHolder) holder).getView(R.id.box_title);
+                    title.setText("Facebook here");
+//                    LocalAdapter mAdapter = new LocalAdapter(R.layout.item_person, datas);
+                    rview.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+                    rview.setHasFixedSize(true);
 
-
+                    rview.setAdapter(mAdapter);
+                    mAdapter.setOnRecyclerViewItemChildClickListener((baseQuickAdapter, view, i) -> {
+                        if (view.getId() == R.id.cc_i_unfollow){
+                            // TODO: 12/29/2016  call sms invite here
+                        }
+                    });
+                }
 
                 super.onBindViewHolder(holder, position, payloads);
+
             }catch (Exception e){
                 Timber.e(e.getMessage());
             }
             super.onBindViewHolder(holder, position, payloads);
-
-
         }
 
         @Override
@@ -378,26 +275,13 @@ public class LocalContactFragment extends Fragment implements SwipeRefreshLayout
                 super(itemView);
             }
         }
-
-        private class FacebookContactViewHolder extends BaseViewHolder {
-            public FacebookContactViewHolder(View itemView) {
-                super(itemView);
-            }
-        }
-
-
-
     }
 
     @AfterPermissionGranted(RC_LOCATION_CONTACTS_PERM)
     private void load() {
-        Timber.e("onload");
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             if (EasyPermissions.hasPermissions(getActivity(), Manifest.permission.READ_CONTACTS)) {
-                Timber.e("has permission");
-
                 initload();
-
             } else {
                 EasyPermissions.requestPermissions(getActivity(), getString(R.string.permission_contact),
                         RC_LOCATION_CONTACTS_PERM, Manifest.permission.READ_CONTACTS);

@@ -44,17 +44,13 @@ public class BaseOnboardActivity extends AppCompatActivity {
         Fragment frg;
         switch (index){
             case signup:
-                frg = new SignFragment();
+                frg = new LoginFragment();
                 break;
             case contact:
                 frg = new SignFragment();
 
                 break;
-            case categories:
-                frg = new SignFragment();
-
-                break;
-            case pending:
+           case pending:
                 frg = new SignFragment();
 
                 break;
