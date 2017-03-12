@@ -2,7 +2,6 @@ package com.example.madiba.venualpha.dailogs;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.Fragment;
@@ -16,16 +15,12 @@ import android.widget.TextView;
 import com.android.liuzhuang.rcimageview.RoundCornerImageView;
 import com.example.madiba.venualpha.R;
 import com.example.madiba.venualpha.models.MdUserItem;
-import com.example.madiba.venualpha.services.LoaderGeneral;
-import com.parse.ParseObject;
 
-import org.parceler.Parcel;
+import org.parceler.Parcels;
 
 import java.util.List;
 
 import me.tatarka.rxloader.RxLoaderManager;
-import me.tatarka.rxloader.RxLoaderObserver;
-import timber.log.Timber;
 
 /**
  * <p>A fragment that shows a list of items as a modal bottom sheet.</p>
@@ -53,7 +48,7 @@ public class UserListDialogFragment extends BottomSheetDialogFragment {
         final UserListDialogFragment fragment = new UserListDialogFragment();
         final Bundle args = new Bundle();
         args.putInt(ARG_ITEM_COUNT, mode);
-        args.putParcelable(ARG_ITEM, Parcel.);
+        args.putParcelable(ARG_ITEM, Parcels.wrap(userItem));
         fragment.setArguments(args);
         return fragment;
     }
@@ -153,36 +148,36 @@ public class UserListDialogFragment extends BottomSheetDialogFragment {
 
 
     void initload(){
-        loaderManager.create(
-                LoaderGeneral.loadGoing(mSoureEvent.getObjectId(),mSoureEvent.getClassName()),
-                new RxLoaderObserver<List<ParseObject>>() {
-                    @Override
-                    public void onNext(List<ParseObject> value) {
-                        Timber.d("onnext");
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                setAdapter(value);
-                            }
-                        },500);
-                    }
-
-                    @Override
-                    public void onStarted() {
-                        super.onStarted();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
-                    }
-
-                    @Override
-                    public void onCompleted() {
-                        super.onCompleted();
-                    }
-                }
-        ).start();
+//        loaderManager.create(
+//                LoaderGeneral.loadGoing(mSoureEvent.getObjectId(),mSoureEvent.getClassName()),
+//                new RxLoaderObserver<List<ParseObject>>() {
+//                    @Override
+//                    public void onNext(List<ParseObject> value) {
+//                        Timber.d("onnext");
+//                        new Handler().postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                setAdapter(value);
+//                            }
+//                        },500);
+//                    }
+//
+//                    @Override
+//                    public void onStarted() {
+//                        super.onStarted();
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        super.onError(e);
+//                    }
+//
+//                    @Override
+//                    public void onCompleted() {
+//                        super.onCompleted();
+//                    }
+//                }
+//        ).start();
     }
 
 

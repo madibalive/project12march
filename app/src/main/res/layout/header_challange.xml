@@ -53,19 +53,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
 
-    <com.example.madiba.venualpha.ui.SegmentControl
-        android:layout_gravity="center"
-        android:id="@+id/segment_control"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/app_text_size_medium"
-        app:selectedColor="#0099CC"
-        app:normalColor="#FFFFFF"
-        app:cornerRadius="4dip"
-        android:orientation="horizontal"
-        app:horizonGap="8dip"
-        app:texts="Global|Friends"
-        app:verticalGap="8dip"/>
+
 
 
 </LinearLayout>

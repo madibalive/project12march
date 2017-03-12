@@ -8,7 +8,10 @@ import android.widget.Button;
 import com.example.madiba.venualpha.R;
 
 
-public class BaseOnboardActivity extends AppCompatActivity {
+public class BaseOnboardActivity extends AppCompatActivity implements
+LoginFragment.OnFragmentInteractionListener,SignFragment.OnFragmentInteractionListener,
+UserDetailFragment.OnFragmentInteractionListener,AddContactFragment.OnFragmentInteractionListener,
+SelectCategoriesFragment.OnFragmentInteractionListener,PendingInvitesFragment.OnFragmentInteractionListener{
     android.support.v4.app.FragmentManager fragmentManager ;
     android.support.v4.app.FragmentTransaction ft ;
 
@@ -40,7 +43,7 @@ public class BaseOnboardActivity extends AppCompatActivity {
     }
 
 
-    private void update(int index){
+    private void update(int index,Boolean backstackable){
         Fragment frg;
         switch (index){
             case signup:
@@ -60,8 +63,17 @@ public class BaseOnboardActivity extends AppCompatActivity {
 
         ft.setTransition(android.support.v4.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         ft.replace(R.id.container, frg);
-        ft.addToBackStack(String.valueOf(index));
+        if (backstackable)
+            ft.addToBackStack(String.valueOf(index));
+        else
+            ft.addToBackStack(null);
         ft.commit();
+    }
+
+
+    @Override
+    public void onFragmentInteraction(int index, Boolean aBoolean) {
+        update(index,aBoolean);
     }
 
     @Override

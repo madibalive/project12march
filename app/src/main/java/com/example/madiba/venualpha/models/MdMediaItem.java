@@ -32,6 +32,11 @@ public class MdMediaItem {
     MdUserItem userItem;
     MdEventItem eventItem;
 
+    MdUserItem sharedBy;
+    Boolean isShared=false;
+    Boolean extraAvailable=false;
+    String extraInfo;
+
 
     public MdMediaItem() {
     }
@@ -147,5 +152,37 @@ public class MdMediaItem {
 
     public void setEventItem(MdEventItem eventItem) {
         this.eventItem = eventItem;
+    }
+
+    public MdUserItem getSharedBy() {
+        return sharedBy;
+    }
+
+    public void setSharedBy(MdUserItem sharedBy) {
+        this.sharedBy = sharedBy;
+    }
+
+    public Boolean getShared() {
+        return isShared;
+    }
+
+    public void setShared(Boolean shared) {
+        isShared = shared;
+    }
+
+    public Boolean getExtraAvailable() {
+        return extraAvailable;
+    }
+
+    public void setExtraAvailable(Boolean extraAvailable) {
+        this.extraAvailable = extraAvailable;
+    }
+
+    public String getExtraInfo() {
+        return extraInfo;
+    }
+
+    public void setExtraInfo(String extraInfo) {
+        this.extraInfo = extraInfo;
     }
 }

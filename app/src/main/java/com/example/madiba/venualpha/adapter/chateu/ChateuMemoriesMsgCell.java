@@ -76,7 +76,7 @@ public class ChateuMemoriesMsgCell extends SimpleCell<ParseObject, ChateuMemorie
 
   @Override
   protected long getItemId() {
-    return getItem().getObject().getObjectId().hashCode();
+    return getItem().getObjectId().hashCode();
   }
 
 
@@ -89,7 +89,7 @@ public class ChateuMemoriesMsgCell extends SimpleCell<ParseObject, ChateuMemorie
    */
   @Override
   public boolean areContentsTheSame(ParseObject newItem) {
-    return getItem().getObject().getObjectId().equals(newItem.getObject().getObjectId());
+    return getItem().getObjectId().equals(newItem.getObjectId());
   }
 
   /**
@@ -100,7 +100,7 @@ public class ChateuMemoriesMsgCell extends SimpleCell<ParseObject, ChateuMemorie
   @Override
   public Object getChangePayload(ParseObject newItem) {
     Bundle bundle = new Bundle();
-    bundle.putString(KEY_TITLE, newItem.getTitle());
+    bundle.putString(KEY_TITLE, newItem.getString("title"));
     return bundle;
   }
 

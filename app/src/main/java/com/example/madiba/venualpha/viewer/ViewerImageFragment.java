@@ -43,7 +43,7 @@ public class ViewerImageFragment extends Fragment implements View.OnTouchListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_photo_viewer, container, false);
+        View view= inflater.inflate(R.layout.fragment_comment, container, false);
 
         mShot = (ImageView) view.findViewById(R.id.pv_image_view);
         mClose = (ImageButton) view.findViewById(R.id.md_closeBtn);

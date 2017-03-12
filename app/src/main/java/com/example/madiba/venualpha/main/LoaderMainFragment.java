@@ -20,7 +20,6 @@ import rx.Subscriber;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
-ava.util.ArrayList;
 
 /**
  * Created by Madiba on 12/8/2016.

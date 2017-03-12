@@ -14,7 +14,6 @@ import java.util.List;
 
 import me.tatarka.rxloader.RxLoaderManager;
 
-import static it.sephiroth.android.library.exif2.ExifInterface.ComponentsConfiguration.R;
 
 
 public class OnTapActivity extends AppCompatActivity {

@@ -40,7 +40,7 @@
                 <ImageButton
                     android:layout_marginRight="@dimen/padding_normal"
                     android:background="@color/white"
-                    android:src="@drawable/applozic_ic_action_edit"
+                    android:src="@drawable/ic_videocam"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 

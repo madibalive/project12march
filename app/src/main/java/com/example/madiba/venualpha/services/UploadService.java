@@ -14,10 +14,6 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.graphics.Palette;
 
-import com.applozic.mobicomkit.api.people.ChannelInfo;
-import com.applozic.mobicomkit.channel.service.ChannelService;
-import com.applozic.mobicommons.people.channel.Channel;
-import com.applozic.mobicommons.people.channel.ChannelMetadata;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.example.madiba.venualpha.Actions.ActionCompleteGossip;
@@ -46,9 +42,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import timber.log.Timber;
@@ -594,31 +588,13 @@ public class UploadService extends IntentService {
      */
     private void handleActionGossip(String title) {
 
-        ChannelMetadata channelMetadata = new ChannelMetadata();
-        channelMetadata.setCreateGroupMessage(ChannelMetadata.ADMIN_NAME + " created " + ChannelMetadata.GROUP_NAME);
-        channelMetadata.setAddMemberMessage(ChannelMetadata.ADMIN_NAME + " added " + ChannelMetadata.USER_NAME);
-        channelMetadata.setRemoveMemberMessage(ChannelMetadata.ADMIN_NAME + " removed " + ChannelMetadata.USER_NAME);
-        channelMetadata.setGroupNameChangeMessage(ChannelMetadata.USER_NAME + " changed group name " + ChannelMetadata.GROUP_NAME);
-        channelMetadata.setJoinMemberMessage(ChannelMetadata.USER_NAME + " joined");
-        channelMetadata.setGroupLeftMessage(ChannelMetadata.USER_NAME + " left group " + ChannelMetadata.GROUP_NAME);
-        channelMetadata.setGroupIconChangeMessage(ChannelMetadata.USER_NAME + " changed icon");
-        channelMetadata.setDeletedGroupMessage(ChannelMetadata.ADMIN_NAME + " deleted group " + ChannelMetadata.GROUP_NAME);
-        List<String> channelMembersList =  new ArrayList<String>();
 
-        ChannelInfo channelInfo  = new ChannelInfo(title,channelMembersList);
-        channelInfo.setType(Channel.GroupType.OPEN.getValue().intValue()); //group type
-        channelInfo.setChannelMetadata(channelMetadata); //Optional option for setting group meta data
-
-        Channel channel = ChannelService.getInstance(getApplicationContext()).createChannel(channelInfo); //Thread or Async task
-        if(channel != null){
-            Timber.i(new StringBuilder().append("channelKey").append(channel.getKey()).toString());
             ParseObject gossip =new ParseObject(GlobalConstants.CLASS_GOSSIP);
             gossip.put("title", title);
             gossip.put("shares",0);
             gossip.put("likes",0);
             gossip.put("from", ParseUser.getCurrentUser());
             gossip.put("fromId", ParseUser.getCurrentUser().getObjectId());
-            gossip.put("chatId",channel.getKey());
             gossip.put("expiryDate", TimeUitls.addExpiryDate());
             try {
                 gossip.save();
@@ -627,20 +603,16 @@ public class UploadService extends IntentService {
                 feed.put("from", ParseUser.getCurrentUser());
                 feed.put("fromId", ParseUser.getCurrentUser().getObjectId());
                 feed.put(GlobalConstants.FEED_TYPE, GlobalConstants.FEED_TYPE_GOSSIP);
-                feed.put(GlobalConstants.FEED_GOSSIPID,channel.getKey());
                 feed.put(GlobalConstants.FEED_EXPIRY_DATE, TimeUitls.addExpiryDate());
                 feed.put(GlobalConstants.FEED_OBJECT,gossip);
                 feed.save();
 
-                EventBus.getDefault().post(new ActionCompleteGossip(false, channel.getKey()));
 
             } catch (ParseException e) {
                 EventBus.getDefault().post(new ActionCompleteGossip(false, 0));
                 e.printStackTrace();
             }
 
-        }else {
-        }
     }
 
     private boolean hasPublishPermission () {

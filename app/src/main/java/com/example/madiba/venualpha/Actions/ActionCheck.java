@@ -6,12 +6,11 @@ package com.example.madiba.venualpha.Actions;
 
 public class ActionCheck {
 
-    public Boolean error = false;
-    public Boolean isFollow = true;
+    public String  id;
+    public Boolean isFollow ;
 
-    public ActionCheck(Boolean isFollow, Boolean error) {
-        this.error = error;
-        this.isFollow=isFollow;
+    public ActionCheck(String id, Boolean isFollow) {
+        this.id = id;
+        this.isFollow = isFollow;
     }
-
 }

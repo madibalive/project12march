@@ -26,7 +26,7 @@ public class SingletonDataSource {
 
     //    INVITE DATA FILE
     private List<ParseUser> inviteUserList = new ArrayList<>();
-    private Set<ParseUser> onboardUserList = new ArrayList<>();
+    private Set<ParseUser> onboardUserList = new HashSet<>();
     private Set<ParseObject> onboardCategories = new HashSet<>();
     private List<String> inviteIdList = new ArrayList<>();
 

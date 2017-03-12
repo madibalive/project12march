@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/appbar_padding_top"
         style="@style/AppTheme.Toolbar"
+        app:elevation="0dp"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
@@ -34,26 +35,30 @@
                     android:id="@+id/tabs"
                     android:layout_width="0dp"
                     app:tabMode="scrollable"
+                    app:tabPadding="8dp"
+                    app:tabIndicatorHeight="0dp"
+                    app:tabMinWidth="0dp"
+
                     android:layout_height="wrap_content"
                     android:layout_weight="1"/>
 
                 <ImageView
                     android:layout_margin="@dimen/dp_4"
-                    android:src="@android:color/holo_blue_bright"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp" />
+                    android:src="@drawable/venu_chat"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
 
                 <ImageView
                     android:layout_margin="@dimen/dp_4"
-                    android:src="@android:color/holo_blue_dark"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp" />
+                    android:src="@drawable/ic_bell"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
 
                 <ImageView
                     android:layout_margin="@dimen/dp_4"
-                    android:src="@android:color/holo_green_light"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp" />
+                    android:src="@drawable/ic_search"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
 
             </LinearLayout>
 
@@ -62,10 +67,10 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layout_height="match_parent"/>
 
 
 </android.support.design.widget.CoordinatorLayout>

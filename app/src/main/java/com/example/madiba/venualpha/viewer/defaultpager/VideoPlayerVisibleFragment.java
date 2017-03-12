@@ -45,7 +45,6 @@ import com.example.madiba.venualpha.ui.AspectFrameLayout;
 import com.example.madiba.venualpha.util.NetUtils;
 import com.example.madiba.venualpha.util.ProxyFactory;
 import com.github.rongi.async.Callback;
-import com.github.rongi.async.Tasks;
 import com.parse.ParseObject;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -331,8 +330,8 @@ public class VideoPlayerVisibleFragment extends Fragment implements MediaPlayer.
     };
 
     private void refreshData(String id,String className){
-        MediaRefreshLoader taskLoad = new MediaRefreshLoader(id,className);
-        Tasks.execute(taskLoad,loadCallBack);
+//        MediaRefreshLoader taskLoad = new MediaRefreshLoader(id,className);
+//        Tasks.execute(taskLoad,loadCallBack);
     }
 
 

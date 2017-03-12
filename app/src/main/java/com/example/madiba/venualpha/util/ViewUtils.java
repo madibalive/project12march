@@ -7,6 +7,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Point;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
@@ -95,6 +97,8 @@ public class ViewUtils {
             view.requestLayout();       //请求重绘
         }
     }
+
+
 
     public static void setMarginTop(View v, int topMargin) {
         ((ViewGroup.MarginLayoutParams) v.getLayoutParams()).topMargin = topMargin;
@@ -236,6 +240,8 @@ public class ViewUtils {
             lp.width = width;
             v.setLayoutParams(lp);
         }
+        v.requestLayout();       //请求重绘
+
     }
 
     public static void setWidth(final View v, final int width) {
@@ -300,6 +306,18 @@ public class ViewUtils {
         return TypedValue.applyDimension(unit, value, context.getResources().getDisplayMetrics());
     }
 
+
+    static private Drawable scaleDrawable(Drawable drawable, int width, int height) {
+
+        int wi = drawable.getIntrinsicWidth();
+        int hi = drawable.getIntrinsicHeight();
+        int dimDiff = Math.abs(wi - width) - Math.abs(hi - height);
+        float scale = (dimDiff > 0) ? width / (float)wi : height /
+                (float)hi;
+        Rect bounds = new Rect(0, 0, (int)(scale * wi), (int)(scale * hi));
+        drawable.setBounds(bounds);
+        return drawable;
+    }
 
 
 

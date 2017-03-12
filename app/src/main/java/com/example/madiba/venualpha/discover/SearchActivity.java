@@ -19,6 +19,7 @@ import com.example.madiba.venualpha.adapter.search.SearchAdapter;
 import com.example.madiba.venualpha.models.SearchModel;
 import com.example.madiba.venualpha.services.TaskSearchLoad;
 import com.example.madiba.venualpha.ui.RotateLoading;
+import com.github.rongi.async.Callback;
 import com.github.rongi.async.Tasks;
 
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class SearchActivity extends AppCompatActivity {
 
         mRecyclerview.setLayoutManager(new LinearLayoutManager(this));
         mSearchDatas =new ArrayList<>();
-        mSearchAdapter = new SearchAdapter(R.layout.container_bare,mSearchDatas);
+//        mSearchAdapter = new SearchAdapter(R.layout.container_bare,mSearchDatas);
         mRecyclerview.setAdapter(mSearchAdapter);
 
         setupSearchView();
@@ -70,7 +71,7 @@ public class SearchActivity extends AppCompatActivity {
         mSearchView.setIconified(false);
         mSearchView.setIconifiedByDefault(false);
         mSearchView.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
-        mSearchView.setQueryHint(getString(R.string.search_hint));
+//        mSearchView.setQueryHint(getString(R.string.search_hint));
         mSearchView.setImeOptions(mSearchView.getImeOptions() | EditorInfo.IME_ACTION_SEARCH |
                 EditorInfo.IME_FLAG_NO_EXTRACT_UI | EditorInfo.IME_FLAG_NO_FULLSCREEN);
 

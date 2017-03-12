@@ -28,7 +28,6 @@ public class TopEventAdapter extends BaseQuickAdapter<ParseObject> {
     protected void convert(BaseViewHolder holder, ParseObject event) {
         holder.setText(R.id.ev_title, event.getString("title"))
                 .setText(R.id.ev_tag, event.getString("hashTag"))
-                .setText(R.id.ev_daily_stars, event.getString("category"))
                 .setText(R.id.ev_status, TimeUitls.getLiveBadgeText(event.getDate("date")));
 
 

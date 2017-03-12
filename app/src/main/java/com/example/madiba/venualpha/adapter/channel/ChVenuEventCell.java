@@ -69,7 +69,7 @@ public class ChVenuEventCell extends SimpleCell<MConversationItem, ChVenuEventCe
   }
   
   private void BindView(ViewHolder holder,MConversationItem item){
-    holder.mName.setText("");
+//    holder.mName.setText("");
     holder.mTitle.setText("");
   }
 

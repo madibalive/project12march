@@ -2,6 +2,8 @@ package com.example.madiba.venualpha.onboard;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -57,6 +59,7 @@ public class AddContactFragment extends Fragment {
     private List<ParseUser> mDatas=new ArrayList<>();
     private ProgressDialog progress;
     private Boolean mEnableFb=false;
+    public static final int index =3;
 
     public static final List<String> mPermissions = new ArrayList<String>() {{
         add("public_profile");
@@ -64,6 +67,9 @@ public class AddContactFragment extends Fragment {
         add("user_friends");
         add(" publish_actions");
     }};
+
+
+    private OnFragmentInteractionListener mListener;
 
     RxLoaderManager loaderManager;
 
@@ -267,6 +273,37 @@ public class AddContactFragment extends Fragment {
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
+    }
+
+
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(index,true);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(int index,Boolean aBoolean);
     }
 
 }

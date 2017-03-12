@@ -1,5 +1,7 @@
 package com.example.madiba.venualpha.onboard;
 
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -30,12 +32,14 @@ import timber.log.Timber;
 
 
 public class PendingInvitesFragment extends Fragment {
+    public static final int index =5;
 
     private RecyclerView mRecyclerview;
     private MainAdapter mAdapter;
     private List<ParseObject> mDatas=new ArrayList<>();
 
     RxLoaderManager loaderManager;
+    private OnFragmentInteractionListener mListener;
 
     public PendingInvitesFragment() {
     }
@@ -174,4 +178,37 @@ public class PendingInvitesFragment extends Fragment {
             initload();
         }
     }
+
+
+
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(index,true);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(int index,Boolean aBoolean);
+    }
+
 }

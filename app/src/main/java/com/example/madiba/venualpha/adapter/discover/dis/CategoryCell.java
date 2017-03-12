@@ -8,19 +8,19 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.madiba.venualpha.R;
-import com.example.madiba.venualpha.models.MdEventItem;
+import com.parse.ParseObject;
 import com.jaychang.srv.SimpleCell;
 import com.jaychang.srv.SimpleViewHolder;
 import com.jaychang.srv.Updatable;
 import com.stfalcon.multiimageview.MultiImageView;
 
-public class CategoryCell extends SimpleCell<MdEventItem, CategoryCell.ViewHolder>
-  implements Updatable<MdEventItem> {
+public class CategoryCell extends SimpleCell<ParseObject, CategoryCell.ViewHolder>
+  implements Updatable<ParseObject> {
 
   private static final String KEY_TITLE = "KEY_TITLE";
   private boolean showHandle;
 
-  public CategoryCell(MdEventItem item) {
+  public CategoryCell(ParseObject item) {
     super(item);
   }
 
@@ -39,12 +39,12 @@ public class CategoryCell extends SimpleCell<MdEventItem, CategoryCell.ViewHolde
   protected void onBindViewHolder(ViewHolder holder, int position, Context context, Object payload) {
 //    if (payload != null) {
 //      // payload from updateCell()
-//      if (payload instanceof MdEventItem) {
-//        holder.textView.setText(((MdEventItem) payload).getTitle());
+//      if (payload instanceof ParseObject) {
+//        holder.textView.setText(((ParseObject) payload).getTitle());
 //      }
 //      // payloads from updateCells()
 //      if (payload instanceof ArrayList) {
-//        List<MdEventItem> payloads = ((ArrayList<MdEventItem>) payload);
+//        List<ParseObject> payloads = ((ArrayList<ParseObject>) payload);
 //        holder.textView.setText(payloads.get(position).getTitle());
 //      }
 //      // payload from addOrUpdate()
@@ -68,7 +68,7 @@ public class CategoryCell extends SimpleCell<MdEventItem, CategoryCell.ViewHolde
 //    }
   }
   
-  private void BindView(ViewHolder holder,MdEventItem item){
+  private void BindView(ViewHolder holder,ParseObject item){
     holder.mName.setText("");
     holder.mDate.setText("");
     holder.mLastMessage.setText("");
@@ -76,7 +76,7 @@ public class CategoryCell extends SimpleCell<MdEventItem, CategoryCell.ViewHolde
 
   @Override
   protected long getItemId() {
-    return getItem().getObject().getObjectId().hashCode();
+    return getItem().getObjectId().hashCode();
   }
 
 
@@ -88,8 +88,8 @@ public class CategoryCell extends SimpleCell<MdEventItem, CategoryCell.ViewHolde
    * If the titles of books are same, no need to update the cell, onBindViewHolder() will not be called.
    */
   @Override
-  public boolean areContentsTheSame(MdEventItem newItem) {
-    return getItem().getObject().getObjectId().equals(newItem.getObject().getObjectId());
+  public boolean areContentsTheSame(ParseObject newItem) {
+    return getItem().getObjectId().equals(newItem.getObjectId());
   }
 
   /**
@@ -98,9 +98,9 @@ public class CategoryCell extends SimpleCell<MdEventItem, CategoryCell.ViewHolde
    * onBindViewHolder() will be called with this payload object.
    */
   @Override
-  public Object getChangePayload(MdEventItem newItem) {
+  public Object getChangePayload(ParseObject newItem) {
     Bundle bundle = new Bundle();
-    bundle.putString(KEY_TITLE, newItem.getTitle());
+    bundle.putString(KEY_TITLE, newItem.getString(""));
     return bundle;
   }
 

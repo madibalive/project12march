@@ -7,7 +7,6 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 
 import com.example.madiba.venualpha.R;
 import com.example.madiba.venualpha.models.MdEventItem;
@@ -16,8 +15,6 @@ import com.example.madiba.venualpha.ui.customviewpager.EnchantedViewPager;
 import java.util.List;
 
 import me.tatarka.rxloader.RxLoaderManager;
-
-import static android.R.attr.type;
 
 public class OtherEventFragment extends Fragment {
 
@@ -52,8 +49,8 @@ public class OtherEventFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_engaged, container, false);
-        mViewPager = (EnchantedViewPager) view.findViewById(R.id.homepage_card_view_pager);
+        View view = inflater.inflate(R.layout.fragment_onboard_add_details, container, false);
+        mViewPager = (EnchantedViewPager) view.findViewById(R.id.viewPager);
         return view;
     }
 

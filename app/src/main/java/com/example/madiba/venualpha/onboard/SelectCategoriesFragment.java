@@ -1,6 +1,8 @@
 package com.example.madiba.venualpha.onboard;
 
+import android.content.Context;
 import android.location.Address;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -45,6 +47,7 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 public class SelectCategoriesFragment extends Fragment {
+    public static final int index =4;
 
     private RecyclerView mRecyclerview;
     private CategoryAdapter mAdapter;
@@ -53,6 +56,8 @@ public class SelectCategoriesFragment extends Fragment {
     private PopupMenu popupMenu ;
     private EditText mLocation;
     private LatLng latLng;
+
+    private OnFragmentInteractionListener mListener;
 
     public SelectCategoriesFragment() {
     }
@@ -227,6 +232,36 @@ public class SelectCategoriesFragment extends Fragment {
         if (NetUtils.hasInternetConnection(getActivity().getApplicationContext())){
             initload();
         }
+    }
+
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(index,true);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(int index,Boolean aBoolean);
     }
 
 }

@@ -25,7 +25,7 @@
             <ImageButton
                 android:background="@android:color/transparent"
                 android:layout_alignParentRight="true"
-                android:id="@+id/event_page_favs"
+                android:id="@+id/overflow_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_overflow"
@@ -43,6 +43,7 @@
 
 
                 <Button
+                    android:id="@+id/add_memory_btn"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:text="add Images"
                     android:textAllCaps="false"
@@ -57,6 +58,7 @@
                     android:background="@color/light_grey_300" />
 
                 <Button
+                    android:id="@+id/edit_btn"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:text="edit"
                     android:textAllCaps="false"
@@ -70,10 +72,10 @@
                     android:layout_marginTop="10dp"
                     android:background="@color/light_grey_300" />
                 <Button
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
                     android:text="promote"
                     android:textAllCaps="false"
-                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    style="@style/Base.Widget.AppCompat.Button.Colored"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -86,47 +88,60 @@
             android:background="@color/light_grey_200"/>
 
 
-        <LinearLayout
-            android:padding="@dimen/padding_normal"
-            android:gravity="center_vertical"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <com.android.liuzhuang.rcimageview.RoundCornerImageView
 
-            <TextView
-                android:id="@+id/ev_date"
-                android:layout_width="60dp"
-                android:layout_height="80dp"
-                android:layout_marginEnd="6dp"
-                android:layout_marginRight="6dp"
-                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:contentDescription="sas"
+                app:rciv_radius="2dp"
+                android:src="@color/venu_flat_color" />
 
-                android:text="22\nDec"
-                android:textColor="@color/com_adobe_image_textcolor_light_gray_selector"
-                android:textSize="@dimen/app_text_size_large"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/ev_title"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:maxLines="4"
-                android:text=" in world  anytg resdsbeyond #sgatata \n Location East Adenta \n 9:20 pm"
-                android:textSize="@dimen/app_text_size_medium" />
+            <LinearLayout
+                android:background="@drawable/bg_main"
+                android:layout_gravity="bottom"
+                android:padding="@dimen/padding_normal"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
 
+                <TextView
+                    android:id="@+id/ev_date"
+                    android:layout_width="60dp"
+                    android:layout_height="80dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginRight="6dp"
+                    android:gravity="center"
+
+                    android:text="22\nDec"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/app_text_size_large"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/ev_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:maxLines="4"
+                    android:textColor="@color/white"
+                    android:text=" #sadasdasdasd \nin world  anytg resdsbeyond #sgatata \n Location East Adenta \n 9:20 pm"
+                    android:textSize="@dimen/app_text_size_medium" />
 
 
-        </LinearLayout>
 
-        <com.android.liuzhuang.rcimageview.RoundCornerImageView
 
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:contentDescription="sas"
-            app:rciv_radius="2dp"
-            android:src="@color/venu_flat_color" />
+            </LinearLayout>
+
+        </FrameLayout>
+
+
+
+
 
         <android.support.v7.widget.CardView
             android:padding="@dimen/dp_10"
@@ -138,113 +153,77 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
 
-                    <TextView
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:padding="@dimen/padding_normal"
-                        android:id="@+id/sad"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Overall Statistic"
-                        />
-                    <com.example.madiba.venualpha.ui.SeekArc
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginBottom="@dimen/dp_10"
-                        android:layout_marginRight="@dimen/dp_36"
-                        android:layout_below="@id/sad"
-                        android:id="@+id/goal_check"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="center"
-                        android:padding="20dp"
-                        app:progress="60"
-                        app:max="100"
-                        app:arcWidth="10dp"
-                        app:progressWidth="10dp"
-                        seekarc:rotation="180"
-                        app:enabled="false"
-                        app:roundEdges="true"
-                        seekarc:startAngle="30"
-                        seekarc:sweepAngle="360"
-                        seekarc:touchInside="true"/>
-
-
-                    <LinearLayout
-                        android:layout_alignTop="@id/goal_check"
-                        android:layout_toEndOf="@id/goal_check"
-                        android:layout_toRightOf="@id/goal_check"
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-
-                        <TextView
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:id="@+id/ev_overall_stars"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Total Comments\n123k"
-                            />
-                        <TextView
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:layout_marginTop="@dimen/padding_normal"
-                            android:id="@+id/ev_overall_comments"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Total Interests\n10,234k"
-                            />
-                    </LinearLayout>
-
-
-                </RelativeLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/light_grey_300"/>
-                <TextView
-                    android:padding="@dimen/padding_normal"
-                    android:id="@+id/overall_stat"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Daily Statistic"
-                    />
                 <LinearLayout
-                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:padding="@dimen/padding_normal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-
-                    <TextView
-                        android:gravity="center"
-                        android:id="@+id/ev_daily_stars"
-                        android:layout_width="wrap_content"
+                    <HorizontalScrollView
+                        android:id="@+id/attendees_container"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
                         android:layout_height="wrap_content"
-                        android:drawablePadding="@dimen/dp_4"
-                        android:layout_marginTop="@dimen/dp_10"
-                        android:drawableStart="@drawable/ic_star"
-                        android:drawableLeft="@drawable/ic_star"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:text="824k  " />
+                        android:scrollbars="none"
+                        android:requiresFadingEdge="horizontal"
+                        android:fadingEdgeLength="@dimen/padding_normal"
+                        >
+
+                        <LinearLayout
+                            android:id="@+id/attendees_layout"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:minHeight="50dp" >
 
 
-                    <TextView
-                        android:gravity="center"
-                        android:id="@+id/ev_daily_comments"
-                        android:layout_width="wrap_content"
+                        </LinearLayout>
+                    </HorizontalScrollView>
+                    <Button
+                        style="@style/Base.Widget.AppCompat.Button.Borderless"
+                        android:id="@+id/attendees_more"
+                        android:text="44 more"
+                        android:layout_width="0dp"
+                        android:textAllCaps="false"
                         android:layout_height="wrap_content"
-                        android:drawablePadding="@dimen/dp_4"
-                        android:layout_marginTop="@dimen/dp_10"
-                        android:drawableLeft="@drawable/ic_chat"
-                        android:drawableStart="@drawable/ic_chat"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:text="12m  " />
+                        android:layout_weight="1"/>
+
 
                 </LinearLayout>
+
+
+                <TextView
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:padding="@dimen/padding_normal"
+                    android:id="@+id/sad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Overall Statistic"
+                    />
+
+
+
+                <HorizontalScrollView
+                    android:id="@+id/stats_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:requiresFadingEdge="horizontal"
+                    android:fadingEdgeLength="@dimen/padding_normal"
+                    android:layout_marginBottom="@dimen/padding_normal">
+
+                    <LinearLayout
+                        android:id="@+id/stats_layout"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="150dp"
+                        android:minHeight="70dp" />
+                </HorizontalScrollView>
+
+
+
+
 
             </LinearLayout>
 

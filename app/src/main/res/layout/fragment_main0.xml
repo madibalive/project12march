@@ -1,0 +1,22 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--<com.example.madiba.venualpha.ui.refresh.RecyclerRefreshLayout-->
+        <!--android:id="@+id/refresh_layout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+        <com.jaychang.srv.SimpleRecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="2dp"
+            app:srv_showDivider="true"
+            app:srv_layoutMode="linearVertical"
+            app:srv_spacing="4dp" />
+
+    <!--</com.example.madiba.venualpha.ui.refresh.RecyclerRefreshLayout>-->
+
+</FrameLayout>

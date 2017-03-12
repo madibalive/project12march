@@ -182,6 +182,14 @@ public class SelectUsersDialogFragment extends DialogFragment {
             notifyDataSetChanged();
         }
 
+        public void checkAll(){
+
+        }
+
+        public void unCheckAll(){
+
+        }
+
         public Boolean getMode(){
             return selectionMode;
         }
@@ -201,8 +209,8 @@ public class SelectUsersDialogFragment extends DialogFragment {
                         Timber.d("onnext");
                         new Handler().postDelayed(() -> {
 
-                            if (value.size()>0)
-                                mAdapter.setNewData(value);
+//                            if (value.size()>0)
+//                                mAdapter.setNewData(value);
                         },500);
                     }
 

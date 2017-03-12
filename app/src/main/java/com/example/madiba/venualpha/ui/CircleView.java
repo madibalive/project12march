@@ -30,7 +30,7 @@ public class CircleView extends View {
             paint.setColor(Color.RED);
         }
 
-        tickDrawable = getResources().getDrawable(R.drawable.ic_tick_white);
+        tickDrawable = getResources().getDrawable(R.drawable.ic_add);
     }
 
     public void setColor(int color) {

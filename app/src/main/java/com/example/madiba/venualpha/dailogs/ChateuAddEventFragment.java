@@ -81,7 +81,7 @@ public class ChateuAddEventFragment extends BottomSheetDialogFragment {
         super.onViewCreated(view, savedInstanceState);
         loaderManager = RxLoaderManagerCompat.get(this);
 
-        mAdapter = new GoingAdapter(R.layout.contact_list_item,mDatas);
+        mAdapter = new GoingAdapter(R.layout.container_box_trend,mDatas);
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerview.setAdapter(mAdapter);
         mAdapter.setOnRecyclerViewItemClickListener((view1, i) -> openUserPage(i));

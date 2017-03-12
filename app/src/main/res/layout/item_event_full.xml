@@ -45,6 +45,10 @@
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
         android:layout_width="40dp"
         android:layout_height="40dp" />
-
+    <View
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@drawable/bg_main"/>
 
 </RelativeLayout>

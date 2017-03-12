@@ -134,6 +134,22 @@ public class GlobalConstants {
 
 
 
+    public static final int GALLERY_TYPE_DEFAULT= 0;
+    public static final int GALLERY_TYPE_CHALLANGE= 1;
+    public static final int GALLERY_TYPE_DISCOVER= 2;
+
+
+    public static final int USER_PROF_MEMORY= 0;
+    public static final int USER_PROF_EVENT= 1;
+
+
+
+ public static final int MEMEMORY_DEFAULT= 0;
+    public static final int MEMEMORY_LINK= 1;
+
+
+
+
 
 
 

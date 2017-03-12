@@ -24,8 +24,11 @@ public class StateImageView extends AppCompatImageView {
     private Drawable multiDrawable;
 
 
+    public void addImages(List<String > urls){
 
-    private void addImage(Bitmap bitmap ) {
+    }
+
+    public void addImage(Bitmap bitmap ) {
         bitmaps.add(bitmap);
         refresh();
     }

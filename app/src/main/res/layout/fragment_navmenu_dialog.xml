@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <FrameLayout
+        android:paddingRight="@dimen/padding_normal"
+        android:paddingLeft="@dimen/padding_normal"
+        android:layout_gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize" >
+
+        <ImageButton
+            android:foreground="?android:selectableItemBackground"
+            android:id="@+id/close"
+            android:layout_gravity="left|center_vertical"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageButton
+            android:foreground="?android:selectableItemBackground"
+            android:id="@+id/settings"
+            android:layout_gravity="right|center_vertical"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_unfold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </FrameLayout>
+
+
+    <RelativeLayout
+        android:padding="@dimen/padding_normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <com.android.liuzhuang.rcimageview.RoundCornerImageView
+            android:id="@+id/avatar"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@color/venu_yellow"
+            app:rciv_radius="@dimen/dp_4"/>
+
+        <TextView
+            android:text="Keven JayB\nScissors comes with handy extensions which help"
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/avatar"
+            android:layout_toEndOf="@+id/avatar"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp" />
+
+    </RelativeLayout>
+
+
+    <android.support.design.widget.TabLayout
+        style="@style/AppTheme.Toolbar"
+        android:id="@+id/tabs"
+        app:tabMode="fixed"
+        app:tabIndicatorHeight="0dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
+
+
+
+</LinearLayout>

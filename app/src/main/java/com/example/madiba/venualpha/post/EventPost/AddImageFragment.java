@@ -86,7 +86,7 @@ public class AddImageFragment extends Fragment {
 
         List<Integer> colorViews = new ArrayList<>();
         for (int i = 0, length = mainColors.length; i < length; i++) {
-            colorViews.add(colorView);
+//            colorViews.add(colorView);
         }
         ColorAdapter colorAdapter = new ColorAdapter(R.layout.item_person,colorViews);
         recyclerView.setAdapter(colorAdapter);
@@ -138,7 +138,7 @@ public class AddImageFragment extends Fragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+//            mListener.onFragmentInteraction(uri);
         }
     }
 

@@ -1,9 +1,7 @@
 package com.example.madiba.venualpha.eventpage;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.location.Address;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -21,7 +19,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -39,20 +36,14 @@ import com.example.madiba.venualpha.Actions.ActionMediaCheckIslike;
 import com.example.madiba.venualpha.NavigateTo;
 import com.example.madiba.venualpha.R;
 import com.example.madiba.venualpha.adapter.SingletonDataSource;
-import com.example.madiba.venualpha.dailogs.CommentActivityFragment;
 import com.example.madiba.venualpha.dailogs.EventReactionFragment;
 import com.example.madiba.venualpha.dailogs.RequestFragment;
-import com.example.madiba.venualpha.map.MapEnterLocationActivity;
 import com.example.madiba.venualpha.models.MdEventItem;
 import com.example.madiba.venualpha.models.MdMediaItem;
 import com.example.madiba.venualpha.models.MdUserItem;
 import com.example.madiba.venualpha.models.ModelEventFeature;
-import com.example.madiba.venualpha.services.GeneralService;
 import com.example.madiba.venualpha.ui.StateButton;
-import com.example.madiba.venualpha.ui.venubutton.AllAngleExpandableButton;
-import com.example.madiba.venualpha.ui.venubutton.ButtonEventListener;
 import com.example.madiba.venualpha.util.NetUtils;
-import com.example.madiba.venualpha.util.TimeUitls;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -74,13 +65,7 @@ import me.tatarka.rxloader.RxLoaderManagerCompat;
 import me.tatarka.rxloader.RxLoaderObserver;
 import timber.log.Timber;
 
-import static android.R.attr.data;
-import static android.R.id.list;
-import static android.os.Build.VERSION_CODES.M;
-import static com.example.madiba.venualpha.R.id.desc;
 import static com.example.madiba.venualpha.R.id.event_action_btn;
-import static com.example.madiba.venualpha.R.id.fab;
-import static com.example.madiba.venualpha.R.id.stateButton;
 
 public class WhiteEventPageActivity extends FragmentActivity {
     private static final String MAP_FRAGMENT_TAG = "map";
@@ -140,7 +125,6 @@ public class WhiteEventPageActivity extends FragmentActivity {
 
 
     private void initVariables(){
-        FloatingActionButton fab = (FloatingActionButton) findViewById(fab);
         mTitle = (TextView) findViewById(R.id.event_title);
         mFavBtn = (TextView) findViewById(R.id.event_trackin);
         mCmtBtn = (TextView) findViewById(R.id.event_cmts);
@@ -152,7 +136,7 @@ public class WhiteEventPageActivity extends FragmentActivity {
         mLocation = (TextView) findViewById(R.id.event_location_name);
         mDesc = (TextView) findViewById(R.id.event_desc);
         mMainImage= (ImageView) findViewById(R.id.main_image);
-        mMediaRcview = (RecyclerView) findViewById(R.id.recycler_no_frame);
+//        mMediaRcview = (RecyclerView) findViewById(R.id.recycler_no_frame);
         mActionBtn = (StateButton) findViewById(event_action_btn);
         mMoreBtn = (ImageButton) findViewById(R.id.event_more_btn);
         mFullScreenBtn = (ImageButton) findViewById(R.id.full_screen);
@@ -194,8 +178,8 @@ public class WhiteEventPageActivity extends FragmentActivity {
         mFavBtn.setText("");
 
         mCmtBtn.setOnClickListener(view -> {
-            DialogFragment newFragment = CommentActivityFragment.newInstance(dataItem.getParseId(),dataItem.getClassName(),true);
-            newFragment.show(getSupportFragmentManager(), "comment");
+//            DialogFragment newFragment = CommentActivityFragment.newInstance(dataItem.getParseId(),dataItem.getClassName(),true);
+//            newFragment.show(getSupportFragmentManager(), "comment");
         });
 
         mFavBtn.setOnClickListener(view -> {
@@ -412,7 +396,7 @@ public class WhiteEventPageActivity extends FragmentActivity {
 
         for (int i = 0; i < 5; i++) {
             ParseObject a=new ParseObject("");
-            mMediaDatas.add(a);
+//            mMediaDatas.add(a);
         }
 //
 //        final List<ButtonData> buttonDatas = new ArrayList<>();
@@ -436,7 +420,7 @@ public class WhiteEventPageActivity extends FragmentActivity {
 //        mGoingRcview.setHasFixedSize(true);
 //        mGoingRcview.setAdapter(mGoingAdapter);
 
-        mMediaAdapter=new EventMediaAdapter(R.layout.item_ontap,mMediaDatas);
+//        mMediaAdapter=new EventMediaAdapter(R.layout.item_ontap,mMediaDatas);
         mMediaRcview.setLayoutManager(new LinearLayoutManager(this));
         mMediaRcview.setHasFixedSize(true);
         mMediaRcview.setAdapter(mMediaAdapter);

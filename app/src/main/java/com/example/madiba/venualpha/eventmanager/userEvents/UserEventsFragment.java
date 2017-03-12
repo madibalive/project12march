@@ -7,9 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.PopupMenu;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -28,7 +26,6 @@ import java.util.List;
 import timber.log.Timber;
 
 public class UserEventsFragment extends Fragment {
-    PopupMenu popupMenu;
 
     private TextView mtitle,mdate,mLocation,mTime,mCategory,mTag,mOverallCommenst,mDailyCommenst,mOverallStars,mDailyStars;
     private Button btnAction;
@@ -186,22 +183,7 @@ public class UserEventsFragment extends Fragment {
 
 
 
-    private void showPopup(View view) {
-        popupMenu = new PopupMenu(getActivity(), view);
-        popupMenu.getMenu().add(Menu.NONE, 0, 0, "share");
-        popupMenu.getMenu().add(Menu.NONE, 1, 1, "delete");
 
-        popupMenu.setOnMenuItemClickListener(item -> {
-            if (item.getItemId() ==R.id.action_editt){
-
-            }else if (item.getItemId() == R.id.action_delete){
-
-            }
-            return false;
-        });
-
-        popupMenu.show();
-    }
 
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)

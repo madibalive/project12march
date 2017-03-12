@@ -45,7 +45,7 @@
         <ImageButton
             android:background="@drawable/post_event_icon"
             android:foreground="?android:selectableItemBackground"
-            android:src="@drawable/applozic_ic_action_camera"
+            android:src="@drawable/ic_videocam"
             android:alpha="0.8"
             android:id="@+id/pe_add_image"
             android:layout_marginRight="@dimen/dp_22"

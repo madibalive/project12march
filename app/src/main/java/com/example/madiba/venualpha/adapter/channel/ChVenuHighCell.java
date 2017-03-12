@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.liuzhuang.rcimageview.RoundCornerImageView;
@@ -70,7 +69,7 @@ public class ChVenuHighCell extends SimpleCell<MConversationItem, ChVenuHighCell
   }
   
   private void BindView(ViewHolder holder,MConversationItem item){
-    holder.mName.setText("");
+//    holder.mName.setText("");
     holder.mTitle.setText("");
   }
 

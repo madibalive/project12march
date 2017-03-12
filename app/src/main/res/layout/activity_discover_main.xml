@@ -54,18 +54,13 @@
                 android:minHeight="70dp" />
         </HorizontalScrollView>
 
-        <com.example.madiba.venualpha.ui.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
-            android:id="@+id/hicvp"
+        <com.example.madiba.venualpha.ui.customviewpager.EnchantedViewPager
+            android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="280dp"
-            app:icvp_interpolator="@android:anim/accelerate_decelerate_interpolator"
-            app:icvp_scroll_duration="250"
-            app:icvp_center_page_scale_offset="30dp"
-            app:icvp_min_page_scale_offset="5dp"
-            app:icvp_max_page_scale="0.8"
             android:background="@color/text_black"
-            app:icvp_min_page_scale="0.55"
-            app:icvp_medium_scaled="false"/>
+            android:layout_height="280dp">
+
+        </com.example.madiba.venualpha.ui.customviewpager.EnchantedViewPager>
 
         <org.lucasr.twowayview.widget.TwoWayView
             android:id="@+id/base_twoway_view"

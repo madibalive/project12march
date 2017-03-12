@@ -42,7 +42,7 @@ public class EngagedPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(final ViewGroup container, final int position) {
         final View view;
-        view = mLayoutInflater.inflate(R.layout.item, container, false);
+        view = mLayoutInflater.inflate(R.layout.item_event_full, container, false);
         setupItem(view, datas.get(position));
         container.addView(view);
         return view;

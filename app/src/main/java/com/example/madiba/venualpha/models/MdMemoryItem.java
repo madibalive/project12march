@@ -15,12 +15,15 @@ public class MdMemoryItem {
     static final int TYPE_SINGLE=1;
 
     String parseId  ;
-    public String hashTag ;
-    public String dateToString ;
+     String hashTag ;
+     String dateToString ;
+     String lastHashtag ;
 
     int  memberCount;
     int mediaCount;
     int views;
+    int  comments;
+
 
     public Date date ;
 
@@ -30,6 +33,14 @@ public class MdMemoryItem {
     List<MdMediaItem> mediaItems;
     List<MdUserItem> memberList;
     ArrayList<String> memberListToString= new ArrayList<>();
+    ArrayList<String> memberIdlIst= new ArrayList<>();
+
+    MdUserItem sharedBy;
+    Boolean isShared=false;
+    Boolean extraAvailable=false;
+    String extraInfo;
+
+    Boolean status;
 
     int type = 0;
 
@@ -148,5 +159,69 @@ public class MdMemoryItem {
 
     public void setMemberListToString(ArrayList<String> memberListToString) {
         this.memberListToString = memberListToString;
+    }
+
+    public MdUserItem getSharedBy() {
+        return sharedBy;
+    }
+
+    public void setSharedBy(MdUserItem sharedBy) {
+        this.sharedBy = sharedBy;
+    }
+
+    public Boolean getShared() {
+        return isShared;
+    }
+
+    public void setShared(Boolean shared) {
+        isShared = shared;
+    }
+
+    public Boolean getExtraAvailable() {
+        return extraAvailable;
+    }
+
+    public void setExtraAvailable(Boolean extraAvailable) {
+        this.extraAvailable = extraAvailable;
+    }
+
+    public String getExtraInfo() {
+        return extraInfo;
+    }
+
+    public void setExtraInfo(String extraInfo) {
+        this.extraInfo = extraInfo;
+    }
+
+    public String getLastHashtag() {
+        return lastHashtag;
+    }
+
+    public void setLastHashtag(String lastHashtag) {
+        this.lastHashtag = lastHashtag;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public int getComments() {
+        return comments;
+    }
+
+    public void setComments(int comments) {
+        this.comments = comments;
+    }
+
+    public ArrayList<String> getMemberIdlIst() {
+        return memberIdlIst;
+    }
+
+    public void setMemberIdlIst(ArrayList<String> memberIdlIst) {
+        this.memberIdlIst = memberIdlIst;
     }
 }

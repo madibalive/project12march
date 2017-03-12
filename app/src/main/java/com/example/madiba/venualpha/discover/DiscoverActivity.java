@@ -12,11 +12,9 @@ import android.widget.LinearLayout;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.madiba.venualpha.R;
-import com.example.madiba.venualpha.eventmanager.other.OtherPagerAdapter;
 import com.example.madiba.venualpha.models.MdEventItem;
 import com.example.madiba.venualpha.models.MdMediaItem;
 import com.example.madiba.venualpha.ui.customviewpager.EnchantedViewPager;
-import com.example.madiba.venualpha.ui.infinitecycleviewpager.HorizontalInfiniteCycleViewPager;
 
 import org.lucasr.twowayview.widget.SpannableGridLayoutManager;
 import org.lucasr.twowayview.widget.TwoWayView;
@@ -42,13 +40,13 @@ public class DiscoverActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discover_main);
-        mViewPager = (EnchantedViewPager) findViewById(R.id.homepage_card_view_pager);
+        mViewPager = (EnchantedViewPager) findViewById(R.id.viewPager);
     }
 
     private void setupEvents(List<MdEventItem> data) {
 
-        final ExploreEventsPagerAdapter adapter = new ExploreEventsPagerAdapter(, data);
-        mViewPager.setAdapter(adapter);
+//        final ExploreEventsPagerAdapter adapter = new ExploreEventsPagerAdapter( data);
+//        mViewPager.setAdapter(adapter);
         mViewPager.useAlpha();
         mViewPager.useScale();
     }
@@ -66,7 +64,7 @@ public class DiscoverActivity extends Activity {
 
             for (final String feature : CATEGORY_DATA) {
                 ImageView chipView = (ImageView) inflater.inflate(
-                        R.layout.draw_layout, mCategoriesLayout, false);
+                        R.layout.item_channel, mCategoriesLayout, false);
 //                chipView.setText(feature.getTitle());
 //                chipView.setContentDescription(feature.getTitle());
 //                chipView.setOnClickListener(new View.OnClickListener() {

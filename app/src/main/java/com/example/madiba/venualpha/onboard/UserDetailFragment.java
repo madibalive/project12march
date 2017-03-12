@@ -1,7 +1,7 @@
 package com.example.madiba.venualpha.onboard;
 
-import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -31,7 +31,6 @@ import com.example.madiba.venualpha.Actions.ActionDate;
 import com.example.madiba.venualpha.R;
 import com.example.madiba.venualpha.map.TaskGetLocationByName;
 import com.example.madiba.venualpha.ui.StateButton;
-import com.example.madiba.venualpha.ui.cropper.CropImage;
 import com.example.madiba.venualpha.util.ImageUitls;
 import com.example.madiba.venualpha.util.NetUtils;
 import com.example.madiba.venualpha.util.SelectDateFragment;
@@ -53,10 +52,11 @@ import java.util.concurrent.Callable;
 
 import timber.log.Timber;
 
-import static android.app.Activity.RESULT_OK;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class UserDetailFragment extends Fragment {
+    public static final int index =2;
+
     public static final List<String> DATA = Arrays.asList("Male","Female");
     StateButton proceed;
     private ProgressDialog progress;
@@ -70,6 +70,8 @@ public class UserDetailFragment extends Fragment {
     private PopupMenu popupMenu ;
     private ImageButton mSearchBtn;
     private FloatingActionButton fab;
+
+    private OnFragmentInteractionListener mListener;
 
     public UserDetailFragment() {
     }
@@ -142,8 +144,7 @@ public class UserDetailFragment extends Fragment {
 
 
     private void startCropImageActivity(Uri imageUri) {
-        CropImage.activity(imageUri)
-                .start(getContext(), this);
+
     }
 
 
@@ -179,7 +180,7 @@ public class UserDetailFragment extends Fragment {
     }
 
     public void onSelectImageClick() {
-        CropImage.startPickImageActivity(getActivity());
+
     }
 
 
@@ -255,28 +256,8 @@ public class UserDetailFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE && resultCode == RESULT_OK) {
-            Uri imageUri = CropImage.getPickImageResultUri(getActivity(), data);
 
-            // For API >= 23 we need to check specifically that we have permissions to read external storage.
-            if (CropImage.isReadExternalStoragePermissionsRequired(getActivity(), imageUri)) {
-                // request permissions and handle the result in onRequestPermissionsResult()
-                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},   CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE);
-            } else {
-                // no permissions required or already grunted, can start crop image activity
-                startCropImageActivity(imageUri);
-            }
-        }
 
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if (resultCode == RESULT_OK) {
-                Uri resultUri = result.getUri();
-                addAvatar(resultUri);
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                Exception error = result.getError();
-            }
-        }
     }
 
 
@@ -301,6 +282,37 @@ public class UserDetailFragment extends Fragment {
         EventBus.getDefault().unregister(this);
         super.onStop();
 
+    }
+
+
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(index,false);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(int index,Boolean aBoolean);
     }
 
 

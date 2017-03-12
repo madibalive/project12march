@@ -1,6 +1,5 @@
 package com.example.madiba.venualpha.chateu;
 
-import com.example.madiba.venualpha.Actions.ActionMediaCheckIslike;
 import com.example.madiba.venualpha.models.GlobalConstants;
 import com.example.madiba.venualpha.models.ModelEventGoingContainer;
 import com.jaychang.srv.SimpleCell;
@@ -9,8 +8,6 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -131,7 +128,7 @@ public class LoaderChateu {
                     query.orderByAscending("createdAt");
                     List<ParseObject>  data = new ArrayList<>();
                     data = query.find();
-                    data.add(a);data.add(b);
+//                    data.add(a);data.add(b);
 
                     //check status and return fetch event
                     ParseQuery queryR = ParseQuery.getQuery(GlobalConstants.CLASS_USER_RELATION);
@@ -141,11 +138,11 @@ public class LoaderChateu {
                         ParseRelation<ParseObject> relationLikes = relation.getRelation("likes");
                         List<ParseObject> likes= relationLikes.getQuery().find();
 
-                        if (likes.contains(obj)){
-                            EventBus.getDefault().post(new ActionMediaCheckIslike(true));
-                        }else {
-                            EventBus.getDefault().post(new ActionMediaCheckIslike(false));
-                        }
+//                        if (likes.contains(obj)){
+//                            EventBus.getDefault().post(new ActionMediaCheckIslike(true));
+//                        }else {
+//                            EventBus.getDefault().post(new ActionMediaCheckIslike(false));
+//                        }
                     }
 
                     Timber.d("connecting");

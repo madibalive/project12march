@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -24,8 +23,6 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.madiba.venualpha.R.attr.selectedColor;
 
 
 public class CreateGossipSheet extends BottomSheetDialogFragment {
@@ -64,7 +61,7 @@ public class CreateGossipSheet extends BottomSheetDialogFragment {
 
         List<Integer> colorViews = new ArrayList<>();
         for (int i = 0, length = mainColors.length; i < length; i++) {
-            colorViews.add(colorView);
+//            colorViews.add(colorView);
         }
         ColorAdapter colorAdapter = new ColorAdapter(R.layout.item_person,colorViews);
         recyclerView.setAdapter(colorAdapter);

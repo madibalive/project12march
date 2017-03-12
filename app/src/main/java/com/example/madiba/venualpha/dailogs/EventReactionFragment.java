@@ -155,6 +155,7 @@ public class EventReactionFragment extends DialogFragment {
 
 
         tickeformat = String.format("%s x %s \n %s \n %s", price,"","event title ",mTicketprice.getText().toString());
+        return tickeformat;
     }
 
 

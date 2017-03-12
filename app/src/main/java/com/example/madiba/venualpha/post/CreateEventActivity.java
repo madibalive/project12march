@@ -1,6 +1,5 @@
 package com.example.madiba.venualpha.post;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -17,7 +16,7 @@ public class CreateEventActivity extends AppCompatActivity implements AddImageFr
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_event);
+        setContentView(R.layout.activity_main_profile);
     }
 
     private void init(){
@@ -32,7 +31,7 @@ public class CreateEventActivity extends AppCompatActivity implements AddImageFr
 
     @Override
     public void onFragmentInteraction(int page, String url) {
-        Fragment frg = AddDetailsFragment.newInstance(url);
+        Fragment frg = AddDetailsFragment.newInstance(url,"");
         swap(frg,page);
     }
 

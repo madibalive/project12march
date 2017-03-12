@@ -43,6 +43,12 @@ public class MdEventItem {
     Boolean active =false;
     int evPrice = 0;
 
+    MdUserItem sharedBy;
+    Boolean isShared=false;
+    Boolean extraAvailable=false;
+    String extraInfo;
+
+
     public MdEventItem() {
     }
 
@@ -229,5 +235,37 @@ public class MdEventItem {
 
     public void setEvPrice(int evPrice) {
         this.evPrice = evPrice;
+    }
+
+    public MdUserItem getSharedBy() {
+        return sharedBy;
+    }
+
+    public void setSharedBy(MdUserItem sharedBy) {
+        this.sharedBy = sharedBy;
+    }
+
+    public Boolean getShared() {
+        return isShared;
+    }
+
+    public void setShared(Boolean shared) {
+        isShared = shared;
+    }
+
+    public Boolean getExtraAvailable() {
+        return extraAvailable;
+    }
+
+    public void setExtraAvailable(Boolean extraAvailable) {
+        this.extraAvailable = extraAvailable;
+    }
+
+    public String getExtraInfo() {
+        return extraInfo;
+    }
+
+    public void setExtraInfo(String extraInfo) {
+        this.extraInfo = extraInfo;
     }
 }

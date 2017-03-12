@@ -16,8 +16,8 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textStyle="bold" />
 
-    <com.android.liuzhuang.rcimageview.CircleImageView
-        android:id="@+id/challange_avatar"
+    <com.android.liuzhuang.rcimageview.RoundCornerImageView
+        android:id="@+id/avatar"
         android:layout_width="48dp"
         android:layout_marginRight="@dimen/dp_10"
         android:layout_height="48dp"

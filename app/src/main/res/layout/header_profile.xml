@@ -1,224 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v7.widget.CardView
+<RelativeLayout android:id="@+id/activity_main"
+    android:layout_marginBottom="10dp"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout
+        android:paddingLeft="@dimen/padding_normal"
+        android:paddingRight="@dimen/padding_normal"
+        android:paddingBottom="@dimen/padding_normal"
+        android:id="@+id/user_prof_image"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="250dp">
+
+        <com.android.liuzhuang.rcimageview.RoundCornerImageView
+            app:rciv_radius="@dimen/dp_4"
+            android:layout_gravity="center"
+            android:src="@color/venu_orange"
+            android:id="@+id/onboard_avatar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:background="@color/accentTransparent"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/dp_22"
+            android:gravity="bottom"
+            android:id="@+id/user_prof_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/user_prof_image"
+            android:layout_marginLeft="28dp"
+            android:layout_toRightOf="@+id/user_prof_image"
+            android:layout_alignBottom="@id/user_prof_image"
+            android:text="Essie Asantey"
+            style="@style/veneProfileName"
+            android:textColor="@color/white"
+            />
+
+    </FrameLayout>
+
     <LinearLayout
-        android:orientation="vertical"
-        android:id="@+id/activity_main"
+        android:id="@+id/user_prof_stat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        >
+        android:layout_below="@id/user_prof_image"
+        android:orientation="vertical">
 
-
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-
-            <com.android.liuzhuang.rcimageview.RoundCornerImageView
-                android:id="@+id/user_prof_image"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:scaleType="centerCrop"
-                android:src="@android:color/holo_orange_dark" />
-            <LinearLayout
-                android:padding="@dimen/padding_normal"
-                android:gravity="bottom"
-                android:layout_width="match_parent"
+            <View
+                android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#aa424242" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/user_prof_name"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:id="@+id/user_prof_following"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Essie Asantey"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                    />
-
-
-                <com.venu.venutheta.ui.StateButton
-                    android:id="@+id/user_prof_follow_btn"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:gravity="center"
-                    android:minHeight="20dp"
-                    android:text="Follow"
-                    app:sradius="2dp"
-                    android:layout_width="wrap_content"
+                    android:text="1782"
+                    android:textColor="#880E4F"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:normalBackgroundColor="@color/white"
-                    app:normalStrokeColor="@color/venu_flat_color"
-                    app:normalStrokeWidth="2dp"
-                    android:textSize="@dimen/app_text_size_small"
-                    app:normalTextColor="@color/mid_grey_200"
-                    app:pressedBackgroundColor="@color/venu_flat_color"
-                    app:pressedTextColor="@android:color/white"
-                    app:animationDuration="200"
-                    />
-
-
-                <com.venu.venutheta.ui.StateButton
+                    android:layout_marginTop="2dp"
                     android:gravity="center"
-                    android:minHeight="20dp"
-                    android:minWidth="40dp"
-                    app:sradius="2dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:normalBackgroundColor="@color/white"
-                    app:normalStrokeColor="@color/venu_flat_color"
-                    app:normalStrokeWidth="2dp"
+                    android:text="Followers"
                     android:textSize="@dimen/app_text_size_small"
-                    app:normalTextColor="@color/mid_grey_200"
-                    app:pressedBackgroundColor="@color/venu_flat_color"
-                    app:pressedTextColor="@android:color/white"
-                    app:animationDuration="200"
-                    />
 
+                    android:textColor="#66424242" />
             </LinearLayout>
-        </FrameLayout>
 
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#aa424242" />
 
             <LinearLayout
-                android:visibility="gone"
-                android:padding="@dimen/padding_normal"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/user_prof_follower"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:gravity="center"
+                    android:text="1782"
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="9096"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="#880E4F"
-                        android:textStyle="bold" />
+                    android:textColor="#880E4F"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:gravity="center"
-                        android:text="Peeps"
-                        android:textColor="#66424242"
-                        android:textSize="@dimen/app_text_size_small" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:background="#aa424242" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
+                <TextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/user_prof_peeps_cnt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="9096"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="#880E4F"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:gravity="center"
-                        android:text="Peeps"
-                        android:textColor="#66424242"
-                        android:textSize="@dimen/app_text_size_small" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:background="#aa424242" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/user_prof_following_cnt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="2"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="#880E4F"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:gravity="center"
-                        android:text="event"
-                        android:textColor="#66424242"
-                        android:textSize="@dimen/app_text_size_small" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:background="#aa424242" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/user_prof_following"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="1782"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="#880E4F"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:gravity="center"
-                        android:text="Fans"
-                        android:textColor="#66424242"
-                        android:textSize="@dimen/app_text_size_small" />
-                </LinearLayout>
-
-
+                    android:layout_marginTop="2dp"
+                    android:gravity="center"
+                    android:text="Followers"
+                    android:textSize="@dimen/app_text_size_small"
+                    android:textColor="#66424242" />
             </LinearLayout>
 
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#aa424242" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/user_prof_follower"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:gravity="center"
+                    android:text="1782"
+
+                    android:textColor="#880E4F"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:gravity="center"
+                    android:text="Followers"
+                    android:textSize="@dimen/app_text_size_small"
+                    android:textColor="#66424242" />
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#aa424242" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/user_prof_follower"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:gravity="center"
+                    android:text="1782"
+
+                    android:textColor="#880E4F"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:gravity="center"
+                    android:text="Followers"
+                    android:textSize="@dimen/app_text_size_small"
+                    android:textColor="#66424242" />
+            </LinearLayout>
         </LinearLayout>
 
+    </LinearLayout>
 
 
-</android.support.v7.widget.CardView>
-
-
+</RelativeLayout>

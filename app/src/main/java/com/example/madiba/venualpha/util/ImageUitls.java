@@ -29,8 +29,6 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.webkit.MimeTypeMap;
 
-import com.example.madiba.venualpha.R;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -268,8 +266,8 @@ public class ImageUitls {
     }
 
 
-    public static Bitmap overlayPlay(Bitmap bmp1, Context context) {
-        Bitmap bmp2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.applozic_video_play_icon, null);
+    public static Bitmap overlayPlay(Bitmap bmp1, Context context,int resId) {
+        Bitmap bmp2 = BitmapFactory.decodeResource(context.getResources(), resId, null);
 
         Bitmap bmOverlay = Bitmap.createBitmap( bmp1.getWidth(), bmp1.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas2 = new Canvas(bmOverlay);

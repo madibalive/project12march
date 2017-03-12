@@ -64,7 +64,7 @@ public class ContactActivity extends AppCompatActivity {
         mSearchView.setIconified(false);
         mSearchView.setIconifiedByDefault(false);
         mSearchView.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
-        mSearchView.setQueryHint(getString(R.string.search_hint));
+//        mSearchView.setQueryHint(getString(R.string.search_hint));
         mSearchView.setImeOptions(mSearchView.getImeOptions() | EditorInfo.IME_ACTION_SEARCH |
                 EditorInfo.IME_FLAG_NO_EXTRACT_UI | EditorInfo.IME_FLAG_NO_FULLSCREEN);
 

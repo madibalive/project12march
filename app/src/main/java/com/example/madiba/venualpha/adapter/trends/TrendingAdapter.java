@@ -1,16 +1,13 @@
 package com.example.madiba.venualpha.adapter.trends;
 
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.madiba.venualpha.R;
-import com.example.madiba.venualpha.adapter.HashTagsAdapter;
 import com.example.madiba.venualpha.models.TrendingModel;
 import com.parse.ParseObject;
 
@@ -28,17 +25,13 @@ public class TrendingAdapter extends BaseQuickAdapter<TrendingModel> {
     @Override
     protected int getDefItemViewType(int position) {
 
-        if (getItem(position).getType() == TrendingModel.TRENDING)
-            return TrendingModel.TRENDING;
-
-        else if (getItem(position).getType() == TrendingModel.LIVE_NOW)
+        
+         if (getItem(position).getType() == TrendingModel.LIVE_NOW)
             return TrendingModel.LIVE_NOW;
 
-        else if (getItem(position).getType() == TrendingModel.GOSSIP)
-            return TrendingModel.GOSSIP;
+        else if (getItem(position).getType() == TrendingModel.TRENDING)
+            return TrendingModel.TRENDING;
 
-        else if (getItem(position).getType() == TrendingModel.MEDIA)
-            return TrendingModel.MEDIA;
         else
             return super.getDefItemViewType(position);
     }
@@ -46,13 +39,9 @@ public class TrendingAdapter extends BaseQuickAdapter<TrendingModel> {
     @Override
     protected BaseViewHolder onCreateDefViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TrendingModel.TRENDING)
-            return new HashTagsViewHolder(getItemView(R.layout.container_box_trend, parent));
+            return new TrendingViewHolder(getItemView(R.layout.container_box, parent));
         else if (viewType == TrendingModel.LIVE_NOW)
             return new LiveNowViewHolder(getItemView(R.layout.container_box_trend, parent));
-        else if (viewType == TrendingModel.GOSSIP)
-            return new TopGossipViewHolder(getItemView(R.layout.container_box_trend, parent));
-        else if (viewType == TrendingModel.MEDIA)
-            return new TopMediaMediaPost(getItemView(R.layout.container_box_trend, parent));
         else
             return super.onCreateDefViewHolder(parent, viewType);
     }
@@ -89,30 +78,17 @@ public class TrendingAdapter extends BaseQuickAdapter<TrendingModel> {
 
         }
 
-        else if (holder instanceof TopGossipViewHolder) {
-            RecyclerView rview = ((TopGossipViewHolder) holder).getView(R.id.box_recyclerview);
-            TextView title = ((TopGossipViewHolder) holder).getView(R.id.box_title);
-            title.setText("Trending Gossips");
-            HashTagsAdapter mAdapter = new HashTagsAdapter(R.layout.item_gossip_small, data);
-            rview.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
-            rview.setAdapter(mAdapter);
-            mAdapter.setOnRecyclerViewItemClickListener((view, i) -> {
-//                NavigateTo.goToGossip(mContext,mAdapter.getItem(i).getInt("chat_id"));
-            });
-        }
-
-        else if (holder instanceof TopMediaMediaPost) {
-            RecyclerView rview = ((TopMediaMediaPost) holder).getView(R.id.box_recyclerview);
-            TextView title = ((TopMediaMediaPost) holder).getView(R.id.box_title);
-            title.setText("Trending Gossips");
-            TrendMediaAdapter mAdapter = new TrendMediaAdapter(R.layout.item_gallery, data);
-            GridLayoutManager layMng = new GridLayoutManager(mContext, 3);
-            rview.setLayoutManager(layMng);
-            rview.setAdapter(mAdapter);
-            mAdapter.setOnRecyclerViewItemClickListener((view, i) -> {
-//                SingletonDataSource.getInstance().setCurrentEvent(mAdapter.getItem(i));
-//                NavigateTo.goToEventPage(mContext,mAdapter.getItem(i).getObjectId(),mAdapter.getItem(i).getClassName());
-            });
+        else if (holder instanceof TrendingViewHolder) {
+            RecyclerView rview = ((TrendingViewHolder) holder).getView(R.id.box_recyclerview);
+           
+//            MemoryAdapter mAdapter = new MemoryAdapter(R.layout.item_gallery, data);
+//            StaggeredGridLayoutManager layMng = new StaggeredGridLayoutManager(3,1); // TODO: 3/10/2017 staggered grid layout
+//            rview.setLayoutManager(layMng);
+//            rview.setAdapter(mAdapter);
+//            mAdapter.setOnRecyclerViewItemClickListener((view, i) -> {
+////                SingletonDataSource.getInstance().setCurrentEvent(mAdapter.getItem(i));
+////                NavigateTo.goToEventPage(mContext,mAdapter.getItem(i).getObjectId(),mAdapter.getItem(i).getClassName());
+//            });
         }
 
         super.onBindViewHolder(holder, position, payloads);
@@ -129,22 +105,12 @@ public class TrendingAdapter extends BaseQuickAdapter<TrendingModel> {
         }
     }
 
-    private class TopMediaMediaPost extends BaseViewHolder {
-        public TopMediaMediaPost(View itemView) {
+    private class TrendingViewHolder extends BaseViewHolder {
+        public TrendingViewHolder(View itemView) {
             super(itemView);
         }
     }
 
-    private class HashTagsViewHolder extends BaseViewHolder {
-        public HashTagsViewHolder(View itemView) {
-            super(itemView);
-        }
-    }
-    private class TopGossipViewHolder extends BaseViewHolder {
-        public TopGossipViewHolder(View itemView) {
-            super(itemView);
-        }
-    }
-
+   
 
 }

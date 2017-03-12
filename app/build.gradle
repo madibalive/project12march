@@ -13,9 +13,10 @@ android {
         renderscriptTargetApi 24
         renderscriptSupportModeEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+
         buildConfigField("boolean", "SHOW_VARIANT", "false")
         manifestPlaceholders = [HOCKEYAPP_APP_ID: "27bb5271709a451fa32b2b5a9fd5cef6", facebookId: "881732875296568", appPackageName: "1836e88cc87844ce8cbbc5dfa7782e9f"]
-
         def addConstant = { constantName, constantValue ->
             buildConfigField "String", "${constantName}", "\"${constantValue}\""
         }
@@ -107,7 +108,6 @@ dependencies {
     compile 'org.lucasr.twowayview:core:1.0.0-SNAPSHOT@aar'
     compile 'org.lucasr.twowayview:layouts:1.0.0-SNAPSHOT@aar'
     compile 'com.github.greenfrvr:hashtag-view:1.2.1'
-    compile 'com.applozic.communication.uiwidget:mobicomkitui:4.61'
     compile 'pub.devrel:easypermissions:0.2.0'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.wonderkiln:blurkit:1.0.0'

@@ -21,6 +21,11 @@ public class MdGossip {
     public Date date = null;
     public String dateToString;
     MdUserItem userItem;
+    MdUserItem sharedBy;
+    Boolean isShared=false;
+    Boolean extraAvailable=false;
+    String extraInfo;
+
 
 
     public MdGossip() {
@@ -104,5 +109,37 @@ public class MdGossip {
 
     public void setUserItem(MdUserItem userItem) {
         this.userItem = userItem;
+    }
+
+    public String getExtraInfo() {
+        return extraInfo;
+    }
+
+    public void setExtraInfo(String extraInfo) {
+        this.extraInfo = extraInfo;
+    }
+
+    public MdUserItem getSharedBy() {
+        return sharedBy;
+    }
+
+    public void setSharedBy(MdUserItem sharedBy) {
+        this.sharedBy = sharedBy;
+    }
+
+    public Boolean getShared() {
+        return isShared;
+    }
+
+    public void setShared(Boolean shared) {
+        isShared = shared;
+    }
+
+    public Boolean getExtraAvailable() {
+        return extraAvailable;
+    }
+
+    public void setExtraAvailable(Boolean extraAvailable) {
+        this.extraAvailable = extraAvailable;
     }
 }
