@@ -7,12 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.liuzhuang.rcimageview.RoundCornerImageView;
 import com.example.madiba.venualpha.R;
-import com.parse.ParseObject;
+import com.example.madiba.venualpha.ui.stateimageview.StateImageView;
 import com.jaychang.srv.SimpleCell;
 import com.jaychang.srv.SimpleViewHolder;
 import com.jaychang.srv.Updatable;
-import com.stfalcon.multiimageview.MultiImageView;
+import com.parse.ParseObject;
 
 public class ChateuTextMsgCell extends SimpleCell<ParseObject, ChateuTextMsgCell.ViewHolder>
   implements Updatable<ParseObject> {
@@ -76,7 +77,8 @@ public class ChateuTextMsgCell extends SimpleCell<ParseObject, ChateuTextMsgCell
 
   @Override
   protected long getItemId() {
-    return getItem().getObjectId().hashCode();
+//    return getItem().getObjectId().hashCode();
+    return 0;
   }
 
 
@@ -89,7 +91,8 @@ public class ChateuTextMsgCell extends SimpleCell<ParseObject, ChateuTextMsgCell
    */
   @Override
   public boolean areContentsTheSame(ParseObject newItem) {
-    return getItem().getObjectId().equals(newItem.getObjectId());
+//    return getItem().getObjectId().equals(newItem.getObjectId());
+    return false;
   }
 
   /**
@@ -100,17 +103,17 @@ public class ChateuTextMsgCell extends SimpleCell<ParseObject, ChateuTextMsgCell
   @Override
   public Object getChangePayload(ParseObject newItem) {
     Bundle bundle = new Bundle();
-    bundle.putString(KEY_TITLE, newItem.getString(""));
+    bundle.putString(KEY_TITLE,"");
     return bundle;
   }
 
   static class ViewHolder extends SimpleViewHolder {
     TextView mName,mDate,mLastMessage;
-    MultiImageView mAvatar;
+    RoundCornerImageView mAvatar;
 
     ViewHolder(View itemView) {
       super(itemView);
-      mAvatar = (MultiImageView) itemView.findViewById(R.id.avatar);
+      mAvatar = (RoundCornerImageView) itemView.findViewById(R.id.avatar);
       mName = (TextView) itemView.findViewById(R.id.name);
       mLastMessage = (TextView) itemView.findViewById(R.id.last_message);
       mDate = (TextView) itemView.findViewById(R.id.date);

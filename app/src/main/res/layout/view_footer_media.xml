@@ -1,69 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     android:id="@+id/md_bottom_bar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@drawable/bg_main"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+    android:backgroundTint="@color/black"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="@dimen/padding_normal"
+    android:background="@drawable/fade_to_white"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <TextView
-        android:id="@+id/md_hashtag"
-        android:layout_width="match_parent"
+        android:id="@+id/hashtag"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:text="#HashTagProftas sadasasdadad"
-        style="@style/veneTitleText"
-        android:padding="10dp"
-        android:textSize="@dimen/app_text_size_large"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
         />
 
     <TextView
-        android:layout_below="@id/md_hashtag"
+        android:layout_below="@id/hashtag"
         android:foregroundGravity=""
         android:textStyle="bold"
         android:drawablePadding="@dimen/dp_4"
         android:drawableLeft="@drawable/ic_heart"
-        android:padding="10dp"
-        android:id="@+id/md_cnt"
+        android:layout_marginRight="@dimen/padding_normal"
+        android:id="@+id/reaction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="12" />
-
-    <TextView
-        android:foregroundGravity=""
-        android:textStyle="bold"
-        android:drawablePadding="@dimen/dp_4"
-        android:drawableLeft="@drawable/ic_return"
-        android:padding="10dp"
-        android:layout_toRightOf="@id/md_cnt"
-        android:layout_alignTop="@id/md_cnt"
-        android:id="@+id/md_share"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="12" />
-
-
 
     <TextView
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/md_cnt"
+        android:layout_alignTop="@id/reaction"
         android:textStyle="bold"
         android:drawablePadding="@dimen/dp_4"
-        android:drawableLeft="@drawable/ic_chat_2"
-        android:padding="10dp"
-        android:id="@+id/md_comment"
+        android:drawableLeft="@drawable/venu_chat"
+        android:id="@+id/comment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="12" />
 
 
-
-
-
-
-
-</RelativeLayout>
+</LinearLayout>

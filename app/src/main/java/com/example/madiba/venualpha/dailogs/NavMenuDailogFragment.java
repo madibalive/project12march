@@ -2,10 +2,12 @@ package com.example.madiba.venualpha.dailogs;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import com.android.liuzhuang.rcimageview.RoundCornerImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.madiba.venualpha.R;
+import com.example.madiba.venualpha.profiles.UserPageV2Activity;
 import com.parse.ParseUser;
 
 /**
@@ -34,8 +37,9 @@ public class NavMenuDailogFragment extends DialogFragment {
     private Listener mListener;
 
     TextView mName;
-    ImageButton mClose,mSettings;
+    ImageButton mClose,mSettings,mEvent,mMyEvent,mContact,mOntap;
     RoundCornerImageView mAvatar;
+
 
     // TODO: Customize parameters
     public static NavMenuDailogFragment newInstance() {
@@ -49,7 +53,7 @@ public class NavMenuDailogFragment extends DialogFragment {
         Dialog d = getDialog();
         if (d!=null){
             int width = ViewGroup.LayoutParams.MATCH_PARENT;
-            int height = ViewGroup.LayoutParams.MATCH_PARENT;
+            int height = ViewGroup.LayoutParams.WRAP_CONTENT;
             d.getWindow().setLayout(width, height);
             d.setOnCancelListener(dialogInterface -> {
                 if (mListener != null) {
@@ -57,6 +61,8 @@ public class NavMenuDailogFragment extends DialogFragment {
                     dismiss();
                 }
             });
+            d.getWindow().setGravity(Gravity.TOP);
+
             d.getWindow().setBackgroundDrawable(null);
         }
     }
@@ -69,36 +75,71 @@ public class NavMenuDailogFragment extends DialogFragment {
         mName = (TextView) v.findViewById(R.id.name);
         mClose = (ImageButton) v.findViewById(R.id.close);
         mSettings = (ImageButton) v.findViewById(R.id.settings);
-        return v;    }
+        mEvent = (ImageButton) v.findViewById(R.id.event);
+        mContact = (ImageButton) v.findViewById(R.id.contact_item);
+        mOntap = (ImageButton) v.findViewById(R.id.ontap);
+
+        return v;
+    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
         mClose.setOnClickListener(view12 -> {
-            if (mListener != null) {
-                mListener.onItemClicked(0);
-                dismiss();
-            }
+             dismiss();
+
         });
 
         mSettings.setOnClickListener(view1 -> {
             if (mListener != null) {
-                mListener.onItemClicked(1);
-                dismiss();
+                if (mListener != null) {
+                    mListener.onItemClicked(10);
+                    dismiss();
+                }
             }
         });
 
         mAvatar.setOnClickListener(view13 -> {
             if (mListener != null) {
-                mListener.onItemClicked(1);
+//                mListener.onItemClicked(1);
+                startActivity(new Intent(getActivity(), UserPageV2Activity.class));
                 dismiss();
             }
         });
 
-//        display();
 
+        mEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mListener != null) {
+                    mListener.onItemClicked(1);
+                    dismiss();
+                }
+            }
+        });
+
+
+
+        mContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mListener != null) {
+                    mListener.onItemClicked(2);
+                    dismiss();
+                }
+            }
+        });
+
+        mOntap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mListener != null) {
+                    mListener.onItemClicked(3);
+                    dismiss();
+                }
+            }
+        });
     }
-
 
     private void display(){
         if (ParseUser.getCurrentUser() ==null){

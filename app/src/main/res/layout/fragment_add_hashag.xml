@@ -1,13 +1,100 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.madiba.venualpha.post.MediaPost.AddHashagFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content">
+        <HorizontalScrollView
+            android:id="@+id/attendees_container"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:requiresFadingEdge="horizontal"
+            android:fadingEdgeLength="@dimen/padding_normal"
+            >
 
-</FrameLayout>
+            <LinearLayout
+                android:id="@+id/attendees_layout"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:minHeight="50dp" >
+
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+
+
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/attendees_count"
+        android:text="44 more > "
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+
+    <com.example.madiba.venualpha.ui.expandable.ExpandableLinearLayout
+        android:padding="@dimen/padding_normal"
+        android:orientation="vertical"
+        android:id="@+id/more_expandableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:ael_duration="100"
+        app:ael_expanded="false"
+        >
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            style="@style/AppTheme.Toolbar"
+            android:padding="@dimen/padding_normal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/head_rcview"
+                android:layout_width="0dp"
+                android:layout_height="125dp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/next"
+                    android:layout_margin="@dimen/padding_normal"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_arrow"/>
+
+                <TextView
+                    android:id="@+id/count"
+                    style="@style/VenuBodyText"
+                    android:text="3/4"
+                    android:textSize="@dimen/app_text_size_large"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+    </com.example.madiba.venualpha.ui.expandable.ExpandableLinearLayout>
+
+
+</LinearLayout>

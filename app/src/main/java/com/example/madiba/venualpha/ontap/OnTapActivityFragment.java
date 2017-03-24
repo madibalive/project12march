@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.madiba.venualpha.R;
-import com.example.madiba.venualpha.dailogs.RequestFragment;
 import com.example.madiba.venualpha.services.LoaderGeneral;
 import com.example.madiba.venualpha.util.NetUtils;
 import com.parse.ParseObject;
@@ -32,7 +31,8 @@ import timber.log.Timber;
 
 
 
-public class OnTapActivityFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class OnTapActivityFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener
+{
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerview;
@@ -64,7 +64,7 @@ public class OnTapActivityFragment extends Fragment implements SwipeRefreshLayou
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        root=inflater.inflate(R.layout.container_core_fab, container, false);
+        root=inflater.inflate(R.layout.container_core_ontap, container, false);
         FloatingActionButton fab = (FloatingActionButton) root.findViewById(R.id.fab);
         mRecyclerview = (RecyclerView) root.findViewById(R.id.core_recyclerview);
         mSwipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.core_swipelayout);
@@ -77,7 +77,7 @@ public class OnTapActivityFragment extends Fragment implements SwipeRefreshLayou
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         loaderManager = RxLoaderManagerCompat.get(this);
-        initAdapter();
+//        initAdapter();
 
 
     }
@@ -98,10 +98,14 @@ public class OnTapActivityFragment extends Fragment implements SwipeRefreshLayou
         });
     }
     private void openRequest(){
+        DialogFragment requestDialog = new RequestFragment();
+        requestDialog.show(getChildFragmentManager(),"request");
+
         if (NetUtils.hasInternetConnection(getActivity().getApplicationContext())){
-            DialogFragment requestDialog = new RequestFragment();
-            requestDialog.show(getChildFragmentManager(),"request");
+
         }
+
+
     }
 
     @Override

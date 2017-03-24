@@ -29,6 +29,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.madiba.venualpha.R;
 import com.example.madiba.venualpha.util.NetUtils;
+import com.example.madiba.venualpha.util.ViewUtils;
 import com.github.rongi.async.Callback;
 import com.github.rongi.async.Tasks;
 import com.google.android.gms.common.ConnectionResult;
@@ -61,6 +62,7 @@ import timber.log.Timber;
 
 public class MapEventsActivity extends FragmentActivity implements
         OnMapReadyCallback,GoogleMap.OnMapClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
+        GoogleMap.OnCameraMoveListener,
         EasyPermissions.PermissionCallbacks {
 
 
@@ -300,12 +302,18 @@ public class MapEventsActivity extends FragmentActivity implements
         popupMenu.show();
     }
 
+    @Override
+    public void onCameraMove() {
+        setupCircle( mMap.getCameraPosition().target);
+
+
+    }
 
     private void setupCircle(LatLng latLng){
         CircleOptions selfCircle = new CircleOptions()
                 .center(latLng)
                 .radius(1000)
-                .strokeColor(getResources().getColor(R.color.venu_red));
+                .strokeColor(getResources().getColor(R.color.black_30));
 
         mMap.addCircle(selfCircle);
     }
@@ -388,7 +396,8 @@ public class MapEventsActivity extends FragmentActivity implements
         }
         @Override
         protected void convert(BaseViewHolder holder, final ParseObject request) {
-
+            ViewUtils.setHeightAndWidth(holder.itemView,340,270);
+            ViewUtils.setMargins(holder.itemView,10,10,10,10);
         }
     }
 

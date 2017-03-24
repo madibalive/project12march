@@ -9,10 +9,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatCheckBox;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -20,10 +22,8 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.madiba.venualpha.R;
 import com.example.madiba.venualpha.models.MdUserItem;
 import com.example.madiba.venualpha.services.LoaderGeneral;
-import com.example.madiba.venualpha.ui.AnimateCheckBox;
 import com.example.madiba.venualpha.ui.RotateLoading;
 import com.example.madiba.venualpha.ui.StateButton;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -129,43 +129,42 @@ public class SelectUsersDialogFragment extends DialogFragment {
 
 
     private void setupAdapter(){
-//        mAdapter=new AddNewAdapter(R.layout.view_linearlayout,mDatas);
-//        mRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        mRecyclerview.setHasFixedSize(true);
-//        mRecyclerview.setAdapter(mAdapter);
-//        progressBar.start();
+        mAdapter=new AddNewAdapter(R.layout.item_person_selectable,mDatas);
+        mRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerview.setHasFixedSize(true);
+        mRecyclerview.setAdapter(mAdapter);
+        progressBar.start();
     }
 
 
 
     private class AddNewAdapter
-            extends BaseQuickAdapter<ParseObject> {
+            extends BaseQuickAdapter<ParseUser> {
 
         private Boolean selectionMode=false;
-        private Set<ParseObject> checkedSet = new HashSet<>();
+        private Set<ParseUser> checkedSet = new HashSet<>();
 
-        public AddNewAdapter(int layoutResId, List<ParseObject> data) {
+        public AddNewAdapter(int layoutResId, List<ParseUser> data) {
             super(layoutResId, data);
         }
         @Override
-        protected void convert(BaseViewHolder holder, final ParseObject category) {
+        protected void convert(BaseViewHolder holder, final ParseUser category) {
             holder.setText(R.id.ot_i_location, category.getString("categoryName"))
                     .setText(R.id.ot_i_order_item,category.getString("number"))
                     .setText(R.id.ot_i_location,category.getObjectId());
 
 
 
-            final AnimateCheckBox checkBox = ((AnimateCheckBox) holder.getView(R.id.checkbox));
+            final CheckBox checkBox = ((CheckBox) holder.getView(R.id.checkbox));
             if (!selectionMode){
                 checkBox.setVisibility(View.GONE);
-                // TODO: 3/8/2017 add remove button
             }else {
 
                 if (checkedSet.contains(category)) {
                     checkBox.setChecked(true);
                 } else {
                     //checkBox.setChecked(false); //has animation
-                    checkBox.setUncheckStatus();
+                    checkBox.setChecked(false);
                 }
                 checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
                     if (isChecked) {
@@ -194,7 +193,7 @@ public class SelectUsersDialogFragment extends DialogFragment {
             return selectionMode;
         }
 
-        public Set<ParseObject> returnData(){
+        public Set<ParseUser> returnData(){
             return checkedSet;
         }
     }
@@ -209,8 +208,8 @@ public class SelectUsersDialogFragment extends DialogFragment {
                         Timber.d("onnext");
                         new Handler().postDelayed(() -> {
 
-//                            if (value.size()>0)
-//                                mAdapter.setNewData(value);
+                            if (value.size()>0)
+                                mAdapter.setNewData(value);
                         },500);
                     }
 

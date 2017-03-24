@@ -1,11 +1,14 @@
 package com.example.madiba.venualpha.main;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,11 +27,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.madiba.venualpha.R;
-import com.example.madiba.venualpha.adapter.ChallangeCell;
+import com.example.madiba.venualpha.channels.MainChannelActivity;
 import com.example.madiba.venualpha.models.MdMemoryItem;
 import com.example.madiba.venualpha.util.NetUtils;
 import com.example.madiba.venualpha.util.ViewUtils;
-import com.jaychang.srv.SimpleRecyclerView;
+import com.example.madiba.venualpha.viewer.gallery.GalleryActivity;
 import com.parse.ParseObject;
 
 import java.util.ArrayList;
@@ -47,19 +50,18 @@ import static com.example.madiba.venualpha.discover.DiscoverActivity.CATEGORY_DA
 public class ChallangeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     public static final List<String> DATA = Arrays.asList("Global","Friends");
     private List<MdMemoryItem>   mDatas = new ArrayList<>();
-    private SimpleRecyclerView mRecyclerview;
+    private RecyclerView mRecyclerview;
     private ChallangesAdapter mAdapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private ParseObject mMyChallange;
-    private View headView;
     private View footer;
     private FrameLayout view_more;
-    private TextView mHashtag,mTitle,mDesc;
+    private TextView mHashtag,mTitle;
     private RoundCornerImageView mImage;
     private RxLoader<List<MdMemoryItem>> listRxLoader;
     private RxLoaderManager loaderManager;
     private Spinner segmentControl;
-    private Boolean isGlobal;
+    private Boolean isGlobal=false;
 
 
     private LinearLayout mChannelsLayout,mInteractionLayout;
@@ -82,22 +84,17 @@ public class ChallangeFragment extends Fragment implements SwipeRefreshLayout.On
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
         View view= inflater.inflate(R.layout.fragment_challange, container, false);
         footer = inflater.inflate(R.layout.view_more, container, false);
         view_more = (FrameLayout) footer.findViewById(R.id.view_more_button);
         mTitle = (TextView) view.findViewById(R.id.title);
-        mDesc = (TextView) view.findViewById(R.id.desc);
-
         mChannelsContainer = (ViewGroup) view.findViewById(R.id.channel_layout);
         mChannelsLayout = (LinearLayout) view.findViewById(R.id.channel_container);
-        mTitle = (TextView) view.findViewById(R.id.challange_tag);
-        mHashtag = (TextView) view.findViewById(R.id.challange_info);
-        mImage = (RoundCornerImageView) view.findViewById(R.id.challange_image);
-        segmentControl = (Spinner) view.findViewById(R.id.toggleSpinner);
-
-        mRecyclerview = (SimpleRecyclerView) view.findViewById(R.id.recyclerView);
-
+        mTitle = (TextView) view.findViewById(R.id.title);
+        mHashtag = (TextView) view.findViewById(R.id.hashtag);
+        mImage = (RoundCornerImageView) view.findViewById(R.id.image);
+        segmentControl = (Spinner) view.findViewById(R.id.spinner);
+        mRecyclerview = (RecyclerView) view.findViewById(R.id.recyclerView);
         return view;
     }
 
@@ -116,6 +113,7 @@ public class ChallangeFragment extends Fragment implements SwipeRefreshLayout.On
         for (int i = 0; i < 5; i++) {
             memoryItems.add(new MdMemoryItem());
         }
+        initSpinner();
         displayChannels(parseObjects);
         initAdapter(memoryItems);
     }
@@ -131,27 +129,31 @@ public class ChallangeFragment extends Fragment implements SwipeRefreshLayout.On
     }
 
     private void initAdapter(List<MdMemoryItem> objects){
-        List<ChallangeCell> cells = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            ChallangeCell cell = new ChallangeCell(new MdMemoryItem());
-            cells.add(cell);
-        }
+//        List<ChallangeCell> cells = new ArrayList<>();
+//        for (int i = 0; i < 10; i++) {
+//            ChallangeCell cell = new ChallangeCell(new MdMemoryItem());
+//            mRecyclerview.addCell(cell);
+//        }
+
+//        mRecyclerview.addCells(cells);
 //
-//        mAdapter = new ChallangesAdapter(R.layout.item_challange, objects);
-//        mRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        mRecyclerview.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
-//        mAdapter.setOnRecyclerViewItemClickListener((view, i) -> {
-//        });
-//
-//
-//        view_more.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//            }
-//        });
-//
-//        mAdapter.addFooterView(footer);
-//        mRecyclerview.setAdapter(mAdapter);
+        mAdapter = new ChallangesAdapter(R.layout.item_challange, objects);
+        mRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerview.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
+        mAdapter.setOnRecyclerViewItemClickListener((view, i) -> {
+        });
+
+
+        view_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), GalleryActivity.class));
+            }
+        });
+
+        mAdapter.addFooterView(footer);
+
+        mRecyclerview.setAdapter(mAdapter);
     }
 
     private void initSpinner(){
@@ -184,15 +186,18 @@ public class ChallangeFragment extends Fragment implements SwipeRefreshLayout.On
 
             for (final ParseObject channel : mDatas) {
                 View view = inflater.inflate(R.layout.item_channel, mChannelsLayout, false);
-                ViewUtils.setHeightAndWidth(view,140,90);
-                ViewUtils.setMargins(view,10,10,10,10);
+//                view.setLayoutParams (new ViewGroup.LayoutParams (
+//                        140,90));
+
+//                ViewUtils.setHeightAndWidth(view,140,90);
+                ViewUtils.setMarginRight(view,10);
 
                 RoundCornerImageView imageView = (RoundCornerImageView) view.findViewById(R.id.image_view);
                 ImageButton update = (ImageButton) view.findViewById(R.id.updated);
                 TextView title = (TextView) view.findViewById(R.id.title);
 
-                if (true)
-                    update.setVisibility(View.VISIBLE);
+//                if (true)
+//                    update.setVisibility(View.VISIBLE);
 
 //                Glide.with(getActivity())
 //                        .load(channel.getParseFile("avatarSmall").getUrl())
@@ -206,12 +211,12 @@ public class ChallangeFragment extends Fragment implements SwipeRefreshLayout.On
 //                        .into(imageView);
 //
 //                title.setText(channel.getString("title"));
-//                view.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//
-//                    }
-//                });
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(getActivity(), MainChannelActivity.class));
+                    }
+                });
 
                 mChannelsLayout.addView(view);
             }
@@ -249,13 +254,13 @@ public class ChallangeFragment extends Fragment implements SwipeRefreshLayout.On
     }
 
 
-   private void toggle(int index){
+    private void toggle(int index){
         if (index==0 && !isGlobal) {
             isGlobal = true;
-            loadData();
+//            loadData();
         }else if (index==1 && isGlobal) {
             isGlobal = false;
-            loadData();
+//            loadData();
         }
     }
 

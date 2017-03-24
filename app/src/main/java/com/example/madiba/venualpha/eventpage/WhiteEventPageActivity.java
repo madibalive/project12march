@@ -37,13 +37,13 @@ import com.example.madiba.venualpha.NavigateTo;
 import com.example.madiba.venualpha.R;
 import com.example.madiba.venualpha.adapter.SingletonDataSource;
 import com.example.madiba.venualpha.dailogs.EventReactionFragment;
-import com.example.madiba.venualpha.dailogs.RequestFragment;
 import com.example.madiba.venualpha.models.MdEventItem;
 import com.example.madiba.venualpha.models.MdMediaItem;
 import com.example.madiba.venualpha.models.MdUserItem;
-import com.example.madiba.venualpha.models.ModelEventFeature;
+import com.example.madiba.venualpha.ontap.RequestFragment;
 import com.example.madiba.venualpha.ui.StateButton;
 import com.example.madiba.venualpha.util.NetUtils;
+import com.example.madiba.venualpha.util.ViewUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -116,11 +116,19 @@ public class WhiteEventPageActivity extends FragmentActivity {
             @Override
             public void onClick(View view) {
                 DialogFragment newFragment = EventReactionFragment.newInstance();
-                newFragment.show(getSupportFragmentManager(), "comment");
+                newFragment.show(getSupportFragmentManager(), "reaction");
             }
         });
 
 
+        List<ParseUser> eventItems = new ArrayList<>();
+//        for (int i = 0; i < 5; i++) {
+//            eventItems.add(new ParseUser());
+//        }
+
+
+        displayAttendees(eventItems,"4 mutual friends",true);
+        displayFeatures("stata");
     }
 
 
@@ -178,7 +186,7 @@ public class WhiteEventPageActivity extends FragmentActivity {
         mFavBtn.setText("");
 
         mCmtBtn.setOnClickListener(view -> {
-//            DialogFragment newFragment = CommentActivityFragment.newInstance(dataItem.getParseId(),dataItem.getClassName(),true);
+//            DialogFragment newFragment = CommentDialogFragment.newInstance(dataItem.getParseId(),dataItem.getClassName(),true);
 //            newFragment.show(getSupportFragmentManager(), "comment");
         });
 
@@ -240,22 +248,26 @@ public class WhiteEventPageActivity extends FragmentActivity {
 
     private void displayAttendees(List<ParseUser> attendeeDatas,@Nullable String mutualState,Boolean isMutualExist){
 
-        if (isMutualExist){
-            mMutualAttendee.setText(mutualState);
-        }
-        if (attendeeDatas.size()<0) {
-            mAttendeesContainers.setVisibility(View.GONE);
-            return;
-        }
-
-        else {
+//        if (isMutualExist){
+//            mMutualAttendee.setText(mutualState);
+//        }
+//        if (attendeeDatas.size()<0) {
+//            mAttendeesContainers.setVisibility(View.GONE);
+//            return;
+//        }
+//
+//        else {
             mAttendeesContainers.setVisibility(View.VISIBLE);
             mAttendeesLayout.removeAllViews();
             LayoutInflater inflater = LayoutInflater.from(this);
 
 //            for (final ParseObject feature : attendeeDatas) {
-//                ImageView chipView = (ImageView) inflater.inflate(
-//                        R.layout.draw_layout, mTags, false);
+        for (int i = 0; i < 5; i++) {
+
+            RoundCornerImageView chipView = (RoundCornerImageView) inflater.inflate(
+                    R.layout.item_attende, mAttendeesLayout, false);
+            ViewUtils.setMargins(chipView,0,4,4,4);
+
 ////                chipView.setText(feature.getTitle());
 ////                chipView.setContentDescription(feature.getTitle());
 ////                chipView.setOnClickListener(new View.OnClickListener() {
@@ -268,9 +280,9 @@ public class WhiteEventPageActivity extends FragmentActivity {
 ////                    }
 ////                });
 //
-//                mTags.addView(chipView);
-//            }
-        }
+            mAttendeesLayout.addView(chipView);
+            }
+        //}
 
     }
     private void displayFeatures(@Nullable String data) {
@@ -281,34 +293,42 @@ public class WhiteEventPageActivity extends FragmentActivity {
             mFeaturesContainer.setVisibility(View.VISIBLE);
             mFeaturesLayout.removeAllViews();
             LayoutInflater inflater = LayoutInflater.from(this);
-            String[] mFeatures = data.split(",");
+//            String[] mFeatures = data.split(",");
+//
+//            List<ModelEventFeature> tags = new ArrayList<>();
+//            for (String featureItem : mFeatures) {
+//
+//                ModelEventFeature feature = new ModelEventFeature(featureItem);
+//
+//                if (ModelEventFeature.FEATURE_BUS.equals(featureItem)) {
+//                    feature.setResourceId("");
+//                }else if(ModelEventFeature.FEATURE_FOOD_AND_DRINKS.equals(featureItem)){
+//                    feature.setResourceId("");
+//                }else if (ModelEventFeature.FEATURE_WIFI.equals(featureItem)){
+//                    feature.setResourceId("");
+//                }else if (ModelEventFeature.FEATURE_BUS.equals(featureItem)){
+//                    feature.setResourceId("");
+//                }
+//                tags.add(feature);
+//            }
+//
+//            if (tags.size() == 0) {
+//                mFeaturesLayout.setVisibility(View.GONE);
+//                return;
+//            }
 
-            List<ModelEventFeature> tags = new ArrayList<>();
-            for (String featureItem : mFeatures) {
 
-                ModelEventFeature feature = new ModelEventFeature(featureItem);
+            for (int i = 0; i < 5; i++) {
+                ImageView chipView = (ImageView) inflater.inflate(
+                        R.layout.item_features, mFeaturesLayout, false);
+                mFeaturesLayout.addView(chipView);
 
-                if (ModelEventFeature.FEATURE_BUS.equals(featureItem)) {
-                    feature.setResourceId("");
-                }else if(ModelEventFeature.FEATURE_FOOD_AND_DRINKS.equals(featureItem)){
-                    feature.setResourceId("");
-                }else if (ModelEventFeature.FEATURE_WIFI.equals(featureItem)){
-                    feature.setResourceId("");
-                }else if (ModelEventFeature.FEATURE_BUS.equals(featureItem)){
-                    feature.setResourceId("");
-                }
-                tags.add(feature);
             }
 
-            if (tags.size() == 0) {
-                mFeaturesLayout.setVisibility(View.GONE);
-                return;
-            }
 
-
-            for (final ModelEventFeature feature : tags) {
+//            for (final ModelEventFeature feature : tags) {
 //                ImageView chipView = (ImageView) inflater.inflate(
-//                        R.layout.draw_layout, mFeatures, false);
+//                        R.layout.item_features, mFeaturesLayout, false);
 ////                chipView.setText(feature.getTitle());
 ////                chipView.setContentDescription(feature.getTitle());
 ////                chipView.setOnClickListener(new View.OnClickListener() {
@@ -321,8 +341,8 @@ public class WhiteEventPageActivity extends FragmentActivity {
 ////                    }
 ////                });
 //
-//                mTags.addView(chipView);
-            }
+//                mFeaturesLayout.addView(chipView);
+//            }
         }
     }
 

@@ -87,7 +87,7 @@ public class NavigateTo {
     }
 
     public static void gotoComment(Context context, String id, String className, FragmentManager manager){
-//        DialogFragment frg = CommentActivityFragment.newInstance(id,className,false);
+//        DialogFragment frg = CommentDialogFragment.newInstance(id,className,false);
 //        frg.show(manager,"id");
     }
     public static void gotoGoingList(Context context, String id, String className, FragmentManager manager){

@@ -1,24 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.madiba.venualpha">
 
-    <!--
-         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
-         Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the 'MyLocation' functionality. 
-    -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
 
     <application
+        android:name=".Application"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
+            android:label=""
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,6 +38,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name="com.adobe.creativesdk.aviary.internal.cds.CdsProvider"
+            android:authorities="com.venu.venutheta.CdsProvider"
+            android:exported="false"
+            tools:replace="android:authorities" />
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -34,25 +53,193 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/. 
         -->
+        <activity
+            android:name=".discover.DiscoverActivity"
+            android:label="@string/title_activity_discover"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <!-- MAP ACTIVITES -->
+        <!-- /////////////////////////////////////////// -->
+
+        <activity
+            android:name=".map.MapEventsActivity"
+            android:label="@string/title_activity_map_events"
+            android:parentActivityName=".discover.DiscoverActivity"
+            android:windowSoftInputMode="adjustResize">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".discover.DiscoverActivity" />
+        </activity>
+        <activity
+            android:name=".discover.SearchActivity"
+            android:label="@string/title_activity_search"
+            android:parentActivityName=".discover.DiscoverActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".discover.DiscoverActivity" />
+        </activity>
+        <activity
+            android:name=".discover.GossipExploreActivity"
+            android:label="@string/title_activity_search"
+            android:parentActivityName=".discover.DiscoverActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".discover.DiscoverActivity" />
+        </activity>
+        <activity
+            android:name=".discover.CategoryExploreActivity"
+            android:label="@string/title_activity_search"
+            android:parentActivityName=".discover.DiscoverActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".discover.DiscoverActivity" />
+        </activity>
+
+        <!-- MAP ACTIVITES -->
+        <!-- /////////////////////////////////////////// -->
+
+
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+
+        <activity
+            android:name=".eventmanager.userEvents.UserEventActivity"
+            android:label="@string/title_activity_event_manger"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".contact.ContactActivity"
+            android:label="@string/title_activity_event_manger"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".notifications.NotificationActivity"
+            android:label="@string/title_activity_notification"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".ontap.OnTapActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".settings.SettingsActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".chateu.ChateuListFragAct"
+            android:label="@string/title_activity_chateu_list"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".chateu.ChateuFragAct"
+            android:label="@string/title_activity_category_explore"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".chateu.ChateuGossipFragAct"
+            android:label="@string/title_activity_category_explore"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".profiles.UserPageV2Activity"
+            android:label="@string/title_activity_category_explore"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".eventpage.WhiteEventPageActivity"
+            android:label="@string/title_activity_category_explore"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".viewer.gallery.GalleryActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".post.BaseMediaPostActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".post.BaseEventActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <!-- <activity -->
+        <!-- android:name=".MainActivity" -->
+        <!-- android:theme="@style/AppTheme.NoActionBar" /> -->
+        <activity
+            android:name=".viewer.player.BaseMemoryActivity"
+            android:label="@string/title_activity_video"
+            android:theme="@style/AppThemeDark"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+
+        <activity
+            android:name=".map.MapEnterLocationActivity"
+            android:label="@string/title_activity_map_events"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!--
+           The API key for Google Maps-based APIs is defined as a string resource.
+           (See the file "res/values/google_maps_api.xml").
+           Note that the API key is linked to the encryption key used to sign the APK.
+           You need a different API key for each encryption key, including the release key that is used to
+           sign the APK for publishing.
+           You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+
+        <activity
+            android:name=".channels.MainChannelActivity"
+            android:theme="@style/AppThemeDark" />
+
+        <!--
+           The API key for Google Maps-based APIs is defined as a string resource.
+           (See the file "res/values/google_maps_api.xml").
+           Note that the API key is linked to the encryption key used to sign the APK.
+           You need a different API key for each encryption key, including the release key that is used to
+           sign the APK for publishing.
+           You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".chateu.ChateuListFragAct"
-            android:label="@string/title_activity_chateu_list" />
-        <activity
-            android:name=".discover.DiscoverActivity"
-            android:label="@string/title_activity_discover" />
-        <activity
-            android:name=".discover.CategoryExploreActivity"
-            android:label="@string/title_activity_category_explore" />
-        <activity
-            android:name=".channels.MainChannelActivity"
-            android:label="@string/title_activity_main_channel" />
-        <activity
-            android:name=".post.CreateEventActivity"
-            android:label="@string/title_activity_create_event"></activity>
+            android:name=".channels.BaseChannelActivity"
+            android:label="@string/title_activity_base_channel"></activity>
     </application>
 
 </manifest>

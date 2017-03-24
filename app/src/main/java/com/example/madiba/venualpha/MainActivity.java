@@ -1,7 +1,9 @@
 package com.example.madiba.venualpha;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,12 +12,26 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.madiba.venualpha.chateu.ChateuListFragAct;
+import com.example.madiba.venualpha.contact.ContactActivity;
 import com.example.madiba.venualpha.dailogs.NavMenuDailogFragment;
+import com.example.madiba.venualpha.dailogs.NewGossipDailogFragment;
+import com.example.madiba.venualpha.discover.DiscoverActivity;
+import com.example.madiba.venualpha.eventmanager.userEvents.UserEventActivity;
 import com.example.madiba.venualpha.main.ChallangeFragment;
 import com.example.madiba.venualpha.main.MainFragment;
+import com.example.madiba.venualpha.main.TrendFragment;
+import com.example.madiba.venualpha.ontap.OnTapActivity;
+import com.example.madiba.venualpha.post.BaseEventActivity;
+import com.example.madiba.venualpha.post.BaseMediaPostActivity;
+import com.example.madiba.venualpha.settings.SettingsActivity;
+
+import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity implements
         NavMenuDailogFragment.Listener,
@@ -44,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_add);
+        toolbar.setTitle("");
         toolbar.setNavigationOnClickListener(view -> NavMenuDailogFragment.newInstance().show(getSupportFragmentManager(), "dialog"));
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
@@ -52,7 +69,53 @@ public class MainActivity extends AppCompatActivity implements
         mViewPager.setOffscreenPageLimit(3);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-   }
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabmedia);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, BaseMediaPostActivity.class));
+            }
+        });
+        FloatingActionButton fabevent = (FloatingActionButton) findViewById(R.id.fab);
+        fabevent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, BaseEventActivity.class));
+            }
+        });
+
+        FloatingActionButton fabgossip = (FloatingActionButton) findViewById(R.id.fabgossip);
+        fabgossip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+          NewGossipDailogFragment.newInstance().show(getSupportFragmentManager(), "dialog");
+            }
+        });
+
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_search) {
+            startActivity(new Intent(MainActivity.this, DiscoverActivity.class));
+            return true;
+        } else if (id == R.id.action_message) {
+            startActivity(new Intent(MainActivity.this, ChateuListFragAct.class));
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);    }
 
 
 
@@ -103,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements
             if (position == 0){
                 return MainFragment.newInstance("","");
             }else if(position ==1){
-                return PlaceholderFragment.newInstance(position + 1);
+                return TrendFragment.newInstance();
 
             }else
                 return ChallangeFragment.newInstance();
@@ -132,7 +195,27 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onItemClicked(int position) {
+        Timber.i("selected item %d",position);
+        if (position == 1) {
+            startActivity(new Intent(MainActivity.this, UserEventActivity.class));
 
+        } else if (position == 4) {
+
+//            startActivity(new Intent(MainActivity.this, UserEventActivity.class));
+
+        } else if (position == 2) {
+
+            startActivity(new Intent(MainActivity.this, ContactActivity.class));
+
+        } else if (position == 3) {
+            startActivity(new Intent(MainActivity.this, OnTapActivity.class));
+
+        } else if (position == 10) {
+            startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+
+        } else if (position == R.id.nav_profile) {
+//            startActivity(new Intent(MainActivity.this, MyProfileActivity.class));
+        }
     }
 
     @Override

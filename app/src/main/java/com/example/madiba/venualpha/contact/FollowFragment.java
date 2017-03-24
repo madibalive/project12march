@@ -19,7 +19,7 @@ import com.example.madiba.venualpha.models.GlobalConstants;
 import com.example.madiba.venualpha.services.GeneralService;
 import com.example.madiba.venualpha.services.LoaderGeneral;
 import com.example.madiba.venualpha.util.NetUtils;
-import com.parse.ParseObject;
+import com.example.madiba.venualpha.models.MdUserItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +34,8 @@ public class FollowFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerview;
-    private List<ParseObject> mDatas = new ArrayList<>();
-    private List<ParseObject> mSortedList = new ArrayList<>();
+    private List<MdUserItem> mDatas = new ArrayList<>();
+    private List<MdUserItem> mSortedList = new ArrayList<>();
     private MainAdapter mAdapter;
     RxLoaderManager loaderManager;
     private int type;
@@ -63,7 +63,7 @@ public class FollowFragment extends Fragment implements SwipeRefreshLayout.OnRef
         super.onCreate(savedInstanceState);
 
         for (int i = 0; i < 5; i++) {
-            ParseObject a=new ParseObject("");
+            MdUserItem a=new MdUserItem();
             mDatas.add(a);
         }
 
@@ -129,9 +129,9 @@ public class FollowFragment extends Fragment implements SwipeRefreshLayout.OnRef
     void initload(){
         loaderManager.create(
                 LoaderGeneral.loadUsersContacts(userId,type),
-                new RxLoaderObserver<List<ParseObject>>() {
+                new RxLoaderObserver<List<MdUserItem>>() {
                     @Override
-                    public void onNext(List<ParseObject> value) {
+                    public void onNext(List<MdUserItem> value) {
                         Timber.d("onnext");
                         new Handler().postDelayed(() -> {
                             mSwipeRefreshLayout.setRefreshing(false);
@@ -166,20 +166,20 @@ public class FollowFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
 
     private class MainAdapter
-            extends BaseQuickAdapter<ParseObject> {
+            extends BaseQuickAdapter<MdUserItem> {
 
 
 
 
 
 
-        MainAdapter(int layoutResId, List<ParseObject> data) {
+        MainAdapter(int layoutResId, List<MdUserItem> data) {
             super(layoutResId, data);
 
         }
 
         @Override
-        protected void convert(BaseViewHolder holder, final ParseObject data) {
+        protected void convert(BaseViewHolder holder, final MdUserItem data) {
 //
 //            if (loadFollowers){
 //                holder.setText(R.id.cc_i_name, data.getParseUser("from").getUsername());
@@ -214,17 +214,17 @@ public class FollowFragment extends Fragment implements SwipeRefreshLayout.OnRef
             notifyItemRangeChanged(position, count);
         }
 
-        public boolean areContentsTheSame(ParseObject oldItem, ParseObject newItem) {
+        public boolean areContentsTheSame(MdUserItem oldItem, MdUserItem newItem) {
             return oldItem.equals(newItem);
         }
 
-        public boolean areItemsTheSame(ParseObject item1, ParseObject item2) {
-            return item1.getObjectId() == item2.getObjectId();
+        public boolean areItemsTheSame(MdUserItem item1, MdUserItem item2) {
+            return item1.getParseId() == item2.getParseId();
         }
 
-        public void replaceAll(List<ParseObject> models) {
+        public void replaceAll(List<MdUserItem> models) {
             for (int i = models.size() - 1; i >= 0; i--) {
-                final ParseObject model = models.get(i);
+                final MdUserItem model = models.get(i);
                 if (!models.contains(model)) {
                     models.remove(model);
                 }
@@ -236,12 +236,12 @@ public class FollowFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
     }
 
-    private static List<ParseObject> filter(List<ParseObject> models, String query) {
+    private static List<MdUserItem> filter(List<MdUserItem> models, String query) {
         final String lowerCaseQuery = query.toLowerCase();
 
-        final List<ParseObject> filteredModelList = new ArrayList<>();
-        for (ParseObject model : models) {
-            final String text = model.getParseUser("").getUsername().toLowerCase();
+        final List<MdUserItem> filteredModelList = new ArrayList<>();
+        for (MdUserItem model : models) {
+            final String text = model.getName().toLowerCase();
             if (text.contains(lowerCaseQuery)) {
                 filteredModelList.add(model);
             }

@@ -14,24 +14,20 @@ android {
         renderscriptSupportModeEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
-
         buildConfigField("boolean", "SHOW_VARIANT", "false")
         manifestPlaceholders = [HOCKEYAPP_APP_ID: "27bb5271709a451fa32b2b5a9fd5cef6", facebookId: "881732875296568", appPackageName: "1836e88cc87844ce8cbbc5dfa7782e9f"]
         def addConstant = { constantName, constantValue ->
             buildConfigField "String", "${constantName}", "\"${constantValue}\""
         }
 
-        addConstant("ADOBE_SECRET", "cbfd6c7f-7eba-4410-b184-5553d87c1bf3")
-        addConstant("ADOBE_KEY", "1836e88cc87844ce8cbbc5dfa7782e9f")
+        addConstant("ADOBE_SECRET", "400bf57d-b260-4ca1-9ca1-c86c90e93c17")
+        addConstant("ADOBE_KEY", "a00f30dc4fae4ae391c456d240eb5980")
         addConstant("ADOBE_URL", "ams+32e4653c9fb8974bdbb4b099d102801891528775://adobeid/1836e88cc87844ce8cbbc5dfa7782e9f")
 
 
         addConstant("PARSE_ID", "1FgLlMv41GnYx4KjL4f21VOJ2caUPGMjP7ZgZgEO")
         addConstant("PARSE_KEY", "NS26WHc3ngSFYDGcXRuEQ7jKaikGhSprc7ppPa3B")
         addConstant("PARSE_URL", "https://parseapi.back4app.com/")
-        addConstant("CLOUDINARY_NAME", "venu-video")
-        addConstant("CLOUDINARY_KEY", "912582153739168")
-        addConstant("CLOUDINARY_SECRET", "jZpLwLo_LsMm5ZVipbRrAnvPpfk")
 
         packagingOptions {
             exclude 'META-INF/LICENSE.txt'
@@ -80,7 +76,6 @@ dependencies {
     compile('me.tatarka.rxloader:rxloader:1.1.0') {
         exclude group: 'io.reactivex', module: 'rxandroid'
     }
-    compile "com.android.support:appcompat-v7:$supportLibraryVersion"
     compile "com.android.support:design:$supportLibraryVersion"
     compile "com.android.support:recyclerview-v7:$supportLibraryVersion"
     compile "com.android.support:cardview-v7:$supportLibraryVersion"
@@ -88,7 +83,8 @@ dependencies {
     compile "com.android.support:support-v4:$supportLibraryVersion"
     compile "com.android.support:multidex:$multidexVersion"
     compile "com.android.support:support-v4:$supportLibraryVersion"
-
+    compile 'com.google.android.gms:play-services:10.0.1'
+    compile 'com.android.support:appcompat-v7:25.1.1'
 
 
     compile 'com.android.support:support-annotations:25.1.1'
@@ -96,7 +92,6 @@ dependencies {
     compile 'com.adobe.creativesdk.foundation:auth:0.9.1186'
     compile 'com.adobe.creativesdk:image:4.8.3'
     compile 'com.localytics.android:library:3.8.0'
-    compile 'com.google.android.gms:play-services:10.0.1'
     compile 'com.parse:parse-android:1.13.1'
     compile 'com.parse.bolts:bolts-android:1.4.0'
     compile 'com.parse:parsefacebookutils-v4-android:1.10.3@aar'
@@ -105,9 +100,6 @@ dependencies {
     compile 'com.jakewharton.timber:timber:4.3.1'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:v1.9.8'
     compile 'com.github.chrisbanes:PhotoView:1.3.0'
-    compile 'org.lucasr.twowayview:core:1.0.0-SNAPSHOT@aar'
-    compile 'org.lucasr.twowayview:layouts:1.0.0-SNAPSHOT@aar'
-    compile 'com.github.greenfrvr:hashtag-view:1.2.1'
     compile 'pub.devrel:easypermissions:0.2.0'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.wonderkiln:blurkit:1.0.0'
@@ -115,11 +107,13 @@ dependencies {
     compile 'rongi.async-task:async-task:1.0.1'
     compile 'com.liuzhuang.opensource:rcimageview:0.0.2'
     compile 'net.hockeyapp.android:HockeySDK:4.1.2'
-    compile 'com.github.stfalcon:multiimageview:0.1'
     compile 'com.android.support:support-v4:25.1.1'
     compile 'org.parceler:parceler-api:1.1.6'
     compile 'com.android.support:design:25.1.1'
     compile 'com.android.support:recyclerview-v7:25.1.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
+    compile 'com.google.android.gms:play-services-maps:10.0.1'
+
     testCompile 'junit:junit:4.12'
     annotationProcessor 'org.parceler:parceler:1.1.6'
 }

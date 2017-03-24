@@ -33,6 +33,9 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import timber.log.Timber;
 
@@ -657,5 +660,63 @@ public class ImageUitls {
         }
         return null;
     }
+
+
+
+    public static File createImageFile() {
+        // External location
+        File mediaStorageDir = new File(
+                Environment
+                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                "VENU");
+
+        // Create the storage directory if it does not exist
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                Log.d("main", "Oops! Failed create "
+                        + "venu" + " directory");
+                return null;
+            }
+        }
+
+        // Create a media file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
+                Locale.getDefault()).format(new Date());
+        File mediaFile;
+        mediaFile = new File(mediaStorageDir.getPath() + File.separator
+                + "IMG_" + timeStamp + ".jpg");
+
+
+        return mediaFile;
+    }
+
+    public static File createVideoFile() {
+        // External location
+        File mediaStorageDir = new File(
+                Environment
+                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                "VENU");
+
+        // Create the storage directory if it does not exist
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                Log.d("main", "Oops! Failed create "
+                        + "venu" + " directory");
+                return null;
+            }
+        }
+
+        // Create a media file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
+                Locale.getDefault()).format(new Date());
+        File mediaFile;
+        mediaFile = new File(mediaStorageDir.getPath() + File.separator
+                + "IMG_" + timeStamp + ".mp4");
+
+
+        return mediaFile;
+    }
+
+
 
 }

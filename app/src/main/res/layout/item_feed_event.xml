@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-
     <TextView
         android:gravity="center_vertical"
         android:id="@+id/status"
@@ -12,33 +12,27 @@
         android:paddingTop="@dimen/dp_4"
         android:layout_width="match_parent"
         android:textSize="@dimen/app_text_size_small"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/avatar"
-        android:layout_toEndOf="@+id/avatar" />
+        android:layout_height="wrap_content" />
 
 
-    <com.stfalcon.multiimageview.MultiImageView
+    <com.example.madiba.venualpha.ui.stateimageview.StateImageView
         android:id="@+id/avatar"
         android:layout_below="@id/status"
         android:layout_alignParentLeft="true"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginLeft="10dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="4dp"
         android:background="@color/venu_yellow"
         />
 
     <TextView
-        android:layout_marginTop="@dimen/dp_4"
-        android:text="Kofi,James,Stevens,di"
-        android:id="@+id/f_name"
-        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:text="3 hours ago \nKofi,James,Stevens,di"
+        android:id="@+id/name"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_alignTop="@+id/avatar"
         android:layout_toRightOf="@+id/avatar"
         android:layout_toEndOf="@+id/avatar" />
@@ -206,8 +200,7 @@
     android:textSize="@dimen/app_text_size_small"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_toRightOf="@+id/avatar"
-    android:layout_toEndOf="@+id/avatar" />
+    />
 
 
 

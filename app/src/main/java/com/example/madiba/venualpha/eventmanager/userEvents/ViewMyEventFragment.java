@@ -23,12 +23,12 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.madiba.venualpha.R;
 import com.example.madiba.venualpha.models.MdEventItem;
 import com.example.madiba.venualpha.models.MdUserItem;
+import com.example.madiba.venualpha.util.ViewUtils;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import timber.log.Timber;
 
 public class ViewMyEventFragment extends Fragment {
     PopupMenu popupMenu;
@@ -48,13 +48,12 @@ public class ViewMyEventFragment extends Fragment {
     public ViewMyEventFragment() {
     }
 
-    public static UserEventsFragment newInstance() {
-        return new UserEventsFragment();
+    public static ViewMyEventFragment newInstance() {
+        return new ViewMyEventFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Timber.i("JUST STARTED HERE ");
         super.onCreate(savedInstanceState);
     }
 
@@ -62,22 +61,31 @@ public class ViewMyEventFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_my_event, container, false);
-
-
-        mStatLayout = (LinearLayout) view.findViewById(R.id.feature_layout);
-        mStatContainer = (ViewGroup) view.findViewById(R.id.feature_container);
+        mStatLayout = (LinearLayout) view.findViewById(R.id.stats_layout);
+        mStatContainer = (ViewGroup) view.findViewById(R.id.stats_container);
         mAttendeesLayout = (LinearLayout) view.findViewById(R.id.attendees_layout);
         mAttendeesContainers = (ViewGroup) view.findViewById(R.id.attendees_container);
-
-
         return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-    }
+        List<ParseObject> eventItems = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            eventItems.add(new ParseObject(""));
+        }
+        displayStat(eventItems);
 
+
+        List<ParseUser> items = new ArrayList<>();
+//        for (int i = 0; i < 5; i++) {
+//            items.add(new ParseUser());
+//        }
+
+
+        displayAttendees(items);
+    }
 
     private void initView(){
 
@@ -152,20 +160,21 @@ public class ViewMyEventFragment extends Fragment {
 
 
     private void displayAttendees(List<ParseUser> attendeeDatas){
-
-        if (attendeeDatas.size()<0) {
-            mAttendeesContainers.setVisibility(View.GONE);
-            return;
-        }
-
-        else {
+//
+//        if (attendeeDatas.size()<0) {
+//            mAttendeesContainers.setVisibility(View.GONE);
+//            return;
+//        }
+//
+//        else {
             mAttendeesContainers.setVisibility(View.VISIBLE);
             mAttendeesLayout.removeAllViews();
             LayoutInflater inflater = LayoutInflater.from(getActivity());
 
-//            for (final ParseObject feature : attendeeDatas) {
-//                ImageView chipView = (ImageView) inflater.inflate(
-//                        R.layout.draw_layout, mTags, false);
+        for (int i = 0; i < 8; i++) {
+                RoundCornerImageView chipView = (RoundCornerImageView) inflater.inflate(
+                        R.layout.item_attende, mAttendeesLayout, false);
+                ViewUtils.setMargins(chipView,0,4,4,4);
 ////                chipView.setText(feature.getTitle());
 ////                chipView.setContentDescription(feature.getTitle());
 ////                chipView.setOnClickListener(new View.OnClickListener() {
@@ -177,10 +186,10 @@ public class ViewMyEventFragment extends Fragment {
 ////                        getActivity().startActivity(intent);
 ////                    }
 ////                });
-//
-//                mTags.addView(chipView);
-//            }
-        }
+
+                mAttendeesLayout.addView(chipView);
+            }
+//        }
 
     }
 
@@ -219,9 +228,9 @@ public class ViewMyEventFragment extends Fragment {
     }
 
 
-    private void displayStat(List<ParseUser> attendeeDatas){
+    private void displayStat(List<ParseObject> stats){
 
-        if (attendeeDatas.size()<0) {
+        if (stats.size()<0) {
             mStatContainer.setVisibility(View.GONE);
             return;
         }
@@ -231,23 +240,12 @@ public class ViewMyEventFragment extends Fragment {
             mStatLayout.removeAllViews();
             LayoutInflater inflater = LayoutInflater.from(getActivity());
 
-//            for (final ParseObject feature : attendeeDatas) {
-//                ImageView chipView = (ImageView) inflater.inflate(
-//                        R.layout.draw_layout, mTags, false);
-////                chipView.setText(feature.getTitle());
-////                chipView.setContentDescription(feature.getTitle());
-////                chipView.setOnClickListener(new View.OnClickListener() {
-////                    @Override
-////                    public void onClick(View view) {
-////                        Intent intent = new Intent(getContext(), ExploreSessionsActivity.class)
-////                                .putExtra(ExploreSessionsActivity.EXTRA_FILTER_TAG, tag.getId())
-////                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-////                        getActivity().startActivity(intent);
-////                    }
-////                });
-//
-//                mTags.addView(chipView);
-//            }
+            for (final ParseObject feature : stats) {
+                LinearLayout chipView = (LinearLayout) inflater.inflate(
+                        R.layout.item_stat, mStatLayout, false);
+
+                mStatLayout.addView(chipView);
+            }
         }
 
     }

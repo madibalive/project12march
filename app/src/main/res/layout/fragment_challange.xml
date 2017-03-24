@@ -7,19 +7,24 @@
     >
 
     <LinearLayout
+        android:descendantFocusability="blocksDescendants"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <TextView
+            android:padding="@dimen/padding_normal"
+            android:text="Channels"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
 
         <HorizontalScrollView
-            android:padding="@dimen/padding_normal"
+            android:padding="@dimen/dp_4"
             android:id="@+id/channel_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="none"
-            android:requiresFadingEdge="horizontal"
-            android:fadingEdgeLength="@dimen/padding_normal"
+
             android:layout_marginBottom="@dimen/padding_normal">
 
             <LinearLayout
@@ -31,61 +36,70 @@
         </HorizontalScrollView>
 
 
-        <RelativeLayout
-            android:id="@+id/challange_container"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_4"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:orientation="vertical">
+
+                <com.android.liuzhuang.rcimageview.RoundCornerImageView
+                    app:rciv_radius="2dp"
+                    android:id="@+id/image"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="12dp"
+                    android:src="@color/venu_green" />
+
+                <TextView
+                    android:id="@+id/hashtag"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_22"
+                    android:text="#JohnSon"
+                    android:textColor="@color/venu_blue"
+                    android:textSize="28dp"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+
+
+            <TextView
+                android:gravity="center"
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Check your proxy settings  sure the proxy server is working. If you don't believe: "
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+
+            <Spinner
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:id="@+id/spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_normal" />
+
+
+        </LinearLayout>
+
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:padding="2dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
-            <com.android.liuzhuang.rcimageview.RoundCornerImageView
-                android:id="@+id/challange_image"
-                app:rciv_radius="@dimen/dp_4"
-                android:layout_width="match_parent"
-                android:layout_height="250dp" />
+        </android.support.v7.widget.RecyclerView>
 
 
-            <View
-                android:layout_alignParentBottom="true"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@drawable/fade_to_white"/>
-
-
-            <TextView
-                android:id="@+id/challange_info"
-                android:padding="@dimen/padding_normal"
-                android:text="@string/a_function_that_creates_a_new_instance_of_the_fragment"
-                android:layout_alignParentBottom="true"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/challange_tag"
-                android:text="#HashTagHere"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:padding="@dimen/padding_normal"
-                android:layout_alignParentTop="true"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </RelativeLayout>
-
-        <Spinner
-            android:id="@+id/toggleSpinner"
-            android:padding="@dimen/padding_normal"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <com.jaychang.srv.SimpleRecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="2dp"
-            app:srv_showDivider="true"
-            app:srv_layoutMode="linearVertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:srv_spacing="4dp" />
 
     </LinearLayout>
 

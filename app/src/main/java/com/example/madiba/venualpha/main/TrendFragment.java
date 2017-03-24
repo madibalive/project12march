@@ -6,16 +6,23 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.madiba.venualpha.R;
-import com.example.madiba.venualpha.adapter.trends.TrendingAdapter;
+import com.example.madiba.venualpha.adapter.trends.trendv2.TrendEventCell;
+import com.example.madiba.venualpha.adapter.trends.trendv2.TrendEventCellHolder;
+import com.example.madiba.venualpha.adapter.trends.trendv2.TrendMemoryCell;
+import com.example.madiba.venualpha.adapter.trends.trendv2.TrendMemoryCellHolder;
+import com.example.madiba.venualpha.models.MdEventItem;
+import com.example.madiba.venualpha.models.MdMemoryItem;
+import com.example.madiba.venualpha.models.MdTrendEvents;
+import com.example.madiba.venualpha.models.MdTrendMemory;
 import com.example.madiba.venualpha.models.TrendingModel;
 import com.example.madiba.venualpha.util.NetUtils;
+import com.jaychang.srv.SimpleCell;
+import com.jaychang.srv.SimpleRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +36,7 @@ import timber.log.Timber;
 
 public class TrendFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
-    private RecyclerView mRecyclerview;
-    private TrendingAdapter mAdapter;
+    private SimpleRecyclerView mRecyclerview;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private List<TrendingModel>  mDatas = new ArrayList<>();
     private RxLoader<List<TrendingModel>> listRxLoader;
@@ -48,22 +54,14 @@ public class TrendFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         super.onCreate(savedInstanceState);
 
 
-        TrendingModel livenow = new TrendingModel("Live Now",TrendingModel.LIVE_NOW);
-        TrendingModel mGossip = new TrendingModel("Trending Gossip",TrendingModel.TRENDING);
-        List<TrendingModel> mdata = new ArrayList<>();
-        mdata.add(livenow);
-        mdata.add(mGossip);
-
-        mAdapter = new TrendingAdapter(R.layout.container_box_trend, mdata);
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view= inflater.inflate(R.layout.container_core, container, false);
-        mRecyclerview = (RecyclerView) view.findViewById(R.id.core_recyclerview);
+        View view= inflater.inflate(R.layout.container_core_simple, container, false);
+        mRecyclerview = (SimpleRecyclerView) view.findViewById(R.id.recyclerView);
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.core_swipelayout);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         return view;
@@ -73,22 +71,36 @@ public class TrendFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         loaderManager = RxLoaderManagerCompat.get(this);
-        initAdapter();
-        initload();
+        List<TrendEventCell> eventItems = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            eventItems.add(new TrendEventCell(new MdEventItem()));
+        }
+
+        List<TrendMemoryCell> memoryCells = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            memoryCells.add(new TrendMemoryCell(new MdMemoryItem()));
+        }
+
+        TrendEventCellHolder eventCellHolder = new TrendEventCellHolder(new MdTrendEvents(eventItems));
+        TrendMemoryCellHolder memoryCellHolder = new TrendMemoryCellHolder(new MdTrendMemory(memoryCells));
+
+        List<SimpleCell> cells = new ArrayList<>();
+        cells.add(eventCellHolder);
+        cells.add(memoryCellHolder);
+
+        mRecyclerview.addCells(cells);
+
     }
 
     @Override
     public void onRefresh() {
         if (NetUtils.hasInternetConnection(getActivity().getApplicationContext())){
-            listRxLoader.restart();
+//            listRxLoader.restart();
         }else
             mSwipeRefreshLayout.setRefreshing(false);}
 
 
-    private void initAdapter(){
-        mRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerview.setAdapter(mAdapter);
-    }
+
 
     private void initload(){
         listRxLoader =loaderManager.create(
@@ -99,8 +111,8 @@ public class TrendFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                         Timber.d("onnext");
                         new Handler().postDelayed(() -> {
                             mSwipeRefreshLayout.setRefreshing(false);
-                            if (value.size()>0)
-                                mAdapter.setNewData(value);
+//                            if (value.size()>0)
+//                                mAdapter.setNewData(value);
                         },500);
                     }
 

@@ -12,12 +12,8 @@ import android.media.ExifInterface;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.v7.graphics.Palette;
 
-import com.cloudinary.Cloudinary;
-import com.cloudinary.utils.ObjectUtils;
 import com.example.madiba.venualpha.Actions.ActionCompleteGossip;
-import com.example.madiba.venualpha.BuildConfig;
 import com.example.madiba.venualpha.adapter.SingletonDataSource;
 import com.example.madiba.venualpha.models.GlobalConstants;
 import com.example.madiba.venualpha.util.ImageUitls;
@@ -40,10 +36,7 @@ import com.parse.ParseUser;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import timber.log.Timber;
 
@@ -147,104 +140,49 @@ public class UploadService extends IntentService {
 
 
     private void handleActionEvent(String id, String className, String uri,Boolean isVideo) {
-        Timber.e("handleActionEventUploud: started  id: %s image  :  %s classname : %s : is video :%s", id, uri, className,isVideo);
 
-        int vibrantColor = 0;
-        int mutedtColor = 0;
-        int textcolor = 0;
         if (isVideo) {
-            Timber.d("EVENT:UPLOUD:: VIDEO MODE ");
+            try {
+                Bitmap thumb = ThumbnailUtils.createVideoThumbnail(uri, MediaStore.Images.Thumbnails.FULL_SCREEN_KIND);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                thumb.compress(Bitmap.CompressFormat.JPEG, 50, bos);
+                byte[] scaledData = bos.toByteArray();
 
-            Map config = new HashMap();
+                //save parsefile
+                ParseFile photoFile = new ParseFile(ParseUser.getCurrentUser().getUsername(), scaledData);
+                photoFile.save();
 
-            config.put("cloud_name", BuildConfig.CLOUDINARY_NAME);
-            config.put("api_key", BuildConfig.CLOUDINARY_KEY);
-            config.put("api_secret", BuildConfig.CLOUDINARY_SECRET);
+                //save parse object
+                ParseObject event = ParseObject.createWithoutData(className, id);
+                event.fetchFromLocalDatastore();
+//                event.put(GlobalConstants.MEDIA_URL, url);
+                event.put(GlobalConstants.MEDIA_IMAGE__THUMB, photoFile);
+                event.put("isVideo", 0);
+                event.save();
 
-            Cloudinary cloudinary = new Cloudinary(config);
-            String url;
+                ParseObject shareObject = new ParseObject(GlobalConstants.CLASS_SHARE);
+                shareObject.put("from", ParseUser.getCurrentUser());
+                shareObject.put("fromID", ParseUser.getCurrentUser().getObjectId());
+                shareObject.put(GlobalConstants.MEDIA_OBJECT, event);
+                shareObject.put("toId", event.getObjectId());
+                shareObject.put(GlobalConstants.MEDIA_TYPE ,3);
+                shareObject.save();
 
-            File file = new File(uri);
-
-            @SuppressWarnings("rawtypes")
-            Map cloudinaryResult;
-            if (file.exists()) {
-                try {
-                    cloudinaryResult = cloudinary.uploader().upload(file, ObjectUtils.asMap("resource_type", "video"));
-                    url = cloudinaryResult.get("url").toString();
-
-                    // create thumbnail
-                    Bitmap thumb = ThumbnailUtils.createVideoThumbnail(uri, MediaStore.Images.Thumbnails.FULL_SCREEN_KIND);
-                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                    thumb.compress(Bitmap.CompressFormat.JPEG, 50, bos);
-                    byte[] scaledData = bos.toByteArray();
-
-                    // generate pallete
-                    Palette palette = Palette.from(thumb)
-                            .clearFilters()
-                            .generate();
-
-                    // try the named swatches in preference order
-                    if (palette.getVibrantSwatch() != null) {
-//                            rippleColor =
-//                                    ColorUtils.modifyAlpha(palette.getVibrantSwatch().getRgb(), darkAlpha);
-
-                    } else if (palette.getLightVibrantSwatch() != null) {
-//                            rippleColor = ColorUtils.modifyAlpha(palette.getLightVibrantSwatch().getRgb(),
-//                                    lightAlpha);
-                    } else if (palette.getDarkVibrantSwatch() != null) {
-//                            rippleColor = ColorUtils.modifyAlpha(palette.getDarkVibrantSwatch().getRgb(),
-//                                    darkAlpha);
-                    } else if (palette.getMutedSwatch() != null) {
-//                            rippleColor = ColorUtils.modifyAlpha(palette.getMutedSwatch().getRgb(), darkAlpha);
-                    } else if (palette.getLightMutedSwatch() != null) {
-//                            rippleColor = ColorUtils.modifyAlpha(palette.getLightMutedSwatch().getRgb(),
-//                                    lightAlpha);
-                    } else if (palette.getDarkMutedSwatch() != null) {
-//                        rippleColor =
-//                                ColorUtils.modifyAlpha(palette.getDarkMutedSwatch().getRgb(), darkAlpha);
-                    }
-
-                    //save parsefile
-                    ParseFile photoFile = new ParseFile(ParseUser.getCurrentUser().getUsername(), scaledData);
-                    photoFile.save();
-
-                    //save parse object
-                    ParseObject event = ParseObject.createWithoutData(className, id);
-                    event.fetchFromLocalDatastore();
-                    event.put(GlobalConstants.MEDIA_PALETTE_VIBRANT, vibrantColor);
-                    event.put(GlobalConstants.MEDIA_PALETTE_MUTED, mutedtColor);
-                    event.put(GlobalConstants.MEDIA_PALETTE_TEXT_COLOR, textcolor);
-                    event.put(GlobalConstants.MEDIA_URL, url);
-                    event.put(GlobalConstants.MEDIA_IMAGE__THUMB, photoFile);
-                    event.put("isVideo", 0);
-                    event.save();
-
-                    ParseObject shareObject = new ParseObject(GlobalConstants.CLASS_SHARE);
-                    shareObject.put("from", ParseUser.getCurrentUser());
-                    shareObject.put("fromID", ParseUser.getCurrentUser().getObjectId());
-                    shareObject.put(GlobalConstants.MEDIA_OBJECT, event);
-                    shareObject.put("toId", event.getObjectId());
-                    shareObject.put(GlobalConstants.MEDIA_TYPE ,3);
-                    shareObject.save();
-
-                    ParseObject feed =new ParseObject(GlobalConstants.CLASS_FEED);
-                    feed.put("from", ParseUser.getCurrentUser());
-                    feed.put("fromId", ParseUser.getCurrentUser().getObjectId());
-                    feed.put(GlobalConstants.FEED_TYPE, GlobalConstants.FEED_TYPE_SHARE);
-                    feed.put(GlobalConstants.FEED_OBJECT,shareObject);
+                ParseObject feed =new ParseObject(GlobalConstants.CLASS_FEED);
+                feed.put("from", ParseUser.getCurrentUser());
+                feed.put("fromId", ParseUser.getCurrentUser().getObjectId());
+                feed.put(GlobalConstants.FEED_TYPE, GlobalConstants.FEED_TYPE_SHARE);
+                feed.put(GlobalConstants.FEED_OBJECT,shareObject);
 
 
 
-                    thumb.recycle();
-                } catch (RuntimeException | ParseException | IOException e) {
-                    Timber.e("upload Error uploading file");
-                    ParseObject media = ParseObject.createWithoutData(className, id);
-                    media.deleteEventually();
+                thumb.recycle();
+            } catch (RuntimeException | ParseException  e) {
+                Timber.e("upload Error uploading file");
+                ParseObject media = ParseObject.createWithoutData(className, id);
+                media.deleteEventually();
 
-                } finally {
-                }
-
+            } finally {
             }
 
         } else{
@@ -252,100 +190,64 @@ public class UploadService extends IntentService {
 
             byte[] originalBytes;
             byte[] compressBytes;
-                //get bitmap
-                Timber.d("EVENT:UPLOUD:: COMPRESSING IMAGE ");
-                final Bitmap bitmap =compressImage(uri);
-                if (bitmap != null) {
-                    // compress bytes
-                    originalBytes = ImageUitls.bitmap2Bytes(bitmap, Bitmap.CompressFormat.JPEG, 100);
-                    compressBytes = ImageUitls.bitmap2Bytes(bitmap, Bitmap.CompressFormat.JPEG, 60);
-                    ParseFile origImgs = new ParseFile(ParseUser.getCurrentUser().getUsername(), originalBytes);
-                    ParseFile cmprImgs = new ParseFile(ParseUser.getCurrentUser().getUsername(), compressBytes);
-                    Timber.d("EVENT:UPLOUD:: SAVING IMAGE TO PARSE");
+            //get bitmap
+            Timber.d("EVENT:UPLOUD:: COMPRESSING IMAGE ");
+            final Bitmap bitmap =compressImage(uri);
+            if (bitmap != null) {
+                // compress bytes
+                originalBytes = ImageUitls.bitmap2Bytes(bitmap, Bitmap.CompressFormat.JPEG, 100);
+                compressBytes = ImageUitls.bitmap2Bytes(bitmap, Bitmap.CompressFormat.JPEG, 60);
+                ParseFile origImgs = new ParseFile(ParseUser.getCurrentUser().getUsername(), originalBytes);
+                ParseFile cmprImgs = new ParseFile(ParseUser.getCurrentUser().getUsername(), compressBytes);
 
-                    try {
-                        cmprImgs.save();
-                        origImgs.save();
-
-//                        Palette palette = Palette.from(bitmap)
-//                                .clearFilters()
-//                                .generate();
-//
-//                        // try the named swatches in preference order
-//                        if (palette.getVibrantSwatch() != null) {
-////                            rippleColor =
-////                                    ColorUtils.modifyAlpha(palette.getVibrantSwatch().getRgb(), darkAlpha);
-//
-//                        } else if (palette.getLightVibrantSwatch() != null) {
-////                            rippleColor = ColorUtils.modifyAlpha(palette.getLightVibrantSwatch().getRgb(),
-////                                    lightAlpha);
-//                        } else if (palette.getDarkVibrantSwatch() != null) {
-////                            rippleColor = ColorUtils.modifyAlpha(palette.getDarkVibrantSwatch().getRgb(),
-////                                    darkAlpha);
-//                        } else if (palette.getMutedSwatch() != null) {
-////                            rippleColor = ColorUtils.modifyAlpha(palette.getMutedSwatch().getRgb(), darkAlpha);
-//                        } else if (palette.getLightMutedSwatch() != null) {
-////                            rippleColor = ColorUtils.modifyAlpha(palette.getLightMutedSwatch().getRgb(),
-////                                    lightAlpha);
-//                        } else if (palette.getDarkMutedSwatch() != null) {
-////                        rippleColor =
-////                                ColorUtils.modifyAlpha(palette.getDarkMutedSwatch().getRgb(), darkAlpha);
-//                        }
-
-                        Timber.d("EVENT:UPLOUD:: GETTING PARSE OBJECT ");
+                try {
+                    cmprImgs.save();
+                    origImgs.save();
 
 
-                        ParseObject event = ParseObject.createWithoutData(className, id);
-                        event.fetchFromLocalDatastore();
-//                        event.put(GlobalConstants.MEDIA_PALETTE_VIBRANT, vibrantColor);
-//                        event.put(GlobalConstants.MEDIA_PALETTE_MUTED, mutedtColor);
-//                        event.put(GlobalConstants.MEDIA_PALETTE_TEXT_COLOR, textcolor);
-                        event.put(GlobalConstants.IMAGE_100, origImgs); // //
-                        event.put(GlobalConstants.IMAGE_60, cmprImgs);
-                        event.put("isVideo", 1);
-                        event.save();
+                    ParseObject event = ParseObject.createWithoutData(className, id);
+                    event.fetchFromLocalDatastore();
+                    event.put(GlobalConstants.IMAGE_100, origImgs); // //
+                    event.put(GlobalConstants.IMAGE_60, cmprImgs);
+                    event.put("isVideo", 1);
+                    event.save();
 
-                        Timber.d("EVENT:UPLOUD:: SAVEING PARSE OBJECT ");
+                    ParseObject shareObject = new ParseObject(GlobalConstants.CLASS_SHARE);
+                    shareObject.put(GlobalConstants.FROM, ParseUser.getCurrentUser());
+                    shareObject.put(GlobalConstants.FROM_ID, ParseUser.getCurrentUser().getObjectId());
+                    shareObject.put(GlobalConstants.OBJECT, event);
+                    shareObject.put("toId", event.getObjectId());
+                    shareObject.put(GlobalConstants.TYPE, GlobalConstants.SHARE_TYPE_EVENT);
+                    shareObject.save();
 
-                        Timber.d("EVENT:UPLOUD:: CREATING SHARE PARSE OBJECT ");
+                    Timber.d("EVENT:UPLOUD:: SAVING PARSE OBJECT ");
 
+                    ParseObject feed =new ParseObject(GlobalConstants.CLASS_FEED);
+                    feed.put(GlobalConstants.FROM, ParseUser.getCurrentUser());
+                    feed.put(GlobalConstants.FROM_ID, ParseUser.getCurrentUser().getObjectId());
+                    feed.put(GlobalConstants.TYPE, GlobalConstants.FEED_TYPE_SHARE);
+                    feed.put(GlobalConstants.OBJECT,shareObject);
 
-                        ParseObject shareObject = new ParseObject(GlobalConstants.CLASS_SHARE);
-                        shareObject.put(GlobalConstants.FROM, ParseUser.getCurrentUser());
-                        shareObject.put(GlobalConstants.FROM_ID, ParseUser.getCurrentUser().getObjectId());
-                        shareObject.put(GlobalConstants.OBJECT, event);
-                        shareObject.put("toId", event.getObjectId());
-                        shareObject.put(GlobalConstants.TYPE, GlobalConstants.SHARE_TYPE_EVENT);
-                        shareObject.save();
+                    feed.save();
 
-                        Timber.d("EVENT:UPLOUD:: SAVING PARSE OBJECT ");
-
-                        ParseObject feed =new ParseObject(GlobalConstants.CLASS_FEED);
-                        feed.put(GlobalConstants.FROM, ParseUser.getCurrentUser());
-                        feed.put(GlobalConstants.FROM_ID, ParseUser.getCurrentUser().getObjectId());
-                        feed.put(GlobalConstants.TYPE, GlobalConstants.FEED_TYPE_SHARE);
-                        feed.put(GlobalConstants.OBJECT,shareObject);
-
-                        feed.save();
-
-                        Timber.d("EVENT:UPLOUD::FEED SAVE PARSE OBJECT ");
+                    Timber.d("EVENT:UPLOUD::FEED SAVE PARSE OBJECT ");
 
 
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                        Timber.d("EVENT:UPLOUD:: ERROR UPLOUDING IMAGE ");
-                        ParseObject media = ParseObject.createWithoutData(className, id);
-                        media.deleteEventually();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    Timber.d("EVENT:UPLOUD:: ERROR UPLOUDING IMAGE ");
+                    ParseObject media = ParseObject.createWithoutData(className, id);
+                    media.deleteEventually();
 
-                    }finally {
-                        bitmap.recycle();
-                        originalBytes = null;
-                        compressBytes = null;
-                    }
-                } else {
-                    Timber.d("EVENT:UPLOUD:: FILE DOES NOT EXIST  ");
+                }finally {
+                    bitmap.recycle();
+                    originalBytes = null;
+                    compressBytes = null;
                 }
+            } else {
+                Timber.d("EVENT:UPLOUD:: FILE DOES NOT EXIST  ");
             }
+        }
 
     }
 
@@ -354,20 +256,11 @@ public class UploadService extends IntentService {
      * parameters.
      */
     private void handleActionVideo2gif( String id, String classname,String filepath) {
-        Map config = new HashMap();
-
-        config.put("cloud_name", BuildConfig.CLOUDINARY_NAME);
-        config.put("api_key", BuildConfig.CLOUDINARY_KEY);
-        config.put("api_secret", BuildConfig.CLOUDINARY_SECRET);
-
-        Cloudinary cloudinary = new Cloudinary(config);
-        String url;
 
 //        File file = new File(filepath);
 //        Map cloudinaryResult;
 //        if (file.exists()) {
 //            try {
-//                cloudinaryResult = cloudinary.uploader().upload(file, ObjectUtils.asMap("resource_type", "video")
 //                )  ;
 //                cloudinary.uploader().upload(file, Arrays.asList(
 //                        new Transformation().aspectRatio(2.5),
@@ -389,101 +282,48 @@ public class UploadService extends IntentService {
      * parameters.
      */
     private void handleActionVideo( String id, String classname,String filepath) {
-        Timber.i("handleActionVidUploud2: " + filepath + " " + id + " " + classname);
-        Map config = new HashMap();
 
-        config.put("cloud_name", BuildConfig.CLOUDINARY_NAME);
-        config.put("api_key", BuildConfig.CLOUDINARY_KEY);
-        config.put("api_secret", BuildConfig.CLOUDINARY_SECRET);
+        // create thumbnail
+        Bitmap thumb = ThumbnailUtils.createVideoThumbnail(filepath, MediaStore.Images.Thumbnails.FULL_SCREEN_KIND);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        thumb.compress(Bitmap.CompressFormat.JPEG, 50, bos);
+        byte[] scaledData = bos.toByteArray();
 
-        Cloudinary cloudinary = new Cloudinary(config);
-        String url;
-        int vibrantColor = 0;
-        int mutedtColor = 0;
-        int textcolor =0;
-        File file = new File(filepath);
+        try {
+            ParseFile photoFile = new ParseFile(ParseUser.getCurrentUser().getUsername(), scaledData);
+            photoFile.save();
 
+            //save parse object
+            ParseObject media = ParseObject.createWithoutData(classname, id);
 
+            media.fetchFromLocalDatastore();
+//            media.put(GlobalConstants.MEDIA_URL, url);
+            media.put(GlobalConstants.MEDIA_IMAGE_ORIGINAL,photoFile);
+            media.put(GlobalConstants.MEDIA_IMAGE__THUMB,photoFile);
+            media.put(GlobalConstants.MEDIA_TYPE,1);
+            media.save();
 
-
-        @SuppressWarnings("rawtypes")
-        Map cloudinaryResult;
-        if (file.exists()) {
-            try {
-                cloudinaryResult = cloudinary.uploader().upload(file, ObjectUtils.asMap("resource_type", "video"));
-                url = cloudinaryResult.get("url").toString();
-
-                // create thumbnail
-                Bitmap thumb = ThumbnailUtils.createVideoThumbnail(filepath, MediaStore.Images.Thumbnails.FULL_SCREEN_KIND);
-                ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                thumb.compress(Bitmap.CompressFormat.JPEG, 50, bos);
-                byte[] scaledData = bos.toByteArray();
-
-                // generate pallete
-                Palette palette = Palette.from(thumb)
-                        .clearFilters()
-                        .generate();
-
-                // try the named swatches in preference order
-                if (palette.getVibrantSwatch() != null) {
-//                            rippleColor =
-//                                    ColorUtils.modifyAlpha(palette.getVibrantSwatch().getRgb(), darkAlpha);
-
-                } else if (palette.getLightVibrantSwatch() != null) {
-//                            rippleColor = ColorUtils.modifyAlpha(palette.getLightVibrantSwatch().getRgb(),
-//                                    lightAlpha);
-                } else if (palette.getDarkVibrantSwatch() != null) {
-//                            rippleColor = ColorUtils.modifyAlpha(palette.getDarkVibrantSwatch().getRgb(),
-//                                    darkAlpha);
-                } else if (palette.getMutedSwatch() != null) {
-//                            rippleColor = ColorUtils.modifyAlpha(palette.getMutedSwatch().getRgb(), darkAlpha);
-                } else if (palette.getLightMutedSwatch() != null) {
-//                            rippleColor = ColorUtils.modifyAlpha(palette.getLightMutedSwatch().getRgb(),
-//                                    lightAlpha);
-                } else if (palette.getDarkMutedSwatch() != null) {
-//                        rippleColor =
-//                                ColorUtils.modifyAlpha(palette.getDarkMutedSwatch().getRgb(), darkAlpha);
-                }
-
-                //save parsefile
-                ParseFile photoFile = new ParseFile(ParseUser.getCurrentUser().getUsername(), scaledData);
-                photoFile.save();
-
-                //save parse object
-                ParseObject media = ParseObject.createWithoutData(classname, id);
-
-                media.fetchFromLocalDatastore();
-                media.put(GlobalConstants.MEDIA_URL, url);
-                media.put(GlobalConstants.MEDIA_PALETTE_VIBRANT,vibrantColor);
-                media.put(GlobalConstants.MEDIA_PALETTE_MUTED,mutedtColor);
-                media.put(GlobalConstants.MEDIA_PALETTE_TEXT_COLOR,textcolor);
-                media.put(GlobalConstants.MEDIA_IMAGE_ORIGINAL,photoFile);
-                media.put(GlobalConstants.MEDIA_IMAGE__THUMB,photoFile);
-                media.put(GlobalConstants.MEDIA_TYPE,1);
-                media.save();
-
-                ParseObject feed =new ParseObject(GlobalConstants.CLASS_FEED);
-                feed.put("from", ParseUser.getCurrentUser());
-                feed.put("fromId", ParseUser.getCurrentUser().getObjectId());
-                feed.put(GlobalConstants.FEED_TYPE, GlobalConstants.FEED_TYPE_MEDIA);
-                feed.put(GlobalConstants.FEED_OBJECT,media);
-                if (media.getInt("isPrivate")==1){
-                    feed.put(GlobalConstants.FEED_ISPRIVATE,false);
-                    feed.put(GlobalConstants.FEED_PRIVATE_LIST, SingletonDataSource.getInstance().getPrivateUserList());
-                }
-                feed.save();
-
-                thumb.recycle();
-            } catch (RuntimeException |ParseException | IOException e) {
-                Timber.e("Error uploading file");
-                ParseObject media = ParseObject.createWithoutData(classname, id);
-                media.deleteEventually();
-
-            } finally {
-
+            ParseObject feed =new ParseObject(GlobalConstants.CLASS_FEED);
+            feed.put("from", ParseUser.getCurrentUser());
+            feed.put("fromId", ParseUser.getCurrentUser().getObjectId());
+            feed.put(GlobalConstants.FEED_TYPE, GlobalConstants.FEED_TYPE_MEDIA);
+            feed.put(GlobalConstants.FEED_OBJECT,media);
+            if (media.getInt("isPrivate")==1){
+                feed.put(GlobalConstants.FEED_ISPRIVATE,false);
+                feed.put(GlobalConstants.FEED_PRIVATE_LIST, SingletonDataSource.getInstance().getPrivateUserList());
             }
+            feed.save();
+
+        }catch (Exception E){
+
+        }finally {
+            thumb.recycle();
 
         }
+        //save parsefile
+
+
+
     }
 
 
@@ -495,17 +335,11 @@ public class UploadService extends IntentService {
 
     private void handleActionImage(String id, String className,String url) {
 
-        // intial variable
         byte[] originalBytes;
         byte[] compressBytes;
-        float darkAlpha = 0.25f;
-        float lightAlpha =0.5f;
-        int vibrantColor = 0;
-        int mutedtColor = 0;
-        int textcolor =0;
 
         if (ImageUitls.exists(getApplicationContext(),url)){
-            //get bitmap
+//get bitmap
             final Bitmap bitmap = BitmapFactory.decodeFile(url);
             if (bitmap !=null){
                 // compress bytes
@@ -518,36 +352,9 @@ public class UploadService extends IntentService {
                     cmprImgs.save();
                     origImgs.save();
 
-//                    Palette palette = Palette.from(bitmap)
-//                            .clearFilters()
-//                            .generate();
-//
-//                    // try the named swatches in preference order
-//                    if (palette.getVibrantSwatch() != null) {
-////                            rippleColor =
-////                                    ColorUtils.modifyAlpha(palette.getVibrantSwatch().getRgb(), darkAlpha);
-//
-//                    } else if (palette.getLightVibrantSwatch() != null) {
-////                            rippleColor = ColorUtils.modifyAlpha(palette.getLightVibrantSwatch().getRgb(),
-////                                    lightAlpha);
-//                    } else if (palette.getDarkVibrantSwatch() != null) {
-////                            rippleColor = ColorUtils.modifyAlpha(palette.getDarkVibrantSwatch().getRgb(),
-////                                    darkAlpha);
-//                    } else if (palette.getMutedSwatch() != null) {
-////                            rippleColor = ColorUtils.modifyAlpha(palette.getMutedSwatch().getRgb(), darkAlpha);
-//                    } else if (palette.getLightMutedSwatch() != null) {
-////                            rippleColor = ColorUtils.modifyAlpha(palette.getLightMutedSwatch().getRgb(),
-////                                    lightAlpha);
-//                    } else if (palette.getDarkMutedSwatch() != null) {
-////                        rippleColor =
-////                                ColorUtils.modifyAlpha(palette.getDarkMutedSwatch().getRgb(), darkAlpha);
-//                    }
 
                     ParseObject media = ParseObject.createWithoutData(className, id);
                     media.fetchFromLocalDatastore();
-//                    media.put(GlobalConstants.MEDIA_PALETTE_VIBRANT,vibrantColor);
-//                    media.put(GlobalConstants.MEDIA_PALETTE_MUTED,mutedtColor);
-//                    media.put(GlobalConstants.MEDIA_PALETTE_TEXT_COLOR,textcolor);
                     media.put(GlobalConstants.MEDIA_IMAGE_ORIGINAL,origImgs);
                     media.put(GlobalConstants.MEDIA_IMAGE__THUMB,cmprImgs);
                     media.put(GlobalConstants.MEDIA_TYPE,0);
@@ -589,29 +396,29 @@ public class UploadService extends IntentService {
     private void handleActionGossip(String title) {
 
 
-            ParseObject gossip =new ParseObject(GlobalConstants.CLASS_GOSSIP);
-            gossip.put("title", title);
-            gossip.put("shares",0);
-            gossip.put("likes",0);
-            gossip.put("from", ParseUser.getCurrentUser());
-            gossip.put("fromId", ParseUser.getCurrentUser().getObjectId());
-            gossip.put("expiryDate", TimeUitls.addExpiryDate());
-            try {
-                gossip.save();
+        ParseObject gossip =new ParseObject(GlobalConstants.CLASS_GOSSIP);
+        gossip.put("title", title);
+        gossip.put("shares",0);
+        gossip.put("likes",0);
+        gossip.put("from", ParseUser.getCurrentUser());
+        gossip.put("fromId", ParseUser.getCurrentUser().getObjectId());
+        gossip.put("expiryDate", TimeUitls.addExpiryDate());
+        try {
+            gossip.save();
 
-                ParseObject feed =new ParseObject(GlobalConstants.CLASS_FEED);
-                feed.put("from", ParseUser.getCurrentUser());
-                feed.put("fromId", ParseUser.getCurrentUser().getObjectId());
-                feed.put(GlobalConstants.FEED_TYPE, GlobalConstants.FEED_TYPE_GOSSIP);
-                feed.put(GlobalConstants.FEED_EXPIRY_DATE, TimeUitls.addExpiryDate());
-                feed.put(GlobalConstants.FEED_OBJECT,gossip);
-                feed.save();
+            ParseObject feed =new ParseObject(GlobalConstants.CLASS_FEED);
+            feed.put("from", ParseUser.getCurrentUser());
+            feed.put("fromId", ParseUser.getCurrentUser().getObjectId());
+            feed.put(GlobalConstants.FEED_TYPE, GlobalConstants.FEED_TYPE_GOSSIP);
+            feed.put(GlobalConstants.FEED_EXPIRY_DATE, TimeUitls.addExpiryDate());
+            feed.put(GlobalConstants.FEED_OBJECT,gossip);
+            feed.save();
 
 
-            } catch (ParseException e) {
-                EventBus.getDefault().post(new ActionCompleteGossip(false, 0));
-                e.printStackTrace();
-            }
+        } catch (ParseException e) {
+            EventBus.getDefault().post(new ActionCompleteGossip(false, 0));
+            e.printStackTrace();
+        }
 
     }
 
@@ -646,12 +453,12 @@ public class UploadService extends IntentService {
         ShareApi.share(content, null);
 
     }
-    
-    
+
+
     private void sendInviteNotification(){
         // TODO: 2/4/2017  
-        
-        
+
+
     }
 
     private void onCreateFeed(){

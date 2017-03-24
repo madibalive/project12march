@@ -19,7 +19,7 @@
     <fragment
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:id="@+id/fragment"
-        android:name="com.venu.venutheta.settings.SettingsActivityFragment"
+        android:name="com.example.madiba.venualpha.settings.SettingsActivityFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout="@layout/fragment_settings" />

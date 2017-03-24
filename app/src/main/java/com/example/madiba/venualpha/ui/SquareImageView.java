@@ -3,13 +3,14 @@ package com.example.madiba.venualpha.ui;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
 /**
  * Created by Madiba on 11/1/2016.
  */
-class SquareImageView extends ImageView {
+public class SquareImageView extends AppCompatImageView {
 
     public SquareImageView(Context context) {
         super(context);
@@ -21,11 +22,6 @@ class SquareImageView extends ImageView {
 
     public SquareImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public SquareImageView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
     }
 
     @Override

@@ -59,7 +59,7 @@ public class FeedEventsAdCell extends SimpleCell<MdEventRowItem, FeedEventsAdCel
 
       for (final MdEventItem channel : mDatas) {
         View view = inflater.inflate(R.layout.item_event_map_half, holder.mMemoriesLayout, false);
-        ViewUtils.setHeightAndWidth(view,170,140);
+        ViewUtils.setHeightAndWidth(view,380,250);
         ViewUtils.setMargins(view,10,10,10,10);
 
         RoundCornerImageView imageView = (RoundCornerImageView) view.findViewById(R.id.image_view);

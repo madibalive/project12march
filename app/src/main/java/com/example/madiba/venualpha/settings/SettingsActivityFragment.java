@@ -32,7 +32,7 @@ public class SettingsActivityFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mCurrentUser = ParseUser.getCurrentUser();
+//        mCurrentUser = ParseUser.getCurrentUser();
 //        FeedbackManager.register(getActivity());
     }
 

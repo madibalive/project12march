@@ -1,13 +1,16 @@
 package com.example.madiba.venualpha.discover;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.madiba.venualpha.R;
+import com.example.madiba.venualpha.eventpage.WhiteEventPageActivity;
 import com.example.madiba.venualpha.models.MdEventItem;
+import com.example.madiba.venualpha.ui.customviewpager.EnchantedViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +18,6 @@ import java.util.List;
  * Created by GIGAMOLE on 7/27/16.
  */
 public class ExploreEventsPagerAdapter extends PagerAdapter {
-
-
 
     private Context mContext;
     private LayoutInflater mLayoutInflater;
@@ -40,10 +41,18 @@ public class ExploreEventsPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(final ViewGroup container, final int position) {
-        final View view;
+        View view;
         view = mLayoutInflater.inflate(R.layout.item_event_full, container, false);
         setupItem(view, datas.get(position));
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mContext.startActivity(new Intent(mContext, WhiteEventPageActivity.class));
+            }
+        });
+        view.setTag(EnchantedViewPager.ENCHANTED_VIEWPAGER_POSITION + position);
         container.addView(view);
+
         return view;
     }
 

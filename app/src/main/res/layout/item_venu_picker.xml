@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.madiba.venualpha.ui.SquareLayout android:id="@+id/going_bgrnd"
+    android:layout_width="125dp"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:theme="@style/ThemeOverlay.AppCompat.Light"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageButton
+        android:id="@+id/edit_close"
+        android:tint="@color/white"
+        android:background="@color/venu_red"
+        android:src="@drawable/ic_close"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_above="@+id/avatar"
+        android:layout_toRightOf="@+id/avatar"
+        android:layout_toEndOf="@+id/avatar" />
+
+    <com.android.liuzhuang.rcimageview.RoundCornerImageView
+        app:rciv_radius="2dp"
+        android:id="@+id/avatar"
+        android:src="@color/venu_yellow"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"/>
+    <TextView
+        android:paddingTop="@dimen/dp_4"
+        android:layout_below="@id/image_view"
+        android:id="@+id/edit"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Edit"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+
+        />
+
+</com.example.madiba.venualpha.ui.SquareLayout>

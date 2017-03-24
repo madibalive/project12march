@@ -7,7 +7,7 @@
     android:orientation="horizontal"
     android:padding="@dimen/dp_10">
 
-    <com.stfalcon.multiimageview.MultiImageView
+    <com.example.madiba.venualpha.ui.stateimageview.StateImageView
         android:id="@+id/cc_i_avatar"
         android:layout_width="45dp"
         android:layout_height="45dp"

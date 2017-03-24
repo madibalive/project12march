@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:fitsSystemWindows="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/AppTheme.Toolbar"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:titleEnabled="false">
+            <RelativeLayout
+                android:id="@+id/scroll_container"
+                app:layout_scrollFlags="scroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/container"
+                    android:paddingRight="@dimen/dp_10"
+                    android:padding="@dimen/dp_10"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <com.android.liuzhuang.rcimageview.RoundCornerImageView
+                        android:id="@+id/gossip_image"
+                        android:src="@color/venu_yellow"
+                        android:layout_width="80dp"
+                        android:layout_marginRight="@dimen/padding_normal"
+                        android:layout_height="70dp" />
+
+                    <TextView
+                        android:paddingRight="8dp"
+                        android:id="@+id/gossip_title"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:text="Vestibulum posuere velit niss  velit nisl velsadas  idunt felis vitae leugiat at "
+                        android:textColor="@color/dark_grey"
+                        />
+
+                    <TextView
+                        android:drawableTop="@drawable/ic_add"
+                        android:gravity="center"
+                        android:drawablePadding="@dimen/dp_4"
+                        android:text="12"
+                        android:textStyle="bold"
+                        android:textAppearance="@style/AdobeImageWidget.TextAppearance.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/AppTheme.Toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:text="#samplehere"
+                    android:id="@+id/title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content" />
+
+                <com.android.liuzhuang.rcimageview.RoundCornerImageView
+                    android:id="@+id/avatar"
+                    android:layout_marginRight="@dimen/padding_normal"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@color/venu_yellow"/>
+            </LinearLayout>
+
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.jaychang.srv.SimpleRecyclerView
+            android:id="@+id/linearVerRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="4dp"
+            app:srv_showDivider="false"
+            app:srv_layoutMode="linearVertical"
+            app:srv_spacing="4dp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/messageInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="textAutoCorrect|textAutoComplete|textMultiLine"/>
+
+            <android.support.v4.widget.Space
+                android:id="@+id/buttonSpace"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                />
+
+            <ImageButton
+                android:padding="@dimen/padding_normal"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:src="@drawable/venu_slanted_arrow"
+                android:id="@+id/messageSendButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</android.support.design.widget.CoordinatorLayout>

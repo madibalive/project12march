@@ -2,17 +2,22 @@ package com.example.madiba.venualpha.onboard;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.madiba.venualpha.R;
@@ -26,6 +31,7 @@ import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import timber.log.Timber;
@@ -50,6 +56,7 @@ public class SignFragment extends Fragment {
     private EditText mUsername;
     private View mProgressView;
     private View mLoginFormView;
+    private Spinner spinner;
 
     private OnFragmentInteractionListener mListener;
 
@@ -66,7 +73,6 @@ public class SignFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
     }
 
     @Override
@@ -77,8 +83,9 @@ public class SignFragment extends Fragment {
         mEmailView = (AutoCompleteTextView) view.findViewById(R.id.signup_email);
         mPhoneView = (EditText) view.findViewById(R.id.signup_phone);
         mUsername = (EditText) view.findViewById(R.id.signup_username);
+        spinner = (Spinner) view.findViewById(R.id.country);
 //        gotoLogin = (StateButton) view.findViewById(R.id.signup_goto_login);
-//        mEmailSignInButton = (StateButton) view.findViewById(R.id.signup_signup_btn);
+        mEmailSignInButton = (StateButton) view.findViewById(R.id.sign_up_btn);
         mLoginFormView = view.findViewById(R.id.signup_sign_up_form);
         mPasswordView = (EditText) view.findViewById(R.id.signup_password);
 
@@ -89,9 +96,7 @@ public class SignFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        gotoLogin.setOnClickListener(view1 -> {
 
-        });
         mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
             if (id == R.id.sign_up || id == EditorInfo.IME_NULL) {
                 attemptLogin();
@@ -100,8 +105,8 @@ public class SignFragment extends Fragment {
             return false;
         });
 
-        mEmailSignInButton.setOnClickListener(view2 -> attemptLogin());
-
+        mEmailSignInButton.setOnClickListener(view2 ->
+                onButtonPressed(3));
     }
 
     private void attemptLogin() {
@@ -201,17 +206,13 @@ public class SignFragment extends Fragment {
                     Timber.d("error signing user : %s" ,e.getMessage());
                     Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
                 } else {
-                    Timber.i("success signing up");
                     initSettings();
-
-
                 }
             }
         });
     }
 
     private void initSettings(){
-
         ParseInstallation installation = ParseInstallation.getCurrentInstallation();
         installation.put("user", ParseUser.getCurrentUser());
         installation.put("user_id", ParseUser.getCurrentUser().getObjectId());
@@ -220,10 +221,7 @@ public class SignFragment extends Fragment {
         ParseObject userRelations = new ParseObject(GlobalConstants.CLASS_USER_RELATION);
         userRelations.put("user", ParseUser.getCurrentUser());
         userRelations.saveInBackground();
-
     }
-
-
 
     private boolean isEmailValid(String email) {
         return email.contains("@");
@@ -243,10 +241,34 @@ public class SignFragment extends Fragment {
 
 
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+
+    private void initPhoneNumber(){
+        /*********** read indicative sim *************/
+        TelephonyManager telMgr =  (TelephonyManager)getContext().getSystemService(Context.TELEPHONY_SERVICE);
+
+        String simContryiso = telMgr.getSimCountryIso();
+        int indicative = Iso2Phone.getPosition(simContryiso);
+        LinkedHashMap<String, String> data= Iso2Phone.country_to_indicative;
+        MyListAdapter adapter = new MyListAdapter(getActivity(), android.R.layout.simple_spinner_item,data);
+        spinner.setAdapter(adapter);
+        spinner.setSelection(indicative);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                    data.get(i)
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+    }
+
+    public void onButtonPressed(int num) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(index,true);
+            mListener.onGotoDetails();
         }
     }
 
@@ -269,8 +291,38 @@ public class SignFragment extends Fragment {
 
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(int index,Boolean aBoolean);
+        void onGotoDetails();
+    }
+
+
+    public class MyListAdapter extends ArrayAdapter{
+
+        private int resource;
+        private LayoutInflater inflater;
+        private Context context;
+        private LinkedHashMap<String,String> data = new LinkedHashMap<>();
+        public MyListAdapter ( Context ctx, int resourceId, LinkedHashMap<String,String> data) {
+
+            super( ctx, resourceId );
+            resource = resourceId;
+            inflater = LayoutInflater.from( ctx );
+            context=ctx;
+            this.data = data;
+        }
+
+        @Override
+        public View getView ( int position, View convertView, ViewGroup parent ) {
+
+            convertView = (RelativeLayout) inflater.inflate( resource, null );
+
+            String code =  data.get(position);
+
+            TextView txtName = (TextView) convertView.findViewById(R.id.text1);
+            txtName.setText(code);
+
+
+            return convertView;
+        }
     }
 
 }

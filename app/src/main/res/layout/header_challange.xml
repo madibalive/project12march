@@ -5,18 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
+    android:padding="@dimen/padding_normal"
     android:orientation="vertical">
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="225dp"
+        android:layout_height="180dp"
         android:orientation="vertical">
 
-        <ImageView
+        <com.android.liuzhuang.rcimageview.RoundCornerImageView
+            app:rciv_radius="2dp"
             android:id="@+id/image"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="25dp"
+            android:layout_height="160dp"
+            android:layout_marginTop="12dp"
             android:src="@color/venu_green" />
 
         <TextView
@@ -26,34 +28,28 @@
             android:layout_marginLeft="@dimen/dp_22"
             android:text="#JohnSon"
             android:textColor="@color/venu_blue"
-            android:textSize="40dp"
+            android:textSize="28dp"
             android:textStyle="bold" />
     </FrameLayout>
 
 
+
     <TextView
+        android:gravity="center"
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_22"
-        android:paddingLeft="@dimen/dp_10"
-        android:paddingTop="10dp"
-        android:textSize="@dimen/app_text_size_large"
-        android:text="@string/a_function_that_creates_a_new_instance_of_the_fragment"
-        android:textColor="@color/text_black"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/desc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/dp_10"
-        android:paddingTop="@dimen/dp_10"
-        android:text="Check your proxy settings or contact your network administrator to make sure the proxy server is working. If you don't believe: "
+        android:text="Check your proxy settings  sure the proxy server is working. If you don't believe: "
         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
 
-
+    <Spinner
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_normal" />
 
 
 </LinearLayout>

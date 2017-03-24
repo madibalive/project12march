@@ -11,7 +11,6 @@
     <FrameLayout
         android:paddingRight="@dimen/padding_normal"
         android:paddingLeft="@dimen/padding_normal"
-        android:layout_gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize" >
 
@@ -44,10 +43,10 @@
 
         <com.android.liuzhuang.rcimageview.RoundCornerImageView
             android:id="@+id/avatar"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:src="@color/venu_yellow"
-            app:rciv_radius="@dimen/dp_4"/>
+            app:rciv_radius="2dp"/>
 
         <TextView
             android:text="Keven JayB\nScissors comes with handy extensions which help"
@@ -63,13 +62,44 @@
     </RelativeLayout>
 
 
-    <android.support.design.widget.TabLayout
-        style="@style/AppTheme.Toolbar"
-        android:id="@+id/tabs"
-        app:tabMode="fixed"
-        app:tabIndicatorHeight="0dp"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"/>
+    <LinearLayout
+        android:padding="@dimen/padding_normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:padding="@dimen/padding_normal"
+
+            android:id="@+id/event"
+            android:background="@android:color/transparent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_chat"
+            android:layout_height="wrap_content" />
+
+
+
+        <ImageButton
+            android:id="@+id/contact_item"
+            android:padding="@dimen/padding_normal"
+
+           android:background="@android:color/transparent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_chat"
+            android:layout_height="wrap_content" />
+
+        <ImageButton
+            android:padding="@dimen/padding_normal"
+
+            android:id="@+id/ontap"
+            android:background="@android:color/transparent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_chat"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
 
 

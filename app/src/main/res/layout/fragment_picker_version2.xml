@@ -1,0 +1,115 @@
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:map="http://schemas.android.com/tools"
+        android:fitsSystemWindows="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="@dimen/card_corner_radius_0dp"
+        >
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:fitsSystemWindows="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll"
+            app:titleEnabled="false">
+            <!-- minHeight determines the point to fade in the status bar scrim. Ideally it would
+                 fade in when the image has completely collapsed but it needs to be > 0. -->
+
+            <RelativeLayout
+                style="@style/AppTheme.Toolbar"
+                android:padding="@dimen/padding_normal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/close"
+                    android:src="@drawable/ic_close"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
+
+
+                <ImageView
+                    android:id="@+id/camera"
+                    android:src="@drawable/ic_camera"
+                    android:tint="@color/venu_flat_color"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@+id/video"
+                    android:layout_toStartOf="@+id/video"
+                    android:layout_marginRight="22dp"
+                    android:layout_marginEnd="22dp" />
+
+
+                <ImageView
+                    android:id="@+id/video"
+                    android:src="@drawable/ic_videocam"
+                    android:tint="@color/venu_flat_color"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+
+            </RelativeLayout>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            style="@style/AppTheme.Toolbar"
+            android:padding="@dimen/padding_normal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/head_rcview"
+                android:layout_width="0dp"
+                android:layout_height="125dp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/next"
+                    android:layout_margin="@dimen/padding_normal"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_arrow"/>
+
+                <TextView
+                    android:id="@+id/count"
+                    style="@style/VenuBodyText"
+                    android:text="3/4"
+                    android:textSize="@dimen/app_text_size_large"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+
+
+    <android.support.v7.widget.RecyclerView
+        android:padding="2dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:id="@+id/main_rcview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+</android.support.design.widget.CoordinatorLayout>

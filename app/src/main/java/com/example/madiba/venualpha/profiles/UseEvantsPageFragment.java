@@ -2,7 +2,10 @@ package com.example.madiba.venualpha.profiles;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +24,7 @@ import me.tatarka.rxloader.RxLoaderManager;
 import me.tatarka.rxloader.RxLoaderObserver;
 import timber.log.Timber;
 
-public class UseEvantsPageFragment extends Fragment {
+public class UseEvantsPageFragment extends Fragment  implements SwipeRefreshLayout.OnRefreshListener{
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -35,8 +38,9 @@ public class UseEvantsPageFragment extends Fragment {
     private int mCurrentCounter = 0;
     private Date startDate,endDate;
     RxLoaderManager loaderManager;
-    private SimpleRecyclerView recyclerView;
     private String loadClassName,loadId;
+    private SimpleRecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public UseEvantsPageFragment() {
         // Required empty public constructor
@@ -45,7 +49,7 @@ public class UseEvantsPageFragment extends Fragment {
     public static UseEvantsPageFragment newInstance(String  id) {
         UseEvantsPageFragment fragment = new UseEvantsPageFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, id);
+//        args.putString(ARG_PARAM1, id);
         fragment.setArguments(args);
         return fragment;
     }
@@ -54,9 +58,10 @@ public class UseEvantsPageFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            loadId = getArguments().getString(ARG_PARAM1);
+//            loadId = getArguments().getString(ARG_PARAM1);
 
         }
+        Log.e("PAGE","user event listview");
     }
 
 
@@ -65,8 +70,27 @@ public class UseEvantsPageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_gallery, container, false);
+        View view=inflater.inflate(R.layout.fragment_gallery, container, false);
+
+        recyclerView = (SimpleRecyclerView) view.findViewById(R.id.recyclerView);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.core_swipelayout);
+
+        return view;
     }
+
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        swipeRefreshLayout.setOnRefreshListener(this);
+    }
+
+    @Override
+    public void onRefresh() {
+
+    }
+
+
 
 
 

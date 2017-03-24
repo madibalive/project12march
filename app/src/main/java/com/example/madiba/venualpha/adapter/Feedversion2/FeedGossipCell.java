@@ -18,7 +18,6 @@ public class FeedGossipCell extends SimpleCell<MdGossip, FeedGossipCell.ViewHold
    {
 
   private static final String KEY_TITLE = "KEY_TITLE";
-  private boolean showHandle;
 
   public FeedGossipCell(MdGossip item) {
     super(item);

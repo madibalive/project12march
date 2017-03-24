@@ -3,7 +3,6 @@ package com.example.madiba.venualpha.onboard;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.android.liuzhuang.rcimageview.RoundCornerImageView;
 import com.bumptech.glide.Glide;
@@ -51,15 +51,16 @@ import timber.log.Timber;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 
-public class AddContactFragment extends Fragment {
+public class AddContactFragment extends Fragment implements FbLinkDailog.OnFragmentInteractionListener {
     private static final int RC_LOCATION_CONTACTS_PERM = 124;
-     private static final int RC_SETTINGS_SCREEN = 125;
+    private static final int RC_SETTINGS_SCREEN = 125;
     private RecyclerView mRecyclerview;
     private MainAdapter mAdapter;
     private List<ParseUser> mDatas=new ArrayList<>();
     private ProgressDialog progress;
     private Boolean mEnableFb=false;
     public static final int index =3;
+    private Button close;
 
     public static final List<String> mPermissions = new ArrayList<String>() {{
         add("public_profile");
@@ -86,14 +87,25 @@ public class AddContactFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root=inflater.inflate(R.layout.container_core, container, false);
-        mRecyclerview = (RecyclerView) root.findViewById(R.id.core_recyclerview);
+        View root=inflater.inflate(R.layout.fragment_onboard_addusers, container, false);
+        mRecyclerview = (RecyclerView) root.findViewById(R.id.recyclerView);
+        close = (Button) root.findViewById(R.id.go);
         return root;
+
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        showBanner();
+
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onButtonPressed(5);
+            }
+        });
+
         loaderManager = RxLoaderManagerCompat.get(this);
         initAdapter();
 
@@ -106,9 +118,13 @@ public class AddContactFragment extends Fragment {
         mRecyclerview.setAdapter(mAdapter);
     }
 
+    @Override
+    public void onFragmentInteraction(Boolean uri) {
+
+    }
 
     private void showBanner(){
-
+        FbLinkDailog.newInstance().show(getChildFragmentManager(), "dialog");
     }
 
     private void linkFacebook(){
@@ -194,6 +210,9 @@ public class AddContactFragment extends Fragment {
         ).start();
     }
 
+
+
+
     private class MainAdapter
             extends BaseQuickAdapter<ParseUser> {
         private Set<ParseUser> checkedSet = new HashSet<>();
@@ -277,9 +296,9 @@ public class AddContactFragment extends Fragment {
 
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void onButtonPressed(int uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(index,true);
+            mListener.onGoCategories();
         }
     }
 
@@ -303,7 +322,7 @@ public class AddContactFragment extends Fragment {
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(int index,Boolean aBoolean);
+        void onGoCategories();
     }
 
 }

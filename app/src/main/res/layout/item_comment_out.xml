@@ -9,11 +9,11 @@
     android:id="@+id/comment_msg"
     android:background="@drawable/chat_background"
     android:gravity="start"
-    android:textSize="@dimen/app_text_size_medium"
-    tools:text="hello!hello!hello!hello!hello!hello!hello!hello!hello!hello!hello!"
-    android:maxWidth="240dp"
-    android:padding="10dp"
-    android:layout_margin="10dp"
+    android:textSize="@dimen/app_text_size_small"
+    tools:text="hello!hello!hello!hello!hello!hello!hello!hell sadasd  asdasd adso!"
+    android:maxWidth="230dp"
+    android:padding="5dp"
+    android:layout_margin="5dp"
     xmlns:android="http://schemas.android.com/apk/res/android" />
 
 

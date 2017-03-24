@@ -22,10 +22,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.android.liuzhuang.rcimageview.RoundCornerImageView;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.Priority;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.madiba.venualpha.R;
@@ -127,7 +123,7 @@ public class NewChateuFragment extends DialogFragment {
                              @Nullable  Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_comment, container, false);
-        mRecyclerview = (RecyclerView) view.findViewById(R.id.comment_dailog_recyclerview);
+//        mRecyclerview = (RecyclerView) view.findViewById(R.id.comment_dailog_recyclerview);
 
 //        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 //            @Override
@@ -159,7 +155,7 @@ public class NewChateuFragment extends DialogFragment {
 //                                close.animate()
 //                                        .alpha(1f)
 //                                        .setDuration(400L)
-//                                        .setInterpolator(getLinearOutSlowInInterpolator(CommentActivityFragment.this))
+//                                        .setInterpolator(getLinearOutSlowInInterpolator(CommentDialogFragment.this))
 //                                        .start();
 //                            }
 //                            if (sheetTop == 0) {
@@ -179,9 +175,9 @@ public class NewChateuFragment extends DialogFragment {
 //            }
 //        });
 
-        mSend = (ImageButton) view.findViewById(R.id.sendmsg);
-        progressBar = (RotateLoading) view.findViewById(R.id.rotateloading);
-        mMesssage = (EditText) view.findViewById(R.id.comment_dailog_message);
+//        mSend = (ImageButton) view.findViewById(R.id.sendmsg);
+//        progressBar = (RotateLoading) view.findViewById(R.id.rotateloading);
+//        mMesssage = (EditText) view.findViewById(R.id.comment_dailog_message);
         close= (ImageView) view.findViewById(R.id.close);
         return view;
     }
@@ -407,36 +403,36 @@ public class NewChateuFragment extends DialogFragment {
             ParseObject data = getItem(holder.getAdapterPosition());
             runEnterAnimation(holder.itemView, position);
 
-            if (holder instanceof MessageInViewHolder) {
-
-
-                ((MessageInViewHolder) holder).setText(R.id.comment_msg,data.getString("message"));
-                Glide.with(mContext).load(data.getParseUser("from").getParseFile("avatarSmall").getUrl())
-                        .priority(Priority.LOW)
-                        .placeholder(R.drawable.ic_default_avatar)
-                        .skipMemoryCache(true)
-                        .error(R.drawable.placeholder_error_media)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .crossFade()
-                        .into((RoundCornerImageView)  ((MessageInViewHolder) holder).getView(R.id.comment_avatar));
-
-
-
-            }else if (holder instanceof MessageOutViewHolder){
-
-                ((MessageOutViewHolder) holder).setText(R.id.comment_msg,data.getString("message"));
-                Glide.with(mContext).load(data.getParseUser("from").getParseFile("avatarSmall").getUrl())
-                        .priority(Priority.LOW)
-                        .placeholder(R.drawable.ic_default_avatar)
-                        .skipMemoryCache(true)
-                        .error(R.drawable.placeholder_error_media)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .crossFade()
-                        .into((RoundCornerImageView)  ((MessageOutViewHolder) holder).getView(R.id.comment_avatar));
-
-
-
-            }
+//            if (holder instanceof MessageInViewHolder) {
+//
+//
+//                ((MessageInViewHolder) holder).setText(R.id.comment_msg,data.getString("message"));
+//                Glide.with(mContext).load(data.getParseUser("from").getParseFile("avatarSmall").getUrl())
+//                        .priority(Priority.LOW)
+//                        .placeholder(R.drawable.ic_default_avatar)
+//                        .skipMemoryCache(true)
+//                        .error(R.drawable.placeholder_error_media)
+//                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                        .crossFade()
+//                        .into((RoundCornerImageView)  ((MessageInViewHolder) holder).getView(R.id.comment_avatar));
+//
+//
+//
+//            }else if (holder instanceof MessageOutViewHolder){
+//
+//                ((MessageOutViewHolder) holder).setText(R.id.comment_msg,data.getString("message"));
+//                Glide.with(mContext).load(data.getParseUser("from").getParseFile("avatarSmall").getUrl())
+//                        .priority(Priority.LOW)
+//                        .placeholder(R.drawable.ic_default_avatar)
+//                        .skipMemoryCache(true)
+//                        .error(R.drawable.placeholder_error_media)
+//                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                        .crossFade()
+//                        .into((RoundCornerImageView)  ((MessageOutViewHolder) holder).getView(R.id.comment_avatar));
+//
+//
+//
+//            }
 
             super.onBindViewHolder(holder, position, payloads);
 

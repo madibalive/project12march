@@ -181,5 +181,7 @@
     <string name="crop_image_menu_rotate_right">right</string>
     <string name="crop_image_menu_crop">crop</string>
     <string name="title_activity_create_event">Event</string>
+    <string name="title_activity_base_memory">Memory</string>
+    <string name="title_activity_base_channel">BaseChannelActivity</string>
 
 </resources>

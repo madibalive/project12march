@@ -7,40 +7,33 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.android.liuzhuang.rcimageview.RoundCornerImageView;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.madiba.venualpha.R;
-import com.example.madiba.venualpha.ui.expandable.ExpandableLinearLayout;
-import com.parse.ParseUser;
+import com.example.madiba.venualpha.models.MdEventItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import timber.log.Timber;
 
 public class UserEventsFragment extends Fragment {
 
-    private TextView mtitle,mdate,mLocation,mTime,mCategory,mTag,mOverallCommenst,mDailyCommenst,mOverallStars,mDailyStars;
-    private Button btnAction;
-    private RoundCornerImageView imageView;
-    private LinearLayout mAttendeesLayout;
-    private ViewGroup mAttendeesContainers;
-    private ExpandableLinearLayout mMoreLayout;
-    private View mProgressView;
-    private View mView;
     private int mode;
+    private EventPager mAdapter;
+
+    private View mProgressView;
+    private ViewPager mViewPager;
+    List<MdEventItem> eventItems;
 
     public UserEventsFragment() {
     }
-
-
 
 
     public static UserEventsFragment newInstance(int number) {
@@ -53,136 +46,66 @@ public class UserEventsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Log.e("SELECTED", "MY EVENT ");
         if (getArguments() != null) {
             mode = getArguments().getInt("mode");
+       }
 
+        eventItems= new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            eventItems.add(new MdEventItem());
         }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_my_event, container, false);
-//            btnAction = (Button) view.findViewById(R.id.ev_action_btn);
-//            mCategory = (TextView) view.findViewById(R.id.ev_category);
-        mdate = (TextView) view.findViewById(R.id.ev_date);
-        mtitle = (TextView) view.findViewById(R.id.ev_title);
-//            mLocation = (TextView) view.findViewById(R.id.ev_location);
-//            mtitle = (TextView) view.findViewById(R.id.ev_time);
-        mTag = (TextView) view.findViewById(R.id.ev_tag);
-        Timber.i("JUST VIEW  HERE ");
-
+        View view= inflater.inflate(R.layout.fragment_my_event_container, container, false);
+        mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
         return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-    }
 
-
-    private void initView(){
-
-        mMoreLayout.setOnClickListener(view -> {
-            Timber.e("clicked more button ");
-            mMoreLayout.toggle();
-        });
+            setupPagerAdapter(eventItems);
 
     }
 
 
-
-
-
-    private void displayHeader(String url,String day,String name){
-
-        if (url ==null ||day ==null || name ==null){
-            return;
-        }
-        //avatar
-        Glide.with(this)
-                .load(url)
-                .crossFade()
-                .placeholder(R.drawable.ic_default_avatar)
-                .error(R.drawable.placeholder_error_media)
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .centerCrop()
-                .fallback(R.drawable.ic_default_avatar)
-                .thumbnail(0.4f)
-                .into(imageView);
-        mtitle.setText("");
-        mdate.setText("");
-    }
-
-    private void displayButton(View view){
-
-    }
-
-    private void displayStat(){
-
+    private void setupPagerAdapter(List<MdEventItem> mDatas){
+        Timber.i(String.valueOf(mDatas.size()));
+        mAdapter = new EventPager(getChildFragmentManager(),mDatas);
+        mViewPager.setAdapter(mAdapter);
     }
 
 
+    private class EventPager extends FragmentStatePagerAdapter {
+        private List<MdEventItem> mDatas;
 
-    private void displayAttendees(List<ParseUser> attendeeDatas){
-
-
-        if (attendeeDatas.size()<0) {
-            mAttendeesContainers.setVisibility(View.GONE);
-            return;
+        public EventPager(FragmentManager fm, List<MdEventItem> data) {
+            super(fm);
+            mDatas = data;
         }
 
-        else {
-            mAttendeesContainers.setVisibility(View.VISIBLE);
-            mAttendeesLayout.removeAllViews();
-            LayoutInflater inflater = LayoutInflater.from(getActivity());
-
-//            for (final ParseObject feature : attendeeDatas) {
-//                ImageView chipView = (ImageView) inflater.inflate(
-//                        R.layout.draw_layout, mTags, false);
-////                chipView.setText(feature.getTitle());
-////                chipView.setContentDescription(feature.getTitle());
-////                chipView.setOnClickListener(new View.OnClickListener() {
-////                    @Override
-////                    public void onClick(View view) {
-////                        Intent intent = new Intent(getContext(), ExploreSessionsActivity.class)
-////                                .putExtra(ExploreSessionsActivity.EXTRA_FILTER_TAG, tag.getId())
-////                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-////                        getActivity().startActivity(intent);
-////                    }
-////                });
-//
-//                mTags.addView(chipView);
-//            }
+        @Override
+        public int getItemPosition(Object object) {
+            return super.getItemPosition(object);
         }
 
+        @Override
+        public Fragment getItem(int position) {
+            return ViewMyEventFragment.newInstance();
+        }
+
+        @Override
+        public int getCount() {
+            return mDatas.size();
+        }
     }
-
-
-    private void requestEdit(){
-
-    }
-
-
-    private void requestSendUpdate(){
-
-    }
-
-    private void requestAddImages(){
-
-    }
-
-    private void requestUpdateGoal(){
-
-    }
-
-
-    private void requestManageInvite(){
-
-    }
-
-
-
 
 
 
@@ -194,12 +117,12 @@ public class UserEventsFragment extends Fragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-            mView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mView.animate().setDuration(shortAnimTime).alpha(
+            mViewPager.setVisibility(show ? View.GONE : View.VISIBLE);
+            mViewPager.animate().setDuration(shortAnimTime).alpha(
                     show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    mView.setVisibility(show ? View.GONE : View.VISIBLE);
+                    mViewPager.setVisibility(show ? View.GONE : View.VISIBLE);
                 }
             });
 
@@ -215,7 +138,7 @@ public class UserEventsFragment extends Fragment {
             // The ViewPropertyAnimator APIs are not available, so simply show
             // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mView.setVisibility(show ? View.GONE : View.VISIBLE);
+            mViewPager.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
 

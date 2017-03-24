@@ -9,7 +9,7 @@ import android.widget.RelativeLayout;
 /**
  * Created by Madiba on 11/1/2016.
  */
-class SquareLayout extends RelativeLayout {
+public class SquareLayout extends RelativeLayout {
 
     public SquareLayout(Context context) {
         super(context);

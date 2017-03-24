@@ -8,7 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.example.madiba.venualpha.R;
+import com.example.madiba.venualpha.adapter.chateu.ChateuGossipConvoCell;
+import com.example.madiba.venualpha.adapter.discover.dis.CategoryCell;
 import com.example.madiba.venualpha.chateu.ChateuFragAct;
+import com.example.madiba.venualpha.chateu.ChateuGossipFragAct;
+import com.example.madiba.venualpha.eventpage.WhiteEventPageActivity;
+import com.example.madiba.venualpha.models.MConversationItem;
 import com.example.madiba.venualpha.models.MdEventItem;
 import com.example.madiba.venualpha.util.TimeUitls;
 import com.jaychang.srv.SimpleRecyclerView;
@@ -38,9 +43,15 @@ public class CategoryExploreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_explore);
-        mRecyclerview = (SimpleRecyclerView) findViewById(R.id.core_recyclerview);
+        mRecyclerview = (SimpleRecyclerView) findViewById(R.id.recyclerView);
         lastSince = TimeUitls.getCurrentDate();
 
+        for (int i = 0; i < 5; i++) {
+            CategoryCell convoCell = new CategoryCell(new MdEventItem());
+
+            convoCell.setOnCellClickListener2((o, o2, o3) -> startActivity(new Intent(CategoryExploreActivity.this, WhiteEventPageActivity.class)));
+            mRecyclerview.addCell(convoCell);
+        }
 
     }
 

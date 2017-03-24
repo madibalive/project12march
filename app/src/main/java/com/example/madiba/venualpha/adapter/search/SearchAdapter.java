@@ -1,12 +1,8 @@
 package com.example.madiba.venualpha.adapter.search;
 
-import android.graphics.Color;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +14,6 @@ import com.example.madiba.venualpha.NavigateTo;
 import com.example.madiba.venualpha.R;
 import com.example.madiba.venualpha.adapter.SingletonDataSource;
 import com.example.madiba.venualpha.models.SearchModel;
-import com.greenfrvr.hashtagview.HashtagView;
-import com.parse.ParseObject;
 
 import java.util.List;
 
@@ -130,13 +124,13 @@ public class SearchAdapter extends BaseQuickAdapter<SearchModel> {
         notifyDataSetChanged();
     }
 
-    public static final HashtagView.DataTransform<ParseObject> HASH = item -> {
-
-        SpannableString spannableString = new SpannableString("#" + item.getString("tag"));
-        spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#85F5F5F5")), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return spannableString;
-
-    };
+//    public static final HashtagView.DataTransform<ParseObject> HASH = item -> {
+//
+//        SpannableString spannableString = new SpannableString("#" + item.getString("tag"));
+//        spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#85F5F5F5")), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//        return spannableString;
+//
+//    };
 
     private class EventsViewHolder extends BaseViewHolder {
         public EventsViewHolder(View itemView) {

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <include layout="@layout/toolbar"/>
+    </android.support.design.widget.AppBarLayout>
+
+
+    <FrameLayout
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/core_swipelayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.jaychang.srv.SimpleRecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="4dp"
+                app:srv_showDivider="true"
+                app:srv_layoutMode="linearVertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:srv_spacing="4dp" />
+
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+
+    </FrameLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

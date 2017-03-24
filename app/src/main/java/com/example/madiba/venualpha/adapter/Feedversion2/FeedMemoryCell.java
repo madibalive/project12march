@@ -23,7 +23,6 @@ import com.jaychang.srv.SimpleCell;
 import com.jaychang.srv.SimpleViewHolder;
 import com.jaychang.srv.Updatable;
 import com.parse.ParseUser;
-import com.stfalcon.multiimageview.MultiImageView;
 
 import org.parceler.Parcels;
 
@@ -139,7 +138,6 @@ public class FeedMemoryCell extends SimpleCell<MdMemoryItem, FeedMemoryCell.View
     }else
       holder.mTag.setText(item.getHashTag());
 
-
     //setimages
 
     List<String> imageUrls = new ArrayList<>();
@@ -247,7 +245,7 @@ public class FeedMemoryCell extends SimpleCell<MdMemoryItem, FeedMemoryCell.View
     TextView mName,mTag,mComment,mShared,mExtra;
     SwitchTextView mViews;
     StateImageView mImageView;
-    MultiImageView avatar;
+    StateImageView avatar;
     ImageButton mMore,mShare;
 
 
@@ -260,7 +258,7 @@ public class FeedMemoryCell extends SimpleCell<MdMemoryItem, FeedMemoryCell.View
       mName = (TextView) itemView.findViewById(R.id.date);
       mTag = (TextView) itemView.findViewById(R.id.title);
       mImageView = (StateImageView) itemView.findViewById(R.id.image_view);
-      avatar = (MultiImageView) itemView.findViewById(R.id.avatar);
+      avatar = (StateImageView) itemView.findViewById(R.id.avatar);
       mMore  = (ImageButton) itemView.findViewById(R.id.overflow_btn);
       mShare  = (ImageButton) itemView.findViewById(R.id.share);
 

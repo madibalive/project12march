@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    >
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:fitsSystemWindows="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/AppTheme.Toolbar"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:titleEnabled="false">
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="@dimen/dp_14"
+                android:id="@+id/scroll_container"
+                app:layout_scrollFlags="scroll"
+                >
+
+                <com.android.liuzhuang.rcimageview.RoundCornerImageView
+                    android:id="@+id/ev_image"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@color/venu_yellow" />
+
+                <TextView
+                    android:layout_marginRight="8dp"
+                    android:layout_toRightOf="@id/ev_image"
+                    android:text="22\nDEC"
+                    android:id="@+id/ev_status"
+                    android:background="@drawable/category_background_default"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/venu_red"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                    android:textStyle="bold"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp" />
+
+                <TextView
+                    android:gravity="center_vertical"
+                    android:id="@+id/ev_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Event Title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@android:color/black"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/ev_status"
+                    android:layout_toEndOf="@+id/ev_status" />
+
+
+
+            </RelativeLayout>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            style="@style/AppTheme.Toolbar"
+            android:elevation="0dp"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:text="#samplehere"
+                    android:id="@+id/title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content" />
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:popupTheme="@style/AppTheme.PopupOverlay" />
+            </LinearLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+</android.support.design.widget.CoordinatorLayout>

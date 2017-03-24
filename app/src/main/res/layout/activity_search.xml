@@ -59,14 +59,14 @@
                 android:divider="@null"
                 android:visibility="visible" />
 
-            <com.venu.venutheta.ui.RotateLoading
+            <ProgressBar
                 android:id="@+id/rotateloading"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
                 android:layout_gravity="center"
-                app:loading_speed="13"
-                app:loading_color="@android:color/holo_blue_light"
-                app:loading_width="2dp" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+
 
         </FrameLayout>
 

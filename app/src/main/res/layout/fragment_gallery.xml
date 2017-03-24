@@ -2,12 +2,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.madiba.venualpha.viewer.gallery.GalleryFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/core_swipelayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
+        <com.jaychang.srv.SimpleRecyclerView
+            android:id="@+id/linearVerRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="4dp"
+            app:srv_showDivider="false"
+            app:srv_layoutMode="linearVertical"
+            app:srv_spacing="4dp" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 </FrameLayout>

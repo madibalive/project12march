@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:padding="@dimen/padding_normal"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/hashtag"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:text="#SampleHashtag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_below="@id/hashtag"
+        android:id="@+id/persons"
+        android:drawableLeft="@drawable/venu_person"
+        android:drawablePadding="@dimen/dp_4"
+        android:textSize="@dimen/app_text_size_small"
+        android:gravity="center_vertical"
+        android:text="james,steve,kwame and you"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <CheckBox
+        android:layout_alignParentRight="true"
+        android:id="@+id/checkbox"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_centerVertical="true"
+        android:padding="10dp"
+      />
+
+
+</RelativeLayout>

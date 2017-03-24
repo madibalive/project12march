@@ -58,6 +58,7 @@ public class UserPageV2Activity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(v -> finish());
 
         // Setup spinner
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
@@ -66,7 +67,6 @@ public class UserPageV2Activity extends AppCompatActivity {
                 new String[]{
                         "Section 1",
                         "Section 2",
-                        "Section 3",
                 }));
 
         spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -74,11 +74,13 @@ public class UserPageV2Activity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // When the given dropdown item is selected, show its contents in the
                 // container view.
+
+
                 Fragment frg;
                 if (position ==0){
-                    frg = UserGalleryPageFragment.newInstance(userItem.getParseId());
+                    frg = UserGalleryPageFragment.newInstance("");
                 }else {
-                    frg = UseEvantsPageFragment.newInstance(userItem.getParseId());
+                    frg = UseEvantsPageFragment.newInstance("");
                 }
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.container,frg)

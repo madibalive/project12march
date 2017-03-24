@@ -72,7 +72,7 @@ public class ChateuAddEventFragment extends BottomSheetDialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.container_core, container, false);
-        mRecyclerview = (RecyclerView) view.findViewById(R.id.comment_dailog_recyclerview);
+        mRecyclerview = (RecyclerView) view.findViewById(R.id.recyclerView);
         return view;
     }
 

@@ -14,7 +14,7 @@ import com.example.madiba.venualpha.R;
  */
 class VariableLayout extends RelativeLayout {
 
-    private Boolean isSquare;
+    private Boolean isSquare=false;
 
     public VariableLayout(Context context) {
         super(context);
@@ -45,7 +45,7 @@ class VariableLayout extends RelativeLayout {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         if (!isSquare)
-             super.onMeasure(widthMeasureSpec, 2*heightMeasureSpec);
+             super.onMeasure(widthMeasureSpec, widthMeasureSpec+(widthMeasureSpec/2));
         else
             super.onMeasure(widthMeasureSpec, widthMeasureSpec);
     }

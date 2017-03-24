@@ -8,11 +8,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.madiba.venualpha.R;
-import com.parse.ParseObject;
+import com.example.madiba.venualpha.ui.stateimageview.StateImageView;
 import com.jaychang.srv.SimpleCell;
 import com.jaychang.srv.SimpleViewHolder;
 import com.jaychang.srv.Updatable;
-import com.stfalcon.multiimageview.MultiImageView;
+import com.parse.ParseObject;
 
 public class ChateuMemoriesMsgCell extends SimpleCell<ParseObject, ChateuMemoriesMsgCell.ViewHolder>
   implements Updatable<ParseObject> {
@@ -106,11 +106,11 @@ public class ChateuMemoriesMsgCell extends SimpleCell<ParseObject, ChateuMemorie
 
   static class ViewHolder extends SimpleViewHolder {
     TextView mName,mDate,mLastMessage;
-    MultiImageView mAvatar;
+    StateImageView mAvatar;
 
     ViewHolder(View itemView) {
       super(itemView);
-      mAvatar = (MultiImageView) itemView.findViewById(R.id.avatar);
+      mAvatar = (StateImageView) itemView.findViewById(R.id.avatar);
       mName = (TextView) itemView.findViewById(R.id.name);
       mLastMessage = (TextView) itemView.findViewById(R.id.last_message);
       mDate = (TextView) itemView.findViewById(R.id.date);

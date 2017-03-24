@@ -3,7 +3,6 @@ package com.example.madiba.venualpha.onboard;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -68,6 +67,7 @@ public class LoginFragment extends Fragment {
 
         mEmailView = (EditText) view.findViewById(R.id.login_username);
         signUp = (StateButton) view.findViewById(R.id.login_to_signup);
+        loginBtn = (StateButton) view.findViewById(R.id.login_button);
         mLoginFormView = view.findViewById(R.id.login_login_form);
         mPasswordView = (EditText) view.findViewById(R.id.login_password);
         return view;
@@ -76,7 +76,10 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        signUp.setOnClickListener(view1 -> startActivity(new Intent(getActivity(), SignFragment.class)));
+        signUp.setOnClickListener(view1 -> {
+            onButtonPressed(2);
+                }
+        );
 
         mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
             if (id == R.id.login || id == EditorInfo.IME_NULL) {
@@ -86,9 +89,9 @@ public class LoginFragment extends Fragment {
             return false;
         });
 
-        loginBtn.setOnClickListener(view2 ->{
-            attemptLogin();
-        });
+//        loginBtn.setOnClickListener(view2 ->{
+//            attemptLogin();
+//        });
 
     }
 
@@ -174,9 +177,9 @@ public class LoginFragment extends Fragment {
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void onButtonPressed(int number) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(index,true);
+            mListener.onGoSignup();
         }
     }
 
@@ -200,7 +203,7 @@ public class LoginFragment extends Fragment {
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(int index,Boolean aBoolean);
+        void onGoSignup();
     }
 
 }

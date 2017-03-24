@@ -10,11 +10,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -33,7 +31,6 @@ import com.example.madiba.venualpha.map.TaskGetLocationByName;
 import com.example.madiba.venualpha.ui.StateButton;
 import com.example.madiba.venualpha.util.ImageUitls;
 import com.example.madiba.venualpha.util.NetUtils;
-import com.example.madiba.venualpha.util.SelectDateFragment;
 import com.github.rongi.async.Callback;
 import com.github.rongi.async.Tasks;
 import com.google.android.gms.maps.model.LatLng;
@@ -62,7 +59,7 @@ public class UserDetailFragment extends Fragment {
     private ProgressDialog progress;
     private EditText mHighSchool;
     private Spinner genderSpinner;
-    private Button mDate;
+    private Button submit;
     private Date date;
     private RoundCornerImageView mAvatar;
     private int gender;
@@ -94,11 +91,11 @@ public class UserDetailFragment extends Fragment {
         View view=inflater.inflate(R.layout.fragment_onboard_add_details, container, false);
 
         mHighSchool = (EditText) view.findViewById(R.id.university);
-        mDate = (Button) view.findViewById(R.id.date_of_birth);
         mAvatar = (RoundCornerImageView) view.findViewById(R.id.avatar);
         mSearchBtn = (ImageButton) view.findViewById(R.id.search_btn);
         genderSpinner = (Spinner) view.findViewById(R.id.gender_spinner);
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        submit = (Button) view.findViewById(R.id.go);
         return view;
     }
 
@@ -132,9 +129,11 @@ public class UserDetailFragment extends Fragment {
             }
         });
 
-        mDate.setOnClickListener(view1 -> {
-            DialogFragment newFragment = new SelectDateFragment();
-            newFragment.show(getFragmentManager(), "DatePicker");
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onButtonPressed(3);
+            }
         });
 
 
@@ -248,10 +247,23 @@ public class UserDetailFragment extends Fragment {
             user.put("place",new ParseGeoPoint(latLng.latitude,latLng.longitude));
 
         user.put("gender",gender);
-        user.put("age",mDate);
         user.saveInBackground(e -> progress.dismiss());
 
     }
+
+
+
+
+
+
+    private boolean isPhoneValid(String number) {
+        return number.length() > 9;
+    }
+
+    private boolean isUserNameValid(String username) {
+        return username.length() > 4;
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -265,8 +277,6 @@ public class UserDetailFragment extends Fragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ActionDate action) {
         Timber.e("Date return %s",action.date);
-        date = action.date;
-        mDate.setText(DateFormat.getMediumDateFormat(getActivity().getApplicationContext()).format(date));
 
     }
 
@@ -286,9 +296,9 @@ public class UserDetailFragment extends Fragment {
 
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void onButtonPressed(int index) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(index,false);
+            mListener.onGoContact();
         }
     }
 
@@ -312,7 +322,7 @@ public class UserDetailFragment extends Fragment {
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(int index,Boolean aBoolean);
+        void onGoContact();
     }
 
 

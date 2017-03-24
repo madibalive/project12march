@@ -2,7 +2,8 @@ package com.example.madiba.venualpha.chateu;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -35,7 +36,7 @@ import me.tatarka.rxloader.RxLoaderManager;
 import me.tatarka.rxloader.RxLoaderObserver;
 import timber.log.Timber;
 
-public class ChateuFragAct extends FragmentActivity {
+public class ChateuFragAct extends AppCompatActivity {
 
     private Boolean canLoadMore;
     private SimpleRecyclerView mRecyclerview;
@@ -53,7 +54,12 @@ public class ChateuFragAct extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chateu);
         root = getWindow().getDecorView().getRootView();
-        mRecyclerview = (SimpleRecyclerView) findViewById(R.id.core_recyclerview);
+        mRecyclerview = (SimpleRecyclerView) findViewById(R.id.linearVerRecyclerView);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(v -> finish());
     }
 
     private void initAdapter(){

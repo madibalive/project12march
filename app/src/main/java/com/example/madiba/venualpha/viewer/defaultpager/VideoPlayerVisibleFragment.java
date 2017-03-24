@@ -38,7 +38,6 @@ import com.danikula.videocache.CacheListener;
 import com.danikula.videocache.HttpProxyCacheServer;
 import com.example.madiba.venualpha.Actions.ActionMediaCheckIslike;
 import com.example.madiba.venualpha.R;
-import com.example.madiba.venualpha.dailogs.CommentActivityFragment;
 import com.example.madiba.venualpha.models.GlobalConstants;
 import com.example.madiba.venualpha.services.GeneralService;
 import com.example.madiba.venualpha.ui.AspectFrameLayout;
@@ -144,7 +143,7 @@ public class VideoPlayerVisibleFragment extends Fragment implements MediaPlayer.
 //        mUsername = (TextView) view.findViewById(R.id.md_name);
 //        mHashtag = (TextView) view.findViewById(R.id.md_hashtag);
 //        mComments = (TextView) view.findViewById(R.id.md_comment);
-        mLikes = (TextView) view.findViewById(R.id.md_cnt);
+//        mLikes = (TextView) view.findViewById(R.id.md_cnt);
 //        mShares = (TextView) view.findViewById(R.id.md_share);
 //        top_bar = (LinearLayout) view.findViewById(R.id.md_top_bar);
 //        bottom_bar = (RelativeLayout) view.findViewById(R.id.md_bottom_bar);
@@ -164,8 +163,7 @@ public class VideoPlayerVisibleFragment extends Fragment implements MediaPlayer.
 
         mLikes.setOnClickListener(view1 -> {
 //            mCurrentObject.pinInBackground("currentComment");
-            DialogFragment newFragment = CommentActivityFragment.newInstance(null,null,true);
-            newFragment.show(getChildFragmentManager(), "comment");
+
         });
 
 //        initData();
@@ -216,7 +214,6 @@ public class VideoPlayerVisibleFragment extends Fragment implements MediaPlayer.
     @Override
     public void onCacheAvailable(File cacheFile, String url, int percentsAvailable) {
         seekArcComplete.setProgress(percentsAvailable);
-
     }
     @Override
     public void onPause() {
@@ -331,7 +328,7 @@ public class VideoPlayerVisibleFragment extends Fragment implements MediaPlayer.
 
     private void refreshData(String id,String className){
 //        MediaRefreshLoader taskLoad = new MediaRefreshLoader(id,className);
-//        Tasks.execute(taskLoad,loadCallBack);
+//        Tasks.exe cute(taskLoad,loadCallBack);
     }
 
 
@@ -380,8 +377,8 @@ public class VideoPlayerVisibleFragment extends Fragment implements MediaPlayer.
 
         mComments.setOnClickListener(view -> {
             mCurrentObject.pinInBackground("currentComment");
-            DialogFragment newFragment = CommentActivityFragment.newInstance(mCurrentObject.getObjectId(),mCurrentObject.getClassName(),true);
-            newFragment.show(getChildFragmentManager(), "comment");
+//            DialogFragment newFragment = CommentDialogFragment.newInstance(mCurrentObject.getObjectId(),mCurrentObject.getClassName(),true);
+//            newFragment.show(getChildFragmentManager(), "comment");
         });
     }
 

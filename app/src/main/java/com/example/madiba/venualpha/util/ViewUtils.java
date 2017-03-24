@@ -240,7 +240,7 @@ public class ViewUtils {
             lp.width = width;
             v.setLayoutParams(lp);
         }
-        v.requestLayout();       //请求重绘
+//        v.invalidate();
 
     }
 

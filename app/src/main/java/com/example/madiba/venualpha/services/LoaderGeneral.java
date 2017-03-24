@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import com.example.madiba.venualpha.models.CategoriesModel;
 import com.example.madiba.venualpha.models.DiscoverModel;
 import com.example.madiba.venualpha.models.GlobalConstants;
+import com.example.madiba.venualpha.models.MdUserItem;
 import com.example.madiba.venualpha.models.ModelLoadLocal;
 import com.example.madiba.venualpha.models.ModelNotification;
 import com.example.madiba.venualpha.models.ModelOtherContact;
@@ -153,11 +154,11 @@ public class LoaderGeneral {
 
 
 
-    public static Observable<List<ParseObject>> loadUsersContacts(String id, int type){
+    public static Observable<List<MdUserItem>> loadUsersContacts(String id, int type){
 
-        return Observable.create(new Observable.OnSubscribe<List<ParseObject>>() {
+        return Observable.create(new Observable.OnSubscribe<List<MdUserItem>>() {
             @Override
-            public void call(Subscriber<? super List<ParseObject>> subscriber) {
+            public void call(Subscriber<? super List<MdUserItem>> subscriber) {
 
                 String term;
 
@@ -180,7 +181,7 @@ public class LoaderGeneral {
                 query.orderByAscending("createdAt");
                 Timber.d("connecting");
                 try {
-                    subscriber.onNext(query.find());
+//                    subscriber.onNext(query.find());
                     subscriber.onCompleted();
 
                 } catch (Exception e) {

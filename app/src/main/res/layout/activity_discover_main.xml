@@ -17,63 +17,59 @@
     </android.support.design.widget.AppBarLayout>
 
 
-
-    <LinearLayout
+    <android.support.v4.widget.NestedScrollView
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
-
-
-        <TextView
-            android:id="@+id/body_text"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:text="What's"
-            android:textColor="@color/text_black"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:paddingTop="@dimen/padding_normal"
+            android:focusableInTouchMode="true"
+            android:focusable="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/padding_normal"  />
+            android:orientation="vertical"
+            >
+            <HorizontalScrollView
+                android:padding="@dimen/padding_normal"
+                android:id="@+id/session_tags_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+               >
+
+                <LinearLayout
+                    android:id="@+id/session_tags"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                  />
+            </HorizontalScrollView>
+
+            <com.example.madiba.venualpha.ui.customviewpager.EnchantedViewPager
+                android:layout_margin="@dimen/padding_normal"
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+            </com.example.madiba.venualpha.ui.customviewpager.EnchantedViewPager>
+
+            <com.jaychang.srv.SimpleRecyclerView
+                android:layout_marginTop="@dimen/padding_normal"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                app:srv_showDivider="true"
+                app:srv_layoutMode="grid"
+                app:srv_gridSpanSequence="2332"
+                />
 
 
 
-        <HorizontalScrollView
-            android:id="@+id/session_tags_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="none"
-            android:requiresFadingEdge="horizontal"
-            android:fadingEdgeLength="@dimen/padding_normal"
-            android:layout_marginBottom="@dimen/padding_normal">
+        </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/session_tags"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="70dp"
-                android:minHeight="70dp" />
-        </HorizontalScrollView>
-
-        <com.example.madiba.venualpha.ui.customviewpager.EnchantedViewPager
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:background="@color/text_black"
-            android:layout_height="280dp">
-
-        </com.example.madiba.venualpha.ui.customviewpager.EnchantedViewPager>
-
-        <org.lucasr.twowayview.widget.TwoWayView
-            android:id="@+id/base_twoway_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dp_10"
-            android:layout_marginTop="@dimen/dp_10"
-            app:twowayview_layoutManager="SpannableGridLayoutManager"
-            app:twowayview_numColumns="3"
-            app:twowayview_numRows="3" />
-
-    </LinearLayout>
-
+    </android.support.v4.widget.NestedScrollView>
 
 </android.support.design.widget.CoordinatorLayout>
 

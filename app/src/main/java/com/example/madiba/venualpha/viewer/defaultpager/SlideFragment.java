@@ -16,7 +16,7 @@ import android.widget.ProgressBar;
 
 import com.example.madiba.venualpha.R;
 import com.example.madiba.venualpha.models.MdMediaItem;
-import com.example.madiba.venualpha.ui.AutoScrollViewPager;
+import com.example.madiba.venualpha.ui.autoscrollviewpager.AutoScrollViewPager;
 
 import org.greenrobot.eventbus.EventBus;
 import org.parceler.Parcels;

@@ -28,8 +28,8 @@ import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.madiba.venualpha.Actions.ActionMediaCheckIslike;
 import com.example.madiba.venualpha.R;
-import com.example.madiba.venualpha.dailogs.CommentActivityFragment;
 import com.example.madiba.venualpha.models.GlobalConstants;
+import com.example.madiba.venualpha.models.MdMediaItem;
 import com.example.madiba.venualpha.services.GeneralService;
 import com.github.rongi.async.Callback;
 import com.parse.ParseObject;
@@ -37,6 +37,7 @@ import com.parse.ParseObject;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.parceler.Parcels;
 
 import timber.log.Timber;
 import uk.co.senab.photoview.PhotoViewAttacher;
@@ -57,6 +58,7 @@ public class PhotoPlayerFragment extends Fragment implements View.OnTouchListene
     private GestureDetectorCompat detector;
     private Boolean mLikeStaus=false;
     private Drawable icon ;
+    private MdMediaItem mediaItem;
 
 
     public PhotoPlayerFragment() {
@@ -66,19 +68,12 @@ public class PhotoPlayerFragment extends Fragment implements View.OnTouchListene
         return new PhotoPlayerFragment();
 
     }
-    public static PhotoPlayerFragment newInstance(String name, String avatarUrl, String tag,
-                                                  String url, String
-                                                          id, String className) {
+    public static PhotoPlayerFragment newInstance(MdMediaItem mdMediaItem) {
 
         PhotoPlayerFragment fragment = new PhotoPlayerFragment();
 
         Bundle arguments = new Bundle();
-        arguments.putString(GlobalConstants.PHP_NAME, name );
-        arguments.putString(GlobalConstants.PHP_AVATAR,avatarUrl);
-        arguments.putString(GlobalConstants.PHP_HASHTAG, tag);
-        arguments.putString(GlobalConstants.PHP_URL,url );
-        arguments.putString(GlobalConstants.PASS_ID,id);
-        arguments.putString(GlobalConstants.PASS_CLASSNAME, className);
+        arguments.putParcelable("data", Parcels.wrap(mdMediaItem));
         fragment.setArguments(arguments);
 
         return fragment;
@@ -96,7 +91,7 @@ public class PhotoPlayerFragment extends Fragment implements View.OnTouchListene
 //        mUsername = (TextView) view.findViewById(R.id.md_name);
 //        mHashtag = (TextView) view.findViewById(R.id.md_hashtag);
 //        mComments = (TextView) view.findViewById(R.id.md_comment);
-        mLikes = (TextView) view.findViewById(R.id.md_cnt);
+//        mLikes = (TextView) view.findViewById(R.id.md_cnt);
 //        mShares = (TextView) view.findViewById(R.id.md_share);
 //        mShot = (ImageView) view.findViewById(R.id.pv_image_view);
 //        top_bar = (LinearLayout) view.findViewById(R.id.md_top_bar);
@@ -113,8 +108,7 @@ public class PhotoPlayerFragment extends Fragment implements View.OnTouchListene
 
         mLikes.setOnClickListener(view1 -> {
 //            mCurrentObject.pinInBackground("currentComment");
-            DialogFragment newFragment = CommentActivityFragment.newInstance(null,null,true);
-            newFragment.show(getChildFragmentManager(), "comment");
+
         });
 
 //
@@ -156,8 +150,8 @@ public class PhotoPlayerFragment extends Fragment implements View.OnTouchListene
 
         mComments.setOnClickListener(view -> {
             mCurrentObject.pinInBackground("currentComment");
-            DialogFragment newFragment = CommentActivityFragment.newInstance(mCurrentObject.getObjectId(),mCurrentObject.getClassName(),true);
-            newFragment.show(getChildFragmentManager(), "comment");
+//            DialogFragment newFragment = CommentDialogFragment.newInstance(mCurrentObject.getObjectId(),mCurrentObject.getClassName(),true);
+//            newFragment.show(getChildFragmentManager(), "comment");
         });
 
         mShares.setOnClickListener(view -> {

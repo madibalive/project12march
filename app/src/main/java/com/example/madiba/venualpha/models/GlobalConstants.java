@@ -149,6 +149,11 @@ public class GlobalConstants {
 
 
 
+ public static final int VENUFILE_DEFAULT= 0;
+    public static final int VENUFILE_LINK= 1;
+
+
+
 
 
 

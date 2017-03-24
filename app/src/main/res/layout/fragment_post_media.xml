@@ -30,7 +30,7 @@
         android:layout_height="match_parent">
 
 
-        <com.stfalcon.multiimageview.MultiImageView
+        <com.example.madiba.venualpha.ui.stateimageview.StateImageView
             android:layout_width="match_parent"
             android:background="@color/venu_orange"
             android:layout_height="280dp" />

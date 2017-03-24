@@ -13,12 +13,12 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.example.madiba.venualpha.R;
 import com.example.madiba.venualpha.adapter.search.SearchAdapter;
 import com.example.madiba.venualpha.models.SearchModel;
 import com.example.madiba.venualpha.services.TaskSearchLoad;
-import com.example.madiba.venualpha.ui.RotateLoading;
 import com.github.rongi.async.Callback;
 import com.github.rongi.async.Tasks;
 
@@ -34,7 +34,7 @@ public class SearchActivity extends AppCompatActivity {
     private RecyclerView mRecyclerview;
     public SearchAdapter mSearchAdapter;
     List<SearchModel> mSearchDatas ;
-    private RotateLoading rotateLoading;
+    private ProgressBar rotateLoading;
 
 
     @Override
@@ -50,7 +50,7 @@ public class SearchActivity extends AppCompatActivity {
 
         mSearchView = (SearchView) findViewById(R.id.search_view);
         mRecyclerview = (RecyclerView) findViewById(R.id.search_results);
-        rotateLoading = (RotateLoading) findViewById(R.id.rotateloading);
+        rotateLoading = (ProgressBar) findViewById(R.id.rotateloading);
         ImageView magImage = (ImageView)mSearchView.findViewById(android.support.v7.appcompat.R.id.search_mag_icon);
         magImage.setVisibility(View.GONE);
         magImage.setImageDrawable(null);
@@ -100,7 +100,6 @@ public class SearchActivity extends AppCompatActivity {
         if (rotateLoading.getVisibility() == View.GONE) {
             rotateLoading.setVisibility(View.VISIBLE);
         }
-        rotateLoading.start();
 
         doSearch(query);
 
@@ -112,7 +111,6 @@ public class SearchActivity extends AppCompatActivity {
             if (e == null) {
                 Timber.d("got data");
                 new Handler().postDelayed(() -> {
-                    rotateLoading.stop();
                     if (rotateLoading.getVisibility() == View.VISIBLE) {
                         rotateLoading.setVisibility(View.GONE);
                     }

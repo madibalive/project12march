@@ -23,7 +23,6 @@ import com.jaychang.srv.SimpleCell;
 import com.jaychang.srv.SimpleViewHolder;
 import com.jaychang.srv.Updatable;
 import com.parse.ParseUser;
-import com.stfalcon.multiimageview.MultiImageView;
 
 import org.parceler.Parcels;
 
@@ -247,22 +246,22 @@ public class ChallangeCell extends SimpleCell<MdMemoryItem, ChallangeCell.ViewHo
     TextView mName,mTag,mComment,mShared,mExtra;
     SwitchTextView mViews;
     StateImageView mImageView;
-    MultiImageView avatar;
+    StateImageView avatar;
     ImageButton mMore,mShare;
 
 
     ViewHolder(View itemView) {
       super(itemView);
-      mComment = (TextView) itemView.findViewById(R.id.comment);
-      mViews = (SwitchTextView) itemView.findViewById(R.id.views);
-      mExtra = (TextView) itemView.findViewById(R.id.extra);
-      mShared = (TextView) itemView.findViewById(R.id.status);
-      mName = (TextView) itemView.findViewById(R.id.date);
-      mTag = (TextView) itemView.findViewById(R.id.title);
-      mImageView = (StateImageView) itemView.findViewById(R.id.image_view);
-      avatar = (MultiImageView) itemView.findViewById(R.id.avatar);
-      mMore  = (ImageButton) itemView.findViewById(R.id.overflow_btn);
-      mShare  = (ImageButton) itemView.findViewById(R.id.share);
+//      mComment = (TextView) itemView.findViewById(R.id.comment);
+//      mViews = (SwitchTextView) itemView.findViewById(R.id.views);
+//      mExtra = (TextView) itemView.findViewById(R.id.extra);
+//      mShared = (TextView) itemView.findViewById(R.id.status);
+//      mName = (TextView) itemView.findViewById(R.id.date);
+//      mTag = (TextView) itemView.findViewById(R.id.title);
+//      mImageView = (StateImageView) itemView.findViewById(R.id.image_view);
+//      avatar = (StateImageView) itemView.findViewById(R.id.avatar);
+//      mMore  = (ImageButton) itemView.findViewById(R.id.overflow_btn);
+//      mShare  = (ImageButton) itemView.findViewById(R.id.share);
 
     }
   }

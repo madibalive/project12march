@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.madiba.venualpha.ui.SquareLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="70dp"
+    android:layout_height="70dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.android.liuzhuang.rcimageview.RoundCornerImageView
+        app:rciv_radius="2dp"
+        android:layout_margin="10dp"
+        android:id="@+id/avatar"
+        android:src="@color/venu_yellow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <ImageView
+        android:tint="@color/venu_red"
+        android:id="@+id/close"
+        android:layout_alignParentRight="true"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/venu_record"/>
+
+</com.example.madiba.venualpha.ui.SquareLayout>

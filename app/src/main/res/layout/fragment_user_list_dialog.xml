@@ -10,12 +10,21 @@
 
     <FrameLayout
         android:layout_gravity="center_vertical"
-        android:padding="@dimen/padding_normal"
+
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize" >
 
+        <TextView
+            android:layout_marginLeft="@dimen/padding_normal"
+            android:layout_gravity="center_vertical"
+            android:text="New Chat"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <ImageButton
-            android:layout_gravity="left"
+            android:layout_marginRight="@dimen/padding_normal"
+            android:layout_gravity="right|center_vertical"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_unfold"
             android:layout_width="wrap_content"
@@ -24,7 +33,7 @@
     </FrameLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/list"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="false"

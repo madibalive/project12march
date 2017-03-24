@@ -5,12 +5,18 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.example.madiba.venualpha.R;
+import com.example.madiba.venualpha.adapter.chateu.ChateuGossipConvoCell;
 import com.example.madiba.venualpha.chateu.ChateuFragAct;
+import com.example.madiba.venualpha.chateu.ChateuGossipFragAct;
+import com.example.madiba.venualpha.chateu.ChateuListFragAct;
+import com.example.madiba.venualpha.models.MConversationItem;
 import com.example.madiba.venualpha.models.MdEventItem;
 import com.example.madiba.venualpha.util.TimeUitls;
+import com.jaychang.srv.SimpleCell;
 import com.jaychang.srv.SimpleRecyclerView;
 import com.parse.ParseObject;
 
@@ -38,8 +44,22 @@ public class GossipExploreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_explore);
-        mRecyclerview = (SimpleRecyclerView) findViewById(R.id.core_recyclerview);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(view -> finish());
+
+        mRecyclerview = (SimpleRecyclerView) findViewById(R.id.recyclerView);
         lastSince = TimeUitls.getCurrentDate();
+
+
+        for (int i = 0; i < 5; i++) {
+            ChateuGossipConvoCell convoCell = new ChateuGossipConvoCell(new MConversationItem());
+
+            convoCell.setOnCellClickListener2((o, o2, o3) -> startActivity(new Intent(GossipExploreActivity.this, ChateuGossipFragAct.class)));
+            mRecyclerview.addCell(convoCell);
+        }
+
 
 
     }
@@ -49,6 +69,9 @@ public class GossipExploreActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         intent.putExtra( "example", Parcels.wrap(event));
         startActivity(intent);
+
+
+
     }
 
     private void initload(){

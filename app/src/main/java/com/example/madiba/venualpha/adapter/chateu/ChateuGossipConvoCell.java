@@ -74,7 +74,8 @@ public class ChateuGossipConvoCell extends SimpleCell<MConversationItem, ChateuG
 
   @Override
   protected long getItemId() {
-    return getItem().getObject().getObjectId().hashCode();
+//    return getItem().getObject().getObjectId().hashCode();
+      return 0;
   }
 
   public void setShowHandle(boolean showHandle) {
@@ -86,7 +87,7 @@ public class ChateuGossipConvoCell extends SimpleCell<MConversationItem, ChateuG
    */
   @Override
   public boolean areContentsTheSame(MConversationItem newItem) {
-    return getItem().getObject().getObjectId().equals(newItem.getObject().getObjectId());
+    return true;
   }
 
   /**

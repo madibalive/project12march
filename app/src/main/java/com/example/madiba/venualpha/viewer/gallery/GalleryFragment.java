@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,15 +61,27 @@ public class GalleryFragment extends Fragment {
         return fragment;
     }
 
+    public static GalleryFragment newInstance(int mode) {
+        GalleryFragment fragment = new GalleryFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_PARAM1, mode);
+//        args.putInt(ARG_PARAM2, state);
+//        args.putParcelable(ARG_PARAM2, Parcels.wrap(eventItem));
+        fragment.setArguments(args);
+
+        Log.e("PAGE","GALLARY ACTI frgamet pos : "+mode);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mode = getArguments().getInt(ARG_PARAM1);
-            state = getArguments().getInt(ARG_PARAM2);
-            eventItem = Parcels.unwrap(getArguments().getParcelable(ARG_PARAM3));
-
-        }
+//        if (getArguments() != null) {
+//            mode = getArguments().getInt(ARG_PARAM1);
+//            state = getArguments().getInt(ARG_PARAM2);
+//            eventItem = Parcels.unwrap(getArguments().getParcelable(ARG_PARAM3));
+//
+//        }
     }
 
     @Override

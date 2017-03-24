@@ -10,14 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.madiba.venualpha.R;
-import com.example.madiba.venualpha.dailogs.CreateGossipSheet;
-import com.example.madiba.venualpha.ui.CircleView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -84,55 +77,47 @@ public class AddImageFragment extends Fragment {
         recyclerView.setLayoutManager(gridLayoutManager);
 
 
-        List<Integer> colorViews = new ArrayList<>();
-        for (int i = 0, length = mainColors.length; i < length; i++) {
-//            colorViews.add(colorView);
-        }
-        ColorAdapter colorAdapter = new ColorAdapter(R.layout.item_person,colorViews);
-        recyclerView.setAdapter(colorAdapter);
-        colorAdapter.setColorListener((position, color) -> {
-
-        });
+//
     }
-    public class ColorAdapter extends BaseQuickAdapter<Integer> {
-        public int color;
-        private CreateGossipSheet.ColorListener colorListener;
-        public boolean isSubColor = false;
-        public boolean selected;
-
-
-        public ColorAdapter(int layoutResId, List<Integer> data) {
-            super(layoutResId, data);
-        }
-
-        @Override
-        protected void convert(BaseViewHolder holder, Integer category) {
-
-            holder.getConvertView().setOnClickListener(v -> {
-                if (colorListener != null && holder.getAdapterPosition() != -1) {
-                    colorListener.onColorSelected(holder.getAdapterPosition(), category);
-                }
-            });
-            CircleView circleView = holder.getView(R.id.checked);
-            circleView.setColor(color);
-            if (holder.getAdapterPosition() == color)
-                circleView.setActivated(selected);
-
-        }
-
-        void setColorListener(CreateGossipSheet.ColorListener colorListener) {
-            this.colorListener = colorListener;
-        }
-
-        void setSelectedPosition(int position,CircleView circleView) {
-            if (color !=position){
-                circleView.setActivated(false);
-                notifyItemChanged(color);
-            }
-            color =position;
-            notifyItemChanged(position);
-        }
-    }
+//    public class ColorAdapter extends BaseQuickAdapter<Integer> {
+//        public int color;
+//        private CreateGossipSheet.ColorListener colorListener;
+//        public boolean isSubColor = false;
+//        public boolean selected;
+//
+//
+//        public ColorAdapter(int layoutResId, List<Integer> data) {
+//            super(layoutResId, data);
+//        }
+//
+//        @Override
+//        protected void convert(BaseViewHolder holder, Integer category) {
+//
+//            holder.getConvertView().setOnClickListener(v -> {
+//                if (colorListener != null && holder.getAdapterPosition() != -1) {
+//                    colorListener.onColorSelected(holder.getAdapterPosition(), category);
+//                }
+//            });
+//            CircleView circleView = holder.getView(R.id.checked);
+//            circleView.setColor(color);
+//            if (holder.getAdapterPosition() == color)
+//                circleView.setActivated(selected);
+//
+//        }
+//
+//        void setColorListener(CreateGossipSheet.ColorListener colorListener) {
+//            this.colorListener = colorListener;
+//        }
+//
+//        void setSelectedPosition(int position,CircleView circleView) {
+//            if (color !=position){
+//                circleView.setActivated(false);
+//                notifyItemChanged(color);
+//            }
+//            color =position;
+//            notifyItemChanged(position);
+//        }
+//    }
 
 
     // TODO: Rename method, update argument and hook method into UI event

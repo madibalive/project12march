@@ -84,7 +84,7 @@ public class LocalContactFragment extends Fragment implements SwipeRefreshLayout
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         loaderManager = RxLoaderManagerCompat.get(this);
-        initAdapter();
+//        initAdapter();
         if (NetUtils.hasInternetConnection(getActivity().getApplicationContext())){
 //            load();
         }

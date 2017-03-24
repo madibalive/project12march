@@ -5,29 +5,28 @@
     android:orientation="horizontal"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
-    android:layout_marginLeft="10dp"
     android:background="@drawable/chat_background"
+    android:layout_margin="5dp"
     android:gravity="center_vertical">
 
 
     <com.android.liuzhuang.rcimageview.RoundCornerImageView
-        app:rciv_radius="@dimen/dp_4"
-        android:id="@+id/comment_avatar"
-        android:src="@color/venu_flat_color"
-        android:layout_width="60dp"
+        app:rciv_radius="2dp"
+        android:id="@+id/avatar"
+        android:src="@color/venu_yellow"
+        android:layout_width="40dp"
         android:layout_height="match_parent" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/comment_msg"
+        android:id="@+id/msg"
         android:gravity="start"
-        android:textSize="@dimen/app_text_size_medium"
+        android:textSize="@dimen/app_text_size_small"
         tools:text="hello!hello!hello!hello!hello!hello!hello!hell sadasd  asdasd adso!"
         android:maxWidth="230dp"
-        android:padding="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp" />
+        android:padding="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp" />
 
 </LinearLayout>

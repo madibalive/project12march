@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.example.madiba.venualpha.ui.VariableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.madiba.venualpha.ui.VariableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="140dp"
     android:layout_height="150dp"
+    app:VariableLayoutMode="false"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:src="@color/venu_green"
     android:clickable="true"
     android:foreground="?android:selectableItemBackground"
     >
@@ -14,16 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <ImageView
-        android:visibility="gone"
-        android:layout_margin="@dimen/dp_4"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:src="@drawable/ic_videocam"
-        android:layout_width="20dp"
-        android:layout_height="20dp" />
-
-    <TextView
+      <TextView
         android:visibility="gone"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"

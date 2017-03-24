@@ -11,6 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -38,6 +40,9 @@ public class PendingInvitesFragment extends Fragment {
     private MainAdapter mAdapter;
     private List<ParseObject> mDatas=new ArrayList<>();
 
+    private Button mNext;
+    private TextView mTitle;
+
     RxLoaderManager loaderManager;
     private OnFragmentInteractionListener mListener;
 
@@ -54,8 +59,10 @@ public class PendingInvitesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root=inflater.inflate(R.layout.container_core, container, false);
-        mRecyclerview = (RecyclerView) root.findViewById(R.id.core_recyclerview);
+        View root=inflater.inflate(R.layout.fragment_onboard_pendinginvites, container, false);
+        mNext = (Button) root.findViewById(R.id.go);
+        mRecyclerview = (RecyclerView) root.findViewById(R.id.recyclerView);
+        mTitle = (TextView) root.findViewById(R.id.title);
         return root;
     }
 
@@ -68,7 +75,7 @@ public class PendingInvitesFragment extends Fragment {
 
     }
     private void initAdapter() {
-        mAdapter = new MainAdapter(R.layout.item_ontap, mDatas);
+        mAdapter = new MainAdapter(R.layout.item_notif_extended, mDatas);
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerview.setHasFixedSize(true);
         mRecyclerview.setAdapter(mAdapter);
@@ -141,7 +148,8 @@ public class PendingInvitesFragment extends Fragment {
         protected void convert(BaseViewHolder holder, final ParseObject data) {
             holder.setText(R.id.ot_i_location, data.getString("categoryName"))
                     .setText(R.id.ot_i_order_item,data.getString("number"))
-                    .setText(R.id.ot_i_location,data.getObjectId());
+                    .setVisible(R.id.accept,false)
+                    .setVisible(R.id.checkbox,true);
 
 
             final AnimateCheckBox checkBox = ((AnimateCheckBox) holder.getView(R.id.checkbox));
@@ -184,7 +192,7 @@ public class PendingInvitesFragment extends Fragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(index,true);
+            mListener.onMain();
         }
     }
 
@@ -208,7 +216,7 @@ public class PendingInvitesFragment extends Fragment {
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(int index,Boolean aBoolean);
+        void onMain();
     }
 
 }

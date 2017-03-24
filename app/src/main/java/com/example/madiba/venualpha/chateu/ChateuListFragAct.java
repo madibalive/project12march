@@ -5,14 +5,18 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.example.madiba.venualpha.Actions.ActionEvantPageBuy;
 import com.example.madiba.venualpha.Actions.ActionNetwork;
 import com.example.madiba.venualpha.R;
-import com.example.madiba.venualpha.dailogs.NewChateuFragment;
+import com.example.madiba.venualpha.adapter.chateu.ChateuDefautConvoCell;
+import com.example.madiba.venualpha.adapter.chateu.ChateuGossipConvoCell;
+import com.example.madiba.venualpha.dailogs.UserListDialogFragment;
 import com.example.madiba.venualpha.models.MConversationItem;
+import com.example.madiba.venualpha.models.MdUserItem;
 import com.example.madiba.venualpha.util.NetUtils;
 import com.jaychang.srv.SimpleCell;
 import com.jaychang.srv.SimpleRecyclerView;
@@ -21,13 +25,14 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import me.tatarka.rxloader.RxLoaderManager;
 import me.tatarka.rxloader.RxLoaderObserver;
 import timber.log.Timber;
 
-public class ChateuListFragAct extends FragmentActivity {
+public class ChateuListFragAct extends AppCompatActivity implements UserListDialogFragment.Listener {
 
     private SimpleRecyclerView mRecyclerview;
     private View root;
@@ -38,11 +43,16 @@ public class ChateuListFragAct extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chateu_list);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(v -> finish());
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
         root = getWindow().getDecorView().getRootView();
-        mRecyclerview = (SimpleRecyclerView) findViewById(R.id.core_recyclerview);
+        mRecyclerview = (SimpleRecyclerView) findViewById(R.id.linearVerRecyclerView);
         fab.setOnClickListener(view -> requestCreateNewConversation());
+        updateCell();
     }
 
     private void requestOpenConversation(@NonNull MConversationItem conversation) {
@@ -63,14 +73,39 @@ public class ChateuListFragAct extends FragmentActivity {
 
     private void requestCreateNewConversation() {
         if (NetUtils.hasInternetConnection(getApplicationContext())){
-            NewChateuFragment requestDialog = new NewChateuFragment();
-            requestDialog.show(getSupportFragmentManager(),"request");
+             UserListDialogFragment.newInstance().show(getSupportFragmentManager(), "dialog");
+
         }
     }
 
     private void updateCell(){
+        List<SimpleCell> cells = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            ChateuDefautConvoCell convoCell = new ChateuDefautConvoCell(new MConversationItem());
+            convoCell.setOnCellClickListener2(new SimpleCell.OnCellClickListener2() {
+                @Override
+                public void onCellClicked(Object o, Object o2, Object o3) {
+                    startActivity(new Intent(ChateuListFragAct.this,ChateuFragAct.class));
+                }
+            });
+            cells.add(convoCell);
+        }
 
+        for (int i = 0; i < 5; i++) {
+            ChateuGossipConvoCell convoCell = new ChateuGossipConvoCell(new MConversationItem());
+
+            convoCell.setOnCellClickListener2(new SimpleCell.OnCellClickListener2() {
+                @Override
+                public void onCellClicked(Object o, Object o2, Object o3) {
+                    startActivity(new Intent(ChateuListFragAct.this,ChateuGossipFragAct.class));
+                }
+            });
+            cells.add(convoCell);        }
+
+        mRecyclerview.addCells(cells);
     }
+
+
 
     void initload(){
         loaderManager.create(
@@ -123,7 +158,10 @@ public class ChateuListFragAct extends FragmentActivity {
     }
 
 
+    @Override
+    public void onUserClicked(MdUserItem position) {
 
+    }
 
     @Override
     public void onStart() {

@@ -9,10 +9,10 @@ import android.widget.TextView;
 
 import com.example.madiba.venualpha.R;
 import com.example.madiba.venualpha.models.MConversationItem;
+import com.example.madiba.venualpha.ui.stateimageview.StateImageView;
 import com.jaychang.srv.SimpleCell;
 import com.jaychang.srv.SimpleViewHolder;
 import com.jaychang.srv.Updatable;
-import com.stfalcon.multiimageview.MultiImageView;
 
 public class ChateuDefautConvoCell extends SimpleCell<MConversationItem, ChateuDefautConvoCell.ViewHolder>
   implements Updatable<MConversationItem> {
@@ -76,7 +76,7 @@ public class ChateuDefautConvoCell extends SimpleCell<MConversationItem, ChateuD
 
   @Override
   protected long getItemId() {
-    return getItem().getObject().getObjectId().hashCode();
+    return 0;
   }
 
 
@@ -89,7 +89,7 @@ public class ChateuDefautConvoCell extends SimpleCell<MConversationItem, ChateuD
    */
   @Override
   public boolean areContentsTheSame(MConversationItem newItem) {
-    return getItem().getObject().getObjectId().equals(newItem.getObject().getObjectId());
+    return false;
   }
 
   /**
@@ -106,11 +106,11 @@ public class ChateuDefautConvoCell extends SimpleCell<MConversationItem, ChateuD
 
   static class ViewHolder extends SimpleViewHolder {
     TextView mName,mDate,mLastMessage;
-    MultiImageView mAvatar;
+    StateImageView mAvatar;
 
     ViewHolder(View itemView) {
       super(itemView);
-      mAvatar = (MultiImageView) itemView.findViewById(R.id.avatar);
+      mAvatar = (StateImageView) itemView.findViewById(R.id.avatar);
       mName = (TextView) itemView.findViewById(R.id.name);
       mLastMessage = (TextView) itemView.findViewById(R.id.last_message);
       mDate = (TextView) itemView.findViewById(R.id.date);

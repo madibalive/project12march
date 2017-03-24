@@ -22,13 +22,12 @@
             <!-- minHeight determines the point to fade in the status bar scrim. Ideally it would
                  fade in when the image has completely collapsed but it needs to be > 0. -->
 
-            <com.venu.venutheta.ui.AspectRatioView
+            <com.example.madiba.venualpha.ui.AspectRatioView
                 android:id="@+id/session_photo_container"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:visibility="gone"
                 app:layout_collapseMode="pin"
-                app:aspectRatio="0.8">
+                app:aspectRatio="0.88">
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -49,11 +48,12 @@
                         android:layout_height="wrap_content" />
 
                     <LinearLayout
-                        android:visibility="gone"
                         android:id="@+id/interaction_layout"
                         android:background="@color/white"
                         android:layout_gravity="bottom|right"
-                        android:layout_margin="@dimen/padding_normal"
+                        android:layout_marginRight="40dp"
+                        android:layout_marginBottom="@dimen/padding_normal"
+                        android:layout_marginLeft="@dimen/padding_normal"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:layout_width="wrap_content"
@@ -62,9 +62,9 @@
 
                         <com.android.liuzhuang.rcimageview.RoundCornerImageView
                             android:id="@+id/interaction_avatar"
-                            android:layout_width="20dp"
+                            android:layout_width="24dp"
                             android:layout_marginRight="4dp"
-                            android:layout_height="20dp"
+                            android:layout_height="24dp"
                             android:src="@color/venu_orange"/>
 
                         <TextView
@@ -85,7 +85,7 @@
                 </FrameLayout>
 
 
-            </com.venu.venutheta.ui.AspectRatioView>
+            </com.example.madiba.venualpha.ui.AspectRatioView>
 
         </android.support.design.widget.CollapsingToolbarLayout>
         <android.support.v7.widget.Toolbar
@@ -161,7 +161,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
-                    <com.venu.venutheta.ui.StateButton
+                    <com.example.madiba.venualpha.ui.StateButton
                         android:layout_alignParentRight="true"
                         android:minHeight="0dp"
                         android:minWidth="0dp"
@@ -196,6 +196,26 @@
             android:gravity="center_vertical"
             android:orientation="vertical">
 
+            <HorizontalScrollView
+                android:id="@+id/feature_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:requiresFadingEdge="horizontal"
+                android:fadingEdgeLength="@dimen/padding_normal"
+                >
+
+                <LinearLayout
+                    android:id="@+id/feature_layout"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:minHeight="50dp" >
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -224,6 +244,8 @@
 
 
             <TextView
+                android:drawableLeft="@drawable/venu_person"
+                android:drawablePadding="@dimen/dp_4"
                 android:id="@+id/mutual_attendees"
                 android:text="Kwesia,james and 4 other also going "
                 android:layout_width="match_parent"
@@ -266,24 +288,6 @@
 
 
 
-            <HorizontalScrollView
-                android:id="@+id/feature_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="none"
-                android:requiresFadingEdge="horizontal"
-                android:fadingEdgeLength="@dimen/padding_normal"
-                >
-
-                <LinearLayout
-                    android:id="@+id/feature_layout"
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:minHeight="50dp" >
-
-                </LinearLayout>
-            </HorizontalScrollView>
 
 
 
@@ -321,7 +325,7 @@
                 android:id="@+id/event_location_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_placeholder"
+                android:drawableLeft="@drawable/venu_slanted_arrow"
                 android:drawablePadding="8dp"
                 android:text="4th street rooad ,21 avaenu road"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"

@@ -3,11 +3,11 @@ package com.example.madiba.venualpha.eventmanager.userEvents;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ThemedSpinnerAdapter;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,11 +24,10 @@ public class UserEventActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_manage_others);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         // Setup spinner
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
@@ -38,6 +37,7 @@ public class UserEventActivity extends AppCompatActivity {
                         "Section 1",
                         "Section 2",
                         "Section 3",
+                        "Section 4",
                 }));
 
         spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -45,27 +45,32 @@ public class UserEventActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // When the given dropdown item is selected, show its contents in the
                 // container view.
+
+                Log.e("EVENTMAGER","SELECTED :: " + position);
+
+                Fragment frg;
+                if (position==0){
+                    frg= UserEventsFragment.newInstance(10);
+                }else if (position==1){
+                    frg = OtherEventFragment.newInstance();
+                }else if (position==2){
+                    frg = TrackingEventFragment.newInstance();
+
+                }else {
+                    frg= UserEventsFragment.newInstance(20);
+                }
+
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, UserEventsFragment.newInstance(position+1 ))
+                        .replace(R.id.container, frg)
                         .commit();
+
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
-      FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-      fab.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-              Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                      .setAction("Action", null).show();
-          }
-      });
-      
     }
-
 
     private static class MyAdapter extends ArrayAdapter<String> implements ThemedSpinnerAdapter {
         private final ThemedSpinnerAdapter.Helper mDropDownHelper;

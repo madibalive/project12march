@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/round_corner_bkg"
+    app:VariableLayoutMode="false"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    android:gravity="center"
+    >
+
+    <TextView
+        android:paddingTop="@dimen/dp_4"
+        android:id="@+id/tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Comments"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        />
+
+
+    <ImageView
+        android:src="@color/venu_yellow"
+        android:layout_margin="@dimen/dp_10"
+        android:id="@+id/views"
+        android:layout_width="80dp"
+        android:layout_height="80dp" />
+
+
+    <TextView
+        android:paddingBottom="@dimen/dp_4"
+        android:id="@+id/mememories"
+        android:text="+123 k"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        />
+
+</LinearLayout>
