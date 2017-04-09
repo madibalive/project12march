@@ -24,7 +24,16 @@ public class GlobalConstants {
     public static final String OBJECT = "type";
     public static final String IMAGE_100 = "image100";
     public static final String IMAGE_20 = "image20";
+
+
     public static final String IMAGE_60 = "image60";
+
+
+    public static final String FEATURE_18 = "+18";
+    public static final String FEATURE_LD = "Free For Ladies";
+    public static final String FEATURE_FND = "Food and drinks";
+    public static final String FEATURE_BUS = "Bus";
+
 
 
     // EVENT PAGES DETAIL

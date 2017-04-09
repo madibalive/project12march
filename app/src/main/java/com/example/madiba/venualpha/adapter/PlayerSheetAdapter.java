@@ -85,7 +85,6 @@ public class PlayerSheetAdapter extends BaseAdapter {
         public final TextView name;
         public final CircleImageView avatar;
 
-
         public ViewHolder(View view) {
 
 

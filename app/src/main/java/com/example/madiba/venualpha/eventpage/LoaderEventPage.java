@@ -1,15 +1,15 @@
 package com.example.madiba.venualpha.eventpage;
 
-import com.example.madiba.venualpha.Actions.ActionMediaCheckIslike;
+import android.support.annotation.Nullable;
+
 import com.example.madiba.venualpha.models.GlobalConstants;
 import com.example.madiba.venualpha.models.ModelEventGoingContainer;
+import com.example.madiba.venualpha.models.MdMemoryItem;
+import com.example.madiba.venualpha.Generators.ModelGenerator;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseRelation;
 import com.parse.ParseUser;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,48 +113,28 @@ public class LoaderEventPage {
         }).subscribeOn(Schedulers.io());
     }
 
-    public static Observable<List<ParseObject>> loadMedia(String id, String className){
-        return Observable.create(new Observable.OnSubscribe<List<ParseObject>>() {
-            @Override
-            public void call(Subscriber<? super List<ParseObject>> subscriber) {
-                try {
-                    ParseObject obj = ParseObject.createWithoutData(className,id);
-                    ParseObject a = new ParseObject("");
-                    ParseObject b = new ParseObject("");
 
-                    // Init query
-                    ParseQuery<ParseObject> query = ParseQuery.getQuery(GlobalConstants.CLASS_MEDIA);
-                    query.whereEqualTo("to", ParseObject.createWithoutData(className,id));
-                    query.include("from");
-                    query.setLimit(4);
-                    query.orderByAscending("createdAt");
-                    List<ParseObject>  data = new ArrayList<>();
-                    data = query.find();
-                    data.add(a);data.add(b);
+    public static Observable<List<MdMemoryItem>> loadEventGallery(@Nullable String id){
+        return Observable.create((Observable.OnSubscribe<List<MdMemoryItem>>) subscriber -> {
 
-                    //check status and return fetch event
-                    ParseQuery queryR = ParseQuery.getQuery(GlobalConstants.CLASS_USER_RELATION);
-                    queryR.whereEqualTo("user", ParseUser.getCurrentUser());
-                    ParseObject relation = queryR.getFirst();
-                    if (relation !=null){
-                        ParseRelation<ParseObject> relationLikes = relation.getRelation("likes");
-                        List<ParseObject> likes= relationLikes.getQuery().find();
+            List<MdMemoryItem> cells = new ArrayList<>();
+            ParseQuery<ParseObject> query = ParseQuery.getQuery(GlobalConstants.CLASS_NOTIFICATION);
+            query.whereEqualTo("to", ParseObject.createWithoutData("Events",id));
+            query.orderByAscending("views");
+            query.setLimit(60);
 
-                        if (likes.contains(obj)){
-                            EventBus.getDefault().post(new ActionMediaCheckIslike(true));
-                        }else {
-                            EventBus.getDefault().post(new ActionMediaCheckIslike(false));
-                        }
-                    }
+            try {
 
-                    Timber.d("connecting");
-                    subscriber.onNext(data);
-                    subscriber.onCompleted();
-
-                }catch (Exception e){
-                    subscriber.onError(e);
+                for (ParseObject object : query.find()) {
+                    MdMemoryItem cell = ModelGenerator.generateMemmory(object);
+                    cells.add(cell);
                 }
+                subscriber.onNext(cells);
+                subscriber.onCompleted();
+            }catch (Exception e){
+                subscriber.onError(e);
             }
         }).subscribeOn(Schedulers.io());
     }
+
 }

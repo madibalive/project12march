@@ -1,0 +1,4 @@
+
+Tsquid:UselessImportCheck"-Remove this unused import 'android.util.Log'.(Ô¦Ø²øÿÿÿÿ
+dsquid:MaximumInheritanceDepth"=This class has 11 parents which is greater than 5 authorized.(’‰·©
+squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(€šòÁ8îÓ”ï³+

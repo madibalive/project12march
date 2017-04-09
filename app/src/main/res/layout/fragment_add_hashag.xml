@@ -1,100 +1,191 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.madiba.venualpha.post.MediaPost.AddHashagFragment">
+
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:gravity="center_vertical"
+        android:padding="@dimen/padding_normal">
+
+        <ImageButton
+            android:id="@+id/close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_close" />
+
+
+        <ImageButton
+            android:id="@+id/send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_check_black_24dp" />
+
+
+    </RelativeLayout>
 
     <LinearLayout
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <HorizontalScrollView
-            android:id="@+id/attendees_container"
-            android:layout_width="0dp"
-            android:layout_weight="3"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/caption"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="none"
-            android:requiresFadingEdge="horizontal"
-            android:fadingEdgeLength="@dimen/padding_normal"
-            >
-
-            <LinearLayout
-                android:id="@+id/attendees_layout"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:minHeight="50dp" >
-
-
-            </LinearLayout>
-        </HorizontalScrollView>
-
-
-
-
-    </LinearLayout>
-    <TextView
-        android:id="@+id/attendees_count"
-        android:text="44 more > "
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"/>
-
-    <com.example.madiba.venualpha.ui.expandable.ExpandableLinearLayout
-        android:padding="@dimen/padding_normal"
-        android:orientation="vertical"
-        android:id="@+id/more_expandableLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:ael_duration="100"
-        app:ael_expanded="false"
-        >
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:hint="Enter Caption"
+            android:inputType="textMultiLine"
+            android:maxLines="4"
+            android:minLines="2"
+            android:padding="@dimen/dp_22"
+            android:singleLine="false"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
 
 
         <LinearLayout
-            android:orientation="horizontal"
-            style="@style/AppTheme.Toolbar"
-            android:padding="@dimen/padding_normal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_normal">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/head_rcview"
+            <TextView
+                android:id="@+id/name"
                 android:layout_width="0dp"
-                android:layout_height="125dp"
-                android:layout_weight="1" />
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/avatar"
+                android:layout_weight="1"
+                android:text="Create New Event"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
-            <LinearLayout
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/next"
-                    android:layout_margin="@dimen/padding_normal"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_arrow"/>
-
-                <TextView
-                    android:id="@+id/count"
-                    style="@style/VenuBodyText"
-                    android:text="3/4"
-                    android:textSize="@dimen/app_text_size_large"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+            <CheckBox
+                android:id="@+id/radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
+        <com.example.madiba.venualpha.ui.expandable.ExpandableLinearLayout
+            android:id="@+id/more_expandableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_normal"
+            app:ael_duration="200">
+
+            <com.example.madiba.venualpha.ui.SwitchTextView
+                android:visibility="gone"
+                android:id="@+id/selectedEvent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_frame"
+                android:backgroundTint="@color/light_grey_200"
+                android:padding="4dp"
+                android:text="Simple asdad \n#adafsafsafsaf"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                app:imageHeight="25dp"
+                app:imageWidth="25dp"
+                app:rightImage="@drawable/ic_close" />
+
+            <LinearLayout
+                android:id="@+id/search_event"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <EditText
+                    android:id="@+id/add_event"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:hint="Add Event"
+                    android:minLines="1"
+                    android:padding="@dimen/padding_normal"
+                    android:singleLine="true"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar2"
+                    style="?android:attr/progressBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/isLinked"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_14"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:text="Create New Event"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+
+            <LinearLayout
+                android:id="@+id/link_layout_container"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.example.madiba.venualpha.ui.SwitchTextView
+                    android:id="@+id/add_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="0/4"
+                    android:textSize="@dimen/app_text_size_large"
+                    app:imageHeight="25dp"
+                    app:imageWidth="25dp"
+                    app:topImage="@drawable/ic_add" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/user_recyclerView"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
 
 
 
-    </com.example.madiba.venualpha.ui.expandable.ExpandableLinearLayout>
+        </com.example.madiba.venualpha.ui.expandable.ExpandableLinearLayout>
 
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_normal"
+            android:text="Add to Existing "
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:visibility="gone" />
+
+        <com.jaychang.srv.SimpleRecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="4dp"
+            app:srv_layoutMode="linearVertical"
+            app:srv_showDivider="true"
+            app:srv_spacing="4dp" />
+
+    </LinearLayout>
 
 </LinearLayout>

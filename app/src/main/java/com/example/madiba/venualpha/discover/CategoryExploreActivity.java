@@ -8,12 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.example.madiba.venualpha.R;
-import com.example.madiba.venualpha.adapter.chateu.ChateuGossipConvoCell;
-import com.example.madiba.venualpha.adapter.discover.dis.CategoryCell;
-import com.example.madiba.venualpha.chateu.ChateuFragAct;
-import com.example.madiba.venualpha.chateu.ChateuGossipFragAct;
+import com.example.madiba.venualpha.discover.discover.CategoryCell;
+import com.example.madiba.venualpha.chateu.ChateuDefaultFragAct;
 import com.example.madiba.venualpha.eventpage.WhiteEventPageActivity;
-import com.example.madiba.venualpha.models.MConversationItem;
 import com.example.madiba.venualpha.models.MdEventItem;
 import com.example.madiba.venualpha.util.TimeUitls;
 import com.jaychang.srv.SimpleRecyclerView;
@@ -56,7 +53,7 @@ public class CategoryExploreActivity extends AppCompatActivity {
     }
 
     private void requestOpenConversation(@NonNull MdEventItem event) {
-        Intent intent = new Intent(CategoryExploreActivity.this,ChateuFragAct.class);
+        Intent intent = new Intent(CategoryExploreActivity.this,ChateuDefaultFragAct.class);
         Bundle bundle = new Bundle();
         intent.putExtra( "example", Parcels.wrap(event));
         startActivity(intent);

@@ -1,168 +1,117 @@
 package com.example.madiba.venualpha.ui;
 
-import android.animation.ArgbEvaluator;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
-import android.view.animation.DecelerateInterpolator;
+import android.util.TypedValue;
 
 import com.example.madiba.venualpha.R;
+import com.example.madiba.venualpha.util.ViewUtils;
+
 
 /**
- * Created by Madiba on 3/12/2017.
+ * version :1.0.0
+ * Created by Song on 2016/5/10.
+ * Blog:http://blog.csdn.net/u013718120
  */
-
 public class SwitchTextView extends AppCompatTextView {
-    private static final int DEFAULT_ANIMATION_DURATION = 300;
-    private static final float DEFAULT_DISABLED_ALPHA = .5f;
 
-    private PorterDuffColorFilter colorFilter;
-    private final ArgbEvaluator colorEvaluator = new ArgbEvaluator();
-    private  long animationDuration;
-    private  float disabledStateAlpha;
-    private  int iconTintColor;
-    private  int disabledStateColor;
-    private float fraction = 0f;
+    //image width、height
+    private int imageWidth;
+    private int imageHeight;
+
+    private Drawable leftImage;
+    private Drawable topImage;
+    private Drawable rightImage;
+    private Drawable bottomImage;
     private boolean enabled;
 
-    Drawable icon;
-
     public SwitchTextView(Context context) {
-        super(context);
+        this(context, null);
     }
-
-    public SwitchTextView(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
+    public SwitchTextView(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
     }
-
-    public SwitchTextView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public SwitchTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        TypedArray array = getContext().getTheme().obtainStyledAttributes(attrs, R.styleable.SwitchTextView, 0, 0);
+        TypedArray ta = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SwitchTextView,0,0);
+        int countNum = ta.getIndexCount();
+        for (int i = 0; i < countNum; i++) {
 
-        try {
-            iconTintColor = array.getColor(R.styleable.SwitchTextView_st_tint_color, Color.WHITE);
-            animationDuration = array.getInteger(R.styleable.SwitchTextView_st_animation_duration, DEFAULT_ANIMATION_DURATION);
-            disabledStateAlpha = array.getFloat(R.styleable.SwitchTextView_st_disabled_alpha, DEFAULT_DISABLED_ALPHA);
-            disabledStateColor = array.getColor(R.styleable.SwitchTextView_st_disabled_color, iconTintColor);
-            enabled = array.getBoolean(R.styleable.SwitchTextView_st_disabled_alpha, true);
-        } finally {
-            array.recycle();
+            int attr = ta.getIndex(i);
+            if (attr == R.styleable.SwitchTextView_leftImage) {
+                leftImage = ta.getDrawable(attr);
+            } else if (attr == R.styleable.SwitchTextView_topImage) {
+                topImage = ta.getDrawable(attr);
+            } else if (attr == R.styleable.SwitchTextView_rightImage) {
+                rightImage = ta.getDrawable(attr);
+            } else if (attr == R.styleable.SwitchTextView_bottomImage) {
+                bottomImage = ta.getDrawable(attr);
+            } else if (attr == R.styleable.SwitchTextView_imageWidth) {
+                imageWidth = ta.getDimensionPixelSize(attr, (int) TypedValue.applyDimension(
+                        TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics()));
+            } else if (attr == R.styleable.SwitchTextView_imageHeight) {
+                imageHeight = ta.getDimensionPixelSize(attr, (int) TypedValue.applyDimension(
+                        TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics()));
+            }
         }
 
-        if (disabledStateAlpha < 0f || disabledStateAlpha > 1f) {
-            throw new IllegalArgumentException("Wrong value for si_disabled_alpha [" + disabledStateAlpha + "]. "
-                    + "Must be value from range [0, 1]");
-        }
-
-        colorFilter = new PorterDuffColorFilter(iconTintColor, PorterDuff.Mode.SRC_IN);
-        setFraction(enabled ? 0f : 1f);
+        ta.recycle();
+        init();
     }
 
-    public void setIconEnabled(boolean enabled) {
-        setIconEnabled(enabled, true);
-    }
-
-    private void setDrawableTop(Drawable drawableTop){
-        icon = drawableTop;
-    }
-
-    public void setIconEnabled(boolean enabled, boolean animate) {
-        if (this.enabled == enabled) return;
-        switchState(animate);
+    /**
+     * init views
+     */
+    private void init() {
+        setCompoundDrawablesWithIntrinsicBounds(leftImage,topImage,rightImage,bottomImage);
     }
 
 
-    public void switchState(boolean animate) {
-        float newFraction;
-        if (enabled) {
-            newFraction = 1f;
-        } else {
-            newFraction = 0f;
-        }
+
+    public void setState(boolean enabled) {
+        if (this.enabled == enabled)
+            return;
+        switchState();
+    }
+
+    private void switchState() {
+        if (enabled)
+           ViewUtils.getTintedDrawable(getContext(),topImage,R.color.venu_red);
+        else
+            ViewUtils.getTintedDrawable(getContext(),topImage,R.color.venu_yellow);
+
+        setCompoundDrawablesWithIntrinsicBounds(leftImage,topImage,rightImage,bottomImage);
+    }
+
+    public void toggleSwitch(){
         enabled = !enabled;
-        if (animate) {
-            animateToFraction(newFraction);
-        } else {
-            setFraction(newFraction);
-            updateNumber(fraction);
-            invalidate();
+        switchState();
+    }
+
+    @Override
+    public void setCompoundDrawablesWithIntrinsicBounds(Drawable left, Drawable top, Drawable right, Drawable bottom) {
+
+        if(left != null) {
+            left.setBounds(0,0,imageWidth,imageHeight);
         }
-    }
 
-    private void animateToFraction(float toFraction) {
-        ValueAnimator animator = ValueAnimator.ofFloat(fraction, toFraction);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                setFraction((float) animation.getAnimatedValue());
-            }
-        });
-        animator.setInterpolator(new DecelerateInterpolator());
-        animator.setDuration(animationDuration);
-        animator.start();
-    }
-
-    private void setFraction(float fraction) {
-        this.fraction = fraction;
-        updateColor(fraction);
-        updateAlpha(fraction);
-        postInvalidateOnAnimationCompat();
-    }
-
-    private void updateNumber(float fraction) {
-        int currentNum = Integer.parseInt(getText().toString());
-        if (fraction==1f){
-            currentNum++;
-            setText(String.format("%d", currentNum));
-
-        }else {
-            if (currentNum!=0 ){
-                currentNum--;
-                setText(String.format("%d", currentNum));
-            }
+        if(top != null) {
+            top.setBounds(0,0,imageWidth,imageHeight);
         }
-    }
 
-
-    private void updateColor(float fraction) {
-        if (iconTintColor != disabledStateColor) {
-            final int color = (int) colorEvaluator.evaluate(fraction, iconTintColor, disabledStateColor);
-            updateIconColor(color);
+        if(right != null) {
+            right.setBounds(0,0,imageWidth,imageHeight);
         }
-    }
 
-    private void updateAlpha(float fraction) {
-        int alpha = (int) ((disabledStateAlpha + (1f - fraction) * (1f - disabledStateAlpha)) * 255);
-        updateIconAlpha(alpha);
-    }
-
-    private void updateIconColor(int color) {
-        colorFilter = new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN);
-        icon.setColorFilter(colorFilter);
-    }
-
-    @SuppressWarnings("deprecation")
-    private void updateIconAlpha(int alpha) {
-        icon.setAlpha(alpha);
-    }
-    private void postInvalidateOnAnimationCompat() {
-        final long fakeFrameTime = 10;
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-            postInvalidateOnAnimation();
-        } else {
-            postInvalidateDelayed(fakeFrameTime);
+        if(bottom != null) {
+            bottom.setBounds(0,0,imageWidth,imageHeight);
         }
+
+        setCompoundDrawables(left,top,right,bottom);
     }
-
-
 
 }

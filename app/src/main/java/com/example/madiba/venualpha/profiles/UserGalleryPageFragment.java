@@ -11,8 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.madiba.venualpha.R;
-import com.example.madiba.venualpha.adapter.EventItemCell;
-import com.example.madiba.venualpha.adapter.GalleryItemCell;
+import com.example.madiba.venualpha.models.MdEventItem;
+import com.example.madiba.venualpha.models.MdMemoryItem;
+import com.example.madiba.venualpha.profiles.adapter.ProfileEventCell;
+import com.example.madiba.venualpha.profiles.adapter.ProfileGalleryCell;
 import com.jaychang.srv.OnLoadMoreListener;
 import com.jaychang.srv.SimpleRecyclerView;
 
@@ -28,8 +30,8 @@ public class UserGalleryPageFragment extends Fragment implements SwipeRefreshLay
 
     private static final String ARG_PARAM1 = "param1";
 
-    private RxLoader<List<GalleryItemCell>> galleryRxLoader;
-    private RxLoader<List<EventItemCell>> eventxLoader;
+    private RxLoader<List<ProfileGalleryCell>> galleryRxLoader;
+    private RxLoader<List<ProfileEventCell>> eventxLoader;
     private int delayMillis = 1000;
     private int mCurrentCounter = 0;
     private Date startDate,endDate;
@@ -78,6 +80,10 @@ public class UserGalleryPageFragment extends Fragment implements SwipeRefreshLay
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         swipeRefreshLayout.setOnRefreshListener(this);
+
+        for (int i = 0; i < 10; i++) {
+            recyclerView.addCells(new ProfileGalleryCell(new MdMemoryItem()));
+        }
     }
 
     private void setupView(){
@@ -100,9 +106,9 @@ public class UserGalleryPageFragment extends Fragment implements SwipeRefreshLay
 
         galleryRxLoader=  loaderManager.create(
                 LoaderProfileLoader.loadUserGallery(loadId,mCurrentCounter,startDate,endDate),
-                new RxLoaderObserver<List<GalleryItemCell>>() {
+                new RxLoaderObserver<List<ProfileGalleryCell>>() {
                     @Override
-                    public void onNext(List<GalleryItemCell> value) {
+                    public void onNext(List<ProfileGalleryCell> value) {
                         Timber.d("onnext");
                         new Handler().postDelayed(() -> {
                             if (value.size()>0) {

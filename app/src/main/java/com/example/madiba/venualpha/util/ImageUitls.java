@@ -74,6 +74,8 @@ public class ImageUitls {
         matrix.postRotate(degree);
         Bitmap rotatedImg = Bitmap.createBitmap(img, 0, 0, img.getWidth(), img.getHeight(), matrix, true);
         img.recycle();
+        Log.e("Util", "saveBitmapToStorage() - on rotate"+degree);
+
         return rotatedImg;
     }
 
@@ -100,12 +102,13 @@ public class ImageUitls {
         return inSampleSize;
     }
 
-    private static Bitmap rotateImageIfRequired(Bitmap img, Uri selectedImage) throws IOException {
-
+    public static Bitmap rotateImageIfRequired(Bitmap img, Uri selectedImage) throws IOException {
+        Log.e("util", "rotateImageIfRequired: "+selectedImage );
         ExifInterface ei = new ExifInterface(selectedImage.getPath());
         int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+        Log.e("util", "rotateImageIfRequired orientation: "+orientation );
 
-        switch (orientation) {
+        switch (ExifInterface.ORIENTATION_ROTATE_270) {
             case ExifInterface.ORIENTATION_ROTATE_90:
                 return rotateImage(img, 90);
             case ExifInterface.ORIENTATION_ROTATE_180:
@@ -147,6 +150,8 @@ public class ImageUitls {
 
         img = rotateImageIfRequired(img, selectedImage);
         Timber.i("handleSamplingAndRotationBitmap : RETURNING ROTATED IMAGES");
+
+
         return img;
 
     }

@@ -90,12 +90,15 @@
             android:src="@drawable/ic_videocam"/>
 
 
-        <TextView
+
+        <com.example.madiba.venualpha.ui.SwitchTextView
             android:gravity="center_vertical"
             android:layout_alignParentBottom="true"
             android:padding="@dimen/padding_normal"
+            app:topImage="@drawable/venu_chat"
+            app:imageHeight="25dp"
+            app:imageWidth="25dp"
             android:drawablePadding="@dimen/dp_4"
-            android:drawableLeft="@drawable/venu_chat"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:id="@+id/comment"
@@ -103,6 +106,21 @@
             android:layout_height="wrap_content"
             android:text="12" />
 
+        <com.example.madiba.venualpha.ui.SwitchTextView
+            android:gravity="center_vertical"
+            android:layout_toRightOf="@id/comment"
+            android:layout_alignParentBottom="true"
+            android:padding="@dimen/padding_normal"
+            android:drawablePadding="@dimen/dp_4"
+            app:topImage="@drawable/ic_add"
+            app:imageHeight="25dp"
+            app:imageWidth="25dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:id="@+id/tracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12" />
 
 
         <TextView
@@ -161,40 +179,17 @@
             android:padding="@dimen/padding_normal"
             />
 
-        <TextView
-            android:gravity="center_vertical"
-            android:layout_alignParentBottom="true"
-            android:padding="@dimen/padding_normal"
-            android:drawablePadding="@dimen/dp_4"
-            android:drawableLeft="@drawable/venu_chat"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:id="@+id/comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="12" />
 
 
-        <TextView
-            android:gravity="center_vertical"
-            android:layout_toRightOf="@id/comment"
-            android:layout_alignParentBottom="true"
-            android:padding="@dimen/padding_normal"
-            android:drawablePadding="@dimen/dp_4"
-            android:drawableLeft="@drawable/ic_add"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:id="@+id/tracking"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="12" />
 
     </RelativeLayout>
 
-<TextView
+<com.example.madiba.venualpha.ui.SwitchTextView
     android:gravity="center_vertical"
     android:layout_below="@id/container"
-    android:drawableLeft="@drawable/venu_person"
+    app:topImage="@drawable/venu_person"
+    app:imageHeight="15dp"
+    app:imageWidth="15dp"
     android:padding="8dp"
     android:text="   Steve,James Be going going to this event "
     android:textSize="@dimen/app_text_size_small"

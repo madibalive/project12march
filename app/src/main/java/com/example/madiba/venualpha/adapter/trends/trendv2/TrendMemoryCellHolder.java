@@ -37,6 +37,7 @@ public class TrendMemoryCellHolder extends SimpleCell<MdTrendMemory, TrendMemory
   protected void onBindViewHolder(ViewHolder holder, int position, Context context, Object payload) {
 
     holder.mTitle.setVisibility(View.GONE);
+    holder.recyclerView.removeAllCells();
     holder.recyclerView.addCells(getItem().getTrendEventCells());
 
   }

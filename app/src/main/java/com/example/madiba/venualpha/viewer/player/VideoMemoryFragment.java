@@ -31,11 +31,11 @@ import com.danikula.videocache.HttpProxyCacheServer;
 import com.example.madiba.venualpha.Actions.ActionMemoryStart;
 import com.example.madiba.venualpha.Actions.ActionMemoryStop;
 import com.example.madiba.venualpha.R;
-import com.example.madiba.venualpha.dailogs.CommentDialog;
+import com.example.madiba.venualpha.comment.CommentDialog;
 import com.example.madiba.venualpha.models.MdEventItem;
 import com.example.madiba.venualpha.models.MdMediaItem;
 import com.example.madiba.venualpha.models.MdUserItem;
-import com.example.madiba.venualpha.profiles.UserPageV2Activity;
+import com.example.madiba.venualpha.profiles.UserPageActivity;
 import com.example.madiba.venualpha.ui.AspectFrameLayout;
 import com.example.madiba.venualpha.util.ProxyFactory;
 
@@ -213,7 +213,7 @@ public class VideoMemoryFragment extends Fragment implements
         mAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(new Intent(getActivity(), UserPageV2Activity.class)));
+                startActivity(new Intent(new Intent(getActivity(), UserPageActivity.class)));
             }
         });
     }

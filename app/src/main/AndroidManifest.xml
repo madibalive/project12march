@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -29,7 +30,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".LaunchActivity"
             android:label=""
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -53,23 +54,32 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/. 
         -->
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+
+
+        <activity android:name=".MainActivity"
+        android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".discover.DiscoverActivity"
+            android:label="@string/title_activity_discover"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".onboard.BaseOnboardActivity"
             android:label="@string/title_activity_discover"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- MAP ACTIVITES -->
         <!-- /////////////////////////////////////////// -->
 
-        <activity
-            android:name=".map.MapEventsActivity"
-            android:label="@string/title_activity_map_events"
-            android:parentActivityName=".discover.DiscoverActivity"
-            android:windowSoftInputMode="adjustResize">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".discover.DiscoverActivity" />
-        </activity>
+
+
+
         <activity
             android:name=".discover.SearchActivity"
             android:label="@string/title_activity_search"
@@ -164,7 +174,7 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name=".chateu.ChateuFragAct"
+            android:name=".chateu.ChateuDefaultFragAct"
             android:label="@string/title_activity_category_explore"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -172,7 +182,12 @@
             android:label="@string/title_activity_category_explore"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".profiles.UserPageV2Activity"
+            android:name=".profiles.UserPageActivity"
+            android:label="@string/title_activity_category_explore"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".profiles.mypage.MyUserActivity"
             android:label="@string/title_activity_category_explore"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -212,6 +227,17 @@
             android:label="@string/title_activity_map_events"
             android:windowSoftInputMode="adjustResize" />
 
+
+        <activity
+            android:name=".map.MapEventsActivity"
+            android:label="@string/title_activity_map_events"
+            android:parentActivityName=".discover.DiscoverActivity"
+            android:windowSoftInputMode="adjustResize">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".discover.DiscoverActivity" />
+        </activity>
+
         <!--
            The API key for Google Maps-based APIs is defined as a string resource.
            (See the file "res/values/google_maps_api.xml").
@@ -222,8 +248,21 @@
         -->
 
         <activity
-            android:name=".channels.MainChannelActivity"
-            android:theme="@style/AppThemeDark" />
+            android:name="io.github.memfis19.annca.internal.ui.camera.Camera1Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemeFullscreen" />
+        <activity
+            android:name="io.github.memfis19.annca.internal.ui.camera2.Camera2Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemeFullscreen" />
+        <activity
+            android:name="io.github.memfis19.annca.internal.ui.preview.PreviewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemeFullscreen" />
+        <activity
+            android:name="io.github.memfis19.annca.internal.ui.BaseAnncaActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemeFullscreen" />
 
         <!--
            The API key for Google Maps-based APIs is defined as a string resource.
@@ -233,13 +272,19 @@
            sign the APK for publishing.
            You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
 
+        <activity
+            android:name=".post.MediaPost.ActivityFlipsideActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".channels.BaseChannelActivity"
-            android:label="@string/title_activity_base_channel"></activity>
+            android:label="@string/title_activity_base_channel" />
+
+        <service
+            android:name=".services.ServiceUplouder"
+            android:exported="false" />
+
+
     </application>
 
 </manifest>

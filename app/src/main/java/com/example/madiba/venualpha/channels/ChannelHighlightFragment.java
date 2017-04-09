@@ -20,7 +20,7 @@ import com.android.liuzhuang.rcimageview.RoundCornerImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.madiba.venualpha.R;
-import com.example.madiba.venualpha.adapter.channel.ChVenuHighCell;
+import com.example.madiba.venualpha.channels.channel.ChVenuHighCell;
 import com.jaychang.srv.SimpleRecyclerView;
 
 import java.util.List;
@@ -70,12 +70,7 @@ public class ChannelHighlightFragment extends Fragment  implements SwipeRefreshL
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         refreshLayout.setOnRefreshListener(this);
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().finish();
-            }
-        });
+        close.setOnClickListener(view1 -> getActivity().finish());
     }
 
     private void setupHeader(){

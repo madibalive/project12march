@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <RelativeLayout android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <com.android.liuzhuang.rcimageview.RoundCornerImageView
+            android:id="@+id/image_view"
+            android:background="@color/venu_yellow"
+            app:rciv_radius="@dimen/dp_4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+        <TextView
+            android:layout_alignParentTop="true"
+            android:id="@+id/avatar_roll"
+            android:padding="8dp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            android:text="TItle here asdad asda "
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:background="@drawable/bg_main"
+            android:padding="@dimen/padding_normal"
+            android:id="@+id/invites"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <HorizontalScrollView
+                android:id="@+id/attendees_container"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:requiresFadingEdge="horizontal"
+                android:fadingEdgeLength="@dimen/padding_normal"
+                >
+
+                <LinearLayout
+                    android:id="@+id/attendees_layout"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:minHeight="50dp" >
+
+
+                </LinearLayout>
+            </HorizontalScrollView>
+            <Button
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:id="@+id/attendees_more"
+                android:textColor="@color/white"
+                android:text="44 more"
+                android:layout_width="0dp"
+                android:textAllCaps="false"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_above="@id/invites"
+            android:id="@+id/title"
+            android:padding="8dp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:text="TItle here asdad asda "
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_marginLeft="@dimen/dp_10"
+            android:text="22\nDEC"
+            android:layout_above="@id/title"
+            android:id="@+id/date"
+            android:background="@drawable/category_background_default"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+        <View
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@drawable/bg_main"/>
+
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:background="@drawable/round_corner_bkg"
+        android:layout_marginLeft="@dimen/dp_22"
+        android:layout_marginRight="@dimen/dp_22"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <TextView
+            android:padding="@dimen/padding_normal"
+            android:background="@color/venu_blue"
+            android:textColor="@color/white"
+            android:text="Details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

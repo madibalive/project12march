@@ -4,10 +4,13 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.PopupMenu;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,7 +45,9 @@ public class ViewMyEventFragment extends Fragment {
 
     private Button mInviteMore,mPromote,mVerifiedBar;
     private ImageButton mEditBtn,mAddImage,mMoreBtn;
-    private TextView mEventInfo,mEventDate;
+    private TextView mEventInfo;
+    private TextView removeUsers;
+    private TextView mEventDate;
 
 
     public ViewMyEventFragment() {
@@ -65,6 +70,7 @@ public class ViewMyEventFragment extends Fragment {
         mStatContainer = (ViewGroup) view.findViewById(R.id.stats_container);
         mAttendeesLayout = (LinearLayout) view.findViewById(R.id.attendees_layout);
         mAttendeesContainers = (ViewGroup) view.findViewById(R.id.attendees_container);
+        removeUsers= (TextView) view.findViewById(R.id.removeUsers);
         return view;
     }
 
@@ -85,6 +91,13 @@ public class ViewMyEventFragment extends Fragment {
 
 
         displayAttendees(items);
+
+        removeUsers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     private void initView(){
@@ -270,7 +283,11 @@ public class ViewMyEventFragment extends Fragment {
 
     }
 
-    private void requestInviteList(){
+    private void requestInviteAdd(){
+
+    }
+
+    private void requestInviteRemove(){
 
     }
 
@@ -278,6 +295,24 @@ public class ViewMyEventFragment extends Fragment {
 
     }
 
+    private void chooser(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Choose Image Source");
+        builder.setItems(new CharSequence[]{"Add", "Remove","Generate Banner"},
+                (dialog, which) -> {
+                    switch (which) {
+                        case 0:
+                          requestInviteAdd();
+                            break;
+                        case 1:
+                           requestInviteRemove();
+                            break;
+                        default:
+                            break;
+                    }
+                }).show();
+
+    }
 
 
 

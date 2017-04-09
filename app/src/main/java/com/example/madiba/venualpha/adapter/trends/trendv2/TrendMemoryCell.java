@@ -43,7 +43,7 @@ public class TrendMemoryCell extends SimpleCell<MdMemoryItem, TrendMemoryCell.Vi
 
   @Override
   protected void onBindViewHolder(ViewHolder holder, int position, Context context, Object payload) {
-
+    ViewUtils.setMargins(holder.itemView,2,2,2,2);
 
 
   }

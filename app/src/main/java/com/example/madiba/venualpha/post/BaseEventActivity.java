@@ -1,20 +1,13 @@
 package com.example.madiba.venualpha.post;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.example.madiba.venualpha.R;
-import com.example.madiba.venualpha.models.VenuFile;
-import com.example.madiba.venualpha.post.EventPost.AddDetailsFragment;
-import com.example.madiba.venualpha.post.MediaPost.AddHashagFragment;
-import com.example.madiba.venualpha.post.MediaPost.PickerFragment;
-
-import java.util.List;
+import com.example.madiba.venualpha.post.EventPost.EventDetailsFragment;
 
 public class BaseEventActivity extends AppCompatActivity implements
-    AddDetailsFragment.OnFragmentInteractionListener
+    EventDetailsFragment.OnFragmentInteractionListener
 {    android.support.v4.app.FragmentManager fragmentManager ;
     android.support.v4.app.FragmentTransaction ft ;
 
@@ -29,7 +22,7 @@ public class BaseEventActivity extends AppCompatActivity implements
     private void init(){
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, new AddDetailsFragment())
+                .replace(R.id.container, new EventDetailsFragment())
                 .commit();
 
     }

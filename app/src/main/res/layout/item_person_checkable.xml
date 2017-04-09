@@ -7,31 +7,38 @@
     android:orientation="horizontal"
     android:padding="@dimen/dp_10">
 
-    <com.android.liuzhuang.rcimageview.CircleImageView
-        android:id="@+id/cc_i_avatar"
+    <com.android.liuzhuang.rcimageview.RoundCornerImageView
+        android:id="@+id/avatar"
+        app:rciv_radius="3dp"
         android:layout_width="38dp"
         android:layout_height="38dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginRight="@dimen/padding_normal"
         android:src="@color/venu_blue"/>
 
     <TextView
-        android:id="@+id/cc_i_name"
+        android:id="@+id/name"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/cc_i_avatar"
         android:text="sample"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textStyle="bold"
         />
 
 
-    <ImageView
+    <ImageButton
         android:visibility="gone"
-        android:layout_marginLeft="8dp"
-        android:id="@+id/check_imageview"
+        android:background="@android:color/transparent"
+        android:id="@+id/add"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:src="@drawable/ic_check_black_24dp"/>
+
+    <ImageButton
+        android:visibility="gone"
+        android:background="@android:color/transparent"
+        android:id="@+id/remove"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_close"/>
 
 </LinearLayout>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    style="@style/AppTheme.Toolbar"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout
+        android:paddingRight="@dimen/padding_normal"
+        android:paddingLeft="@dimen/padding_normal"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+        <ImageButton
+            android:background="@android:color/transparent"
+            android:id="@+id/close"
+            android:tint="@android:color/holo_blue_dark"
+            android:src="@drawable/ic_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"/>
+        <ImageButton
+            android:background="@android:color/transparent"
+            android:id="@+id/done"
+            android:tint="@android:color/holo_blue_dark"
+            android:src="@drawable/ic_check_black_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"/>
+    </FrameLayout>
+
+
+    <com.example.madiba.venualpha.util.multichoicerecyclerview.MultiChoiceRecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_4"
+        android:paddingLeft="@dimen/dp_4"
+        />
+
+
+</LinearLayout>

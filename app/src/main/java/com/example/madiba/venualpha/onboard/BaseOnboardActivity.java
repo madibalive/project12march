@@ -9,7 +9,6 @@ import android.widget.Button;
 
 import com.example.madiba.venualpha.MainActivity;
 import com.example.madiba.venualpha.R;
-import com.example.madiba.venualpha.post.EventPost.AddDetailsFragment;
 import com.example.madiba.venualpha.post.MediaPost.PickerFragment;
 
 
@@ -84,10 +83,11 @@ SelectCategoriesFragment.OnFragmentInteractionListener,PendingInvitesFragment.On
 
     @Override
     public void onGoCategories() {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, new SelectCategoriesFragment())
-                .addToBackStack("categories")
-                .commit();
+//        startActivity(new Intent(BaseOnboardActivity.this,MainActivity.class));
+//        getSupportFragmentManager().beginTransaction()
+//                .replace(R.id.container, new SelectCategoriesFragment())
+//                .addToBackStack("categories")
+//                .commit();
     }
 
     @Override

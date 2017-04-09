@@ -2,9 +2,9 @@ package com.example.madiba.venualpha.viewer.gallery;
 
 import android.support.annotation.Nullable;
 
-import com.example.madiba.venualpha.adapter.GalleryItemCell;
+import com.example.madiba.venualpha.profiles.adapter.ProfileGalleryCell;
 import com.example.madiba.venualpha.models.GlobalConstants;
-import com.example.madiba.venualpha.util.Generators.ModelGenerator;
+import com.example.madiba.venualpha.Generators.ModelGenerator;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -22,10 +22,10 @@ import rx.schedulers.Schedulers;
 
 public class LoaderGallery {
 
-    public static Observable<List<GalleryItemCell>> loadGallery( @Nullable String id,  @Nullable String className, int skip, int type, @Nullable Date startDate, @Nullable Date endDate){
-        return Observable.create((Observable.OnSubscribe<List<GalleryItemCell>>) subscriber -> {
+    public static Observable<List<ProfileGalleryCell>> loadGallery(@Nullable String id, @Nullable String className, int skip, int type, @Nullable Date startDate, @Nullable Date endDate){
+        return Observable.create((Observable.OnSubscribe<List<ProfileGalleryCell>>) subscriber -> {
 
-            List<GalleryItemCell> cells = new ArrayList<>();
+            List<ProfileGalleryCell> cells = new ArrayList<>();
 
             ParseQuery<ParseObject> query = ParseQuery.getQuery(GlobalConstants.CLASS_MEDIA);
             query.whereLessThan("updateAt",startDate);
@@ -54,7 +54,7 @@ public class LoaderGallery {
             try {
 
                 for (ParseObject object : query.find()) {
-                    GalleryItemCell cell = new GalleryItemCell(ModelGenerator.generateMemmory(object));
+                    ProfileGalleryCell cell = new ProfileGalleryCell(ModelGenerator.generateMemmory(object));
                     cells.add(cell);
                 }
                 subscriber.onNext(cells);
@@ -66,10 +66,10 @@ public class LoaderGallery {
     }
 
 
-    public static Observable<List<GalleryItemCell>> loadUserGallery( @Nullable String id, int skip, @Nullable Date date, @Nullable Date endDate){
-        return Observable.create((Observable.OnSubscribe<List<GalleryItemCell>>) subscriber -> {
+    public static Observable<List<ProfileGalleryCell>> loadUserGallery(@Nullable String id, int skip, @Nullable Date date, @Nullable Date endDate){
+        return Observable.create((Observable.OnSubscribe<List<ProfileGalleryCell>>) subscriber -> {
 
-            List<GalleryItemCell> cells = new ArrayList<>();
+            List<ProfileGalleryCell> cells = new ArrayList<>();
             ParseQuery<ParseObject> query = ParseQuery.getQuery(GlobalConstants.CLASS_NOTIFICATION);
             query.whereEqualTo("to", ParseUser.createWithoutData(ParseUser.class,id));
 
@@ -83,7 +83,7 @@ public class LoaderGallery {
             try {
 
                 for (ParseObject object : query.find()) {
-                    GalleryItemCell cell = new GalleryItemCell(ModelGenerator.generateMemmory(object));
+                    ProfileGalleryCell cell = new ProfileGalleryCell(ModelGenerator.generateMemmory(object));
                     cells.add(cell);
                 }
                 subscriber.onNext(cells);

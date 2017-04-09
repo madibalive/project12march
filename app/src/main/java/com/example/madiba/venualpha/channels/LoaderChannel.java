@@ -1,7 +1,7 @@
 package com.example.madiba.venualpha.channels;
 
-import com.example.madiba.venualpha.adapter.channel.ChVenuEventCell;
-import com.example.madiba.venualpha.adapter.channel.ChVenuHighCell;
+import com.example.madiba.venualpha.channels.channel.ChVenuEventCell;
+import com.example.madiba.venualpha.channels.channel.ChVenuHighCell;
 import com.example.madiba.venualpha.models.GlobalConstants;
 import com.jaychang.srv.SimpleCell;
 import com.parse.ParseObject;

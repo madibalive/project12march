@@ -10,14 +10,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <LinearLayout
-        android:background="@color/accentTransparent"
+    <RelativeLayout
+        android:background="@color/black_30"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageButton
+            android:layout_alignParentLeft="true"
+            android:tint="@color/white"
             android:background="@android:color/transparent"
             android:id="@+id/close"
             android:src="@drawable/ic_close"
@@ -27,7 +29,7 @@
 
 
         <LinearLayout
-            android:gravity="end|center_vertical"
+            android:layout_alignParentRight="true"
             android:id="@+id/colors_layout"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
@@ -36,7 +38,7 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 
@@ -85,8 +87,8 @@
         android:text="Submit"
         android:textAllCaps="false"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        app:normalBackgroundColor="@color/white_50"
-        app:normalTextColor="@color/black_overlay"
+        app:normalBackgroundColor="@color/black_30"
+        app:normalTextColor="@color/white"
         app:pressedStrokeColor="@android:color/transparent"
         app:pressedBackgroundColor="@color/white"
         app:pressedTextColor="@color/white_50"/>

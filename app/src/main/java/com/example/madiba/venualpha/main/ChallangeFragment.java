@@ -1,7 +1,9 @@
 package com.example.madiba.venualpha.main;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -10,9 +12,11 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
@@ -27,7 +31,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.madiba.venualpha.R;
-import com.example.madiba.venualpha.channels.MainChannelActivity;
 import com.example.madiba.venualpha.models.MdMemoryItem;
 import com.example.madiba.venualpha.util.NetUtils;
 import com.example.madiba.venualpha.util.ViewUtils;
@@ -174,6 +177,15 @@ public class ChallangeFragment extends Fragment implements SwipeRefreshLayout.On
 
 
     private void displayChannels(List<ParseObject> mDatas){
+
+        WindowManager wm = (WindowManager)getActivity().getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        try {
+            display.getRealSize(size);
+        } catch (NoSuchMethodError err) {
+            display.getSize(size);
+        }
         if (CATEGORY_DATA.size()<0) {
             mChannelsContainer.setVisibility(View.GONE);
             return;
@@ -186,11 +198,8 @@ public class ChallangeFragment extends Fragment implements SwipeRefreshLayout.On
 
             for (final ParseObject channel : mDatas) {
                 View view = inflater.inflate(R.layout.item_channel, mChannelsLayout, false);
-//                view.setLayoutParams (new ViewGroup.LayoutParams (
-//                        140,90));
-
-//                ViewUtils.setHeightAndWidth(view,140,90);
-                ViewUtils.setMarginRight(view,10);
+                ViewUtils.setHeightAndWidth(view,(int)(size.x/3.5),(int)(size.x/3.5));
+                ViewUtils.setMargins(view,0,5,10,5);
 
                 RoundCornerImageView imageView = (RoundCornerImageView) view.findViewById(R.id.image_view);
                 ImageButton update = (ImageButton) view.findViewById(R.id.updated);
@@ -214,7 +223,7 @@ public class ChallangeFragment extends Fragment implements SwipeRefreshLayout.On
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        startActivity(new Intent(getActivity(), MainChannelActivity.class));
+//                        startActivity(new Intent(getActivity(), MainChannelActivity.class));
                     }
                 });
 

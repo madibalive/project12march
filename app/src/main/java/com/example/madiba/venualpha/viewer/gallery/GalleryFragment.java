@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.madiba.venualpha.R;
-import com.example.madiba.venualpha.adapter.GalleryItemCell;
+import com.example.madiba.venualpha.profiles.adapter.ProfileGalleryCell;
 import com.example.madiba.venualpha.models.MdEventItem;
 import com.jaychang.srv.OnLoadMoreListener;
 import com.jaychang.srv.SimpleRecyclerView;
@@ -36,7 +36,7 @@ public class GalleryFragment extends Fragment {
     private int mode;
     private int state;
     private MdEventItem eventItem;
-    private RxLoader<List<GalleryItemCell>> listRxLoader;
+    private RxLoader<List<ProfileGalleryCell>> listRxLoader;
 
     private int delayMillis = 1000;
     private int mCurrentCounter = 0;
@@ -109,9 +109,9 @@ public class GalleryFragment extends Fragment {
 
         listRxLoader=  loaderManager.create(
                 LoaderGallery.loadGallery(loadClassName,loadId,mCurrentCounter,mode,startDate,endDate),
-                new RxLoaderObserver<List<GalleryItemCell>>() {
+                new RxLoaderObserver<List<ProfileGalleryCell>>() {
                     @Override
-                    public void onNext(List<GalleryItemCell> value) {
+                    public void onNext(List<ProfileGalleryCell> value) {
                         Timber.d("onnext");
                         new Handler().postDelayed(() -> {
                             if (value.size()>0) {

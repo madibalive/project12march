@@ -12,20 +12,20 @@
         android:id="@+id/status"
         android:text="'@Steve Share"
         android:paddingTop="@dimen/dp_4"
+        android:paddingBottom="@dimen/dp_4"
         android:layout_width="match_parent"
         android:textSize="@dimen/app_text_size_small"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/avatar"
-        android:layout_toEndOf="@+id/avatar" />
+        />
 
     <com.android.liuzhuang.rcimageview.RoundCornerImageView
         android:layout_below="@id/status"
         android:id="@+id/avatar"
         android:layout_alignParentLeft="true"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_margin="@dimen/padding_normal"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginRight="@dimen/padding_normal"
         android:src="@color/venu_red"
         app:rciv_radius="2dp"
         />
@@ -51,7 +51,7 @@
         android:layout_alignTop="@+id/name"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="@dimen/padding_normal" />
+        android:layout_marginEnd="4dp" />
 
 
 
@@ -70,8 +70,9 @@
 
     <LinearLayout
         android:id="@+id/container"
-        android:paddingRight="@dimen/dp_10"
-        android:padding="@dimen/dp_10"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+
         android:layout_below="@id/avatar"
         android:orientation="horizontal"
         android:gravity="center_vertical"
@@ -81,8 +82,9 @@
 
 
         <com.android.liuzhuang.rcimageview.RoundCornerImageView
+            app:rciv_radius="2dp"
             android:id="@+id/gossip_image"
-            android:src="@color/venu_yellow"
+            android:src="@color/venu_orange"
             android:layout_width="80dp"
             android:layout_marginRight="@dimen/padding_normal"
             android:layout_height="70dp" />
@@ -97,15 +99,20 @@
             android:text="Vestibulum posuere velit niss  velit nisl velsadas  idunt felis vitae leugiat at "
             />
 
-        <TextView
-            android:drawableTop="@drawable/ic_add"
+        <com.example.madiba.venualpha.ui.SwitchTextView
+            android:padding="@dimen/dp_4"
             android:gravity="center"
             android:drawablePadding="@dimen/dp_4"
             android:text="12"
             android:textStyle="bold"
-            android:textAppearance="@style/AdobeImageWidget.TextAppearance.Small"
+            app:topImage="@drawable/ic_add"
+            app:imageHeight="35dp"
+            app:imageWidth="35dp"
+            android:textAppearance="@style/AdobeImageWidget.TextAppearance.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+
 
     </LinearLayout>
 
@@ -122,7 +129,6 @@
         android:textSize="@dimen/app_text_size_small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/avatar"
-        android:layout_toEndOf="@+id/avatar" />
+        />
 
 </RelativeLayout>

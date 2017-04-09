@@ -1,0 +1,11 @@
+
+esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ˆ‡ýÑþÿÿÿÿ
+esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ÓÕÂêûÿÿÿÿ
+`squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(í†÷Ž
+`squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ÿ‹å£
+"squid:ClassVariableVisibilityCheck"PMake name a static final constant or non-public and provide accessors if needed.(±Ï‘…ýÿÿÿÿ
+}"squid:ClassVariableVisibilityCheck"QMake radio a static final constant or non-public and provide accessors if needed.(Âªõî
+csquid:CallToDeprecatedMethod"=Remove this use of "setBackgroundDrawable"; it is deprecated.(û•¿¥
+rsquid:S00120"WRename this package name to match the regular expression '^[a-z]+(\.[a-z][a-z0-9]*)*$'.(ïÇ›Êþÿÿÿÿ
+rsquid:UselessImportCheck"KRemove this unused import 'com.example.madiba.venualpha.models.MdUserItem'.(Üûî¡ýÿÿÿÿ
+asquid:UselessImportCheck":Remove this unused import 'android.widget.RelativeLayout'.(ü¯ðõþÿÿÿÿ

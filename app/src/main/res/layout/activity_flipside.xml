@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.flurgle.camerakit.CameraView
+            android:id="@+id/camera_preview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:adjustViewBounds="true"
+            app:ckCropOutput="false"
+            app:ckFacing="back"
+            app:ckFlash="off"
+            app:ckFocus="continuous"
+            app:ckJpegQuality="100"
+            app:ckMethod="standard" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/top_pic_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
+                <FrameLayout
+                    android:id="@+id/top_pic_image_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+                    <com.example.madiba.venualpha.ui.SwipeImageView
+
+                        android:id="@+id/top_pic"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:background="@drawable/textured_background"/>
+                    <ProgressBar
+                        android:id="@+id/top_pic_progress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:visibility="gone"
+                        style="@style/Base.Widget.AppCompat.ProgressBar"/>
+                </FrameLayout>
+                <FrameLayout
+                    android:id="@+id/top_bottom_pic_image_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:visibility="gone"
+                    tools:visibility="gone">
+                    <com.example.madiba.venualpha.ui.SwipeImageView
+
+                        android:id="@+id/top_bottom_pic"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:background="@drawable/textured_background" />
+                    <ProgressBar
+                        android:id="@+id/top_bottom_pic_progress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:visibility="gone"
+                        style="@style/Base.Widget.AppCompat.ProgressBar"/>
+                </FrameLayout>
+                <View
+                    android:id="@+id/top_empty_pic"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    tools:visibility="visible"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/bottom_pic_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:orientation="vertical"
+                android:visibility="visible"
+                tools:visibility="gone">
+                <View
+                    android:id="@+id/bottom_empty_pic"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"/>
+                <ImageView
+                    android:id="@+id/bottom_top_pic"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:visibility="gone"/>
+                <ImageView
+                    android:id="@+id/bottom_pic"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/textured_background"/>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!-- camera button -->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/capture_photo_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/ic_camera_white"
+        app:fabSize="normal"
+        app:backgroundTint="@color/colorPrimary"
+        tools:visibility="gone"/>
+
+
+
+    <com.example.madiba.venualpha.ui.venubutton.AllAngleExpandableButton
+        android:id="@+id/circle_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        app:aebAnimDurationMillis="250"
+        app:aebButtonElevation="8dp"
+        android:layout_margin="1dp"
+        app:aebBlurBackground="false"
+        app:aebMaskBackgroundColor="@color/white_30"
+        app:aebButtonGapDp="45dp"
+        app:aebEndAngleDegree="360"
+        app:aebIsSelectionMode="false"
+        app:aebMainButtonRotateAnimDurationMillis="300"
+        app:aebMainButtonRotateDegree="-135"
+        app:aebMainButtonSizeDp="56dp"
+        app:aebRippleEffect="false"
+        app:aebStartAngleDegree="0"
+        app:aebSubButtonSizeDp="45dp" />
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/transparent"
+        app:titleTextAppearance="@style/AppTheme.ActionBar.TitleTextStyle"/>
+
+</RelativeLayout>

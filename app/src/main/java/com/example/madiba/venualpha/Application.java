@@ -3,6 +3,9 @@ package com.example.madiba.venualpha;
 import com.adobe.creativesdk.aviary.IAdobeAuthRedirectCredentials;
 import com.adobe.creativesdk.foundation.AdobeCSDKFoundation;
 import com.adobe.creativesdk.foundation.auth.IAdobeAuthClientCredentials;
+import com.facebook.FacebookSdk;
+import com.parse.Parse;
+import com.parse.ParseFacebookUtils;
 
 import timber.log.Timber;
 
@@ -25,18 +28,16 @@ public class Application extends android.app.Application implements IAdobeAuthCl
             Timber.plant(new Timber.DebugTree());
 //        HockeyLog.setLogLevel(Log.ERROR); // show only errors – the default log level
         AdobeCSDKFoundation.initializeCSDKFoundation(getApplicationContext());
+        Parse.initialize(new Parse.Configuration.Builder(this)
+                .applicationId("oARVgHNnYTJZH2xKhyoQBOzsyuQjHl0YwGt8V4J7")
+                .clientKey("BR9uoqKFnvckxKjzeCR9Q9BoFaslIwa1xYsssufe")
+                .server("https://parseapi.back4app.com/")
+                .enableLocalDataStore()
+                .build()
+        );
 
-////        Parse.initialize(this,BuildConfig.PARSE_ID,BuildConfig.PARSE_KEY);
-//        Parse.initialize(new Parse.Configuration.Builder(getApplicationContext())
-//                .applicationId(BuildConfig.PARSE_ID)
-//                .clientKey(BuildConfig.PARSE_KEY)
-//                .server(BuildConfig.PARSE_URL)
-//                .enableLocalDataStore()
-//                .build());
-//        Parse.enableLocalDatastore(this);
-
-//        FacebookSdk.sdkInitialize(getApplicationContext());
-//        ParseFacebookUtils.initialize(this);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        ParseFacebookUtils.initialize(this);
 //
 
 

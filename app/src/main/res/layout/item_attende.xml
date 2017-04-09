@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.android.liuzhuang.rcimageview.RoundCornerImageView android:src="@color/venu_yellow"
+<com.android.liuzhuang.rcimageview.RoundCornerImageView
+    android:src="@color/venu_blue"
     app:rciv_radius="2dp"
     android:layout_height="40dp"
     android:layout_width="40dp"

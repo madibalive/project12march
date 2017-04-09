@@ -30,8 +30,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="4dp"
-                app:srv_showDivider="true"
-                app:srv_layoutMode="linearVertical"
+                app:srv_layoutMode="grid"
+                app:srv_gridSpanSequence="222"
                 app:srv_spacing="4dp" />
 
 

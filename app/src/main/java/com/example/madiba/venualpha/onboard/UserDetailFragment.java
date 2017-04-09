@@ -1,5 +1,6 @@
 package com.example.madiba.venualpha.onboard;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -7,12 +8,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -23,17 +28,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.adobe.creativesdk.aviary.AdobeImageIntent;
+import com.adobe.creativesdk.aviary.internal.headless.utils.MegaPixels;
 import com.android.liuzhuang.rcimageview.RoundCornerImageView;
 import com.example.madiba.venualpha.Actions.ActionDate;
 import com.example.madiba.venualpha.R;
 import com.example.madiba.venualpha.map.TaskGetLocationByName;
+import com.example.madiba.venualpha.models.VenuFile;
 import com.example.madiba.venualpha.ui.StateButton;
+import com.example.madiba.venualpha.util.FlipUtil;
 import com.example.madiba.venualpha.util.ImageUitls;
 import com.example.madiba.venualpha.util.NetUtils;
 import com.github.rongi.async.Callback;
 import com.github.rongi.async.Tasks;
 import com.google.android.gms.maps.model.LatLng;
+import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseUser;
@@ -41,14 +52,20 @@ import com.parse.ParseUser;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.slf4j.event.LoggingEvent;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import it.sephiroth.android.library.picasso.MemoryPolicy;
+import it.sephiroth.android.library.picasso.Picasso;
 import timber.log.Timber;
 
+import static android.app.Activity.RESULT_OK;
+import static com.example.madiba.venualpha.util.ImageUitls.createImageFile;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class UserDetailFragment extends Fragment {
@@ -68,6 +85,12 @@ public class UserDetailFragment extends Fragment {
     private ImageButton mSearchBtn;
     private FloatingActionButton fab;
 
+    private static final int CAMERA_REQUEST_CODE = 100;
+    private static final int GALLERY_REQUEST_CODE = 300;
+    static final int REQ_CODE_CSDK_IMAGE_EDITOR = 3001;
+
+    private File imageFile;
+    private Uri imageUri;
     private OnFragmentInteractionListener mListener;
 
     public UserDetailFragment() {
@@ -132,54 +155,92 @@ public class UserDetailFragment extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onButtonPressed(3);
+                proceed();
             }
         });
 
 
-        fab.setOnClickListener(view2 -> onSelectImageClick());
+        fab.setOnClickListener(view2 -> chooser());
 
     }
 
 
-    private void startCropImageActivity(Uri imageUri) {
-
-    }
-
-
-    private void addAvatar(Uri uri){
-
-        progress = ProgressDialog.show(getActivity(), null,
-                getResources().getString(R.string.progress_connecting), true);
-
-        byte[] originalBytes;
-        byte[] compressBytes;
-        //get bitmap
-        final Bitmap bitmap =BitmapFactory.decodeFile(uri.getPath());
-
-        if (bitmap != null) {
-            originalBytes = ImageUitls.bitmap2Bytes(bitmap, Bitmap.CompressFormat.JPEG, 100);
-            compressBytes = ImageUitls.bitmap2Bytes(bitmap, Bitmap.CompressFormat.JPEG, 50);
-            ParseFile origImgs = new ParseFile(ParseUser.getCurrentUser().getUsername(), originalBytes);
-            ParseFile cmprImgs = new ParseFile(ParseUser.getCurrentUser().getUsername(), compressBytes);
-            try {
-                cmprImgs.save();
-                origImgs.save();
-
-                ParseUser.getCurrentUser().put("avatarSmall",cmprImgs);
-                ParseUser.getCurrentUser().put("avatar",origImgs);
-            }catch (Exception e){
-
-            }finally {
-                bitmap.recycle();
-                progress.dismiss();
-            }
-
+    private void proceed() {
+        if (ParseUser.getCurrentUser().getParseFile("avatarMedium") != null){
+            return;
         }
+        if (NetUtils.hasInternetConnection(getApplicationContext())){
+            progress = ProgressDialog.show(getActivity(), null,
+                    getResources().getString(R.string.progress_connecting), true);
+            updateUser();
+        }
+
+
     }
 
-    public void onSelectImageClick() {
+    private void updateUser() {
+        ParseUser user =ParseUser.getCurrentUser();
 
+        if (latLng != null)
+            user.put("place",new ParseGeoPoint(latLng.latitude,latLng.longitude));
+
+        if (latLng != null)
+            user.put("gender",gender);
+
+        try {
+            user.save();
+            progress.dismiss();
+            onButtonPressed(2);
+        } catch (ParseException e) {
+            progress.dismiss();
+            e.printStackTrace();
+        }
+
+
+
+    }
+
+    private void chooser(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Choose Image Source");
+        builder.setItems(new CharSequence[]{"Gallery", "Camera"},
+                (dialog, which) -> {
+                    switch (which) {
+                        case 0:
+                            requestGallery();
+                            break;
+                        case 1:
+                            requestCamera();
+                            break;
+
+                        default:
+                            break;
+                    }
+                }).show();
+
+    }
+
+
+    private void requestGallery(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Choose Picture"), GALLERY_REQUEST_CODE);
+    }
+    private void requestCamera() {
+
+        imageFile = createImageFile();
+        imageUri = Uri.fromFile(imageFile);
+
+        if (imageUri != null) {
+            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if (cameraIntent.resolveActivity(getActivity().getPackageManager()) == null) {
+                Toast.makeText(getActivity(), "This Application do not have Camera Application", Toast.LENGTH_LONG).show();
+                return;
+            }
+            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+            startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
+        }
     }
 
 
@@ -219,40 +280,13 @@ public class UserDetailFragment extends Fragment {
             int i = item.getItemId();
             Address address = list.get(i);
             latLng = new LatLng(address.getLatitude(), address.getLongitude());
+            Log.e("ONboard", "showPopup: "+address.toString() );
+            mHighSchool.setText(list.get(i).getAddressLine(0)+", "+list.get(i).getAddressLine(1));
             return false;
         });
 
         popupMenu.show();
     }
-
-    private void proceed() {
-        if (ParseUser.getCurrentUser().getParseFile("avatarMedium") != null){
-            return;
-        }
-        if (date == null)
-            return;
-
-        if (NetUtils.hasInternetConnection(getApplicationContext())){
-            progress = ProgressDialog.show(getActivity(), null,
-                    getResources().getString(R.string.progress_connecting), true);
-            updateUser();
-        }
-    }
-
-
-    private void updateUser() {
-        final ParseUser user =ParseUser.getCurrentUser();
-
-        if (latLng != null)
-            user.put("place",new ParseGeoPoint(latLng.latitude,latLng.longitude));
-
-        user.put("gender",gender);
-        user.saveInBackground(e -> progress.dismiss());
-
-    }
-
-
-
 
 
 
@@ -268,31 +302,130 @@ public class UserDetailFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQ_CODE_CSDK_IMAGE_EDITOR) {
+            if (resultCode == Activity.RESULT_OK) {
+                try {
+                    addAvatar(imageUri);
+                }catch (Exception e){
+                    Log.e("erorr" ,"getting path for images"+e.getMessage());
+                }
+            }
+        }
+        if (requestCode == CAMERA_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                if (data.getData() != null) {
+                    try {
+                        Timber.d("image %s", Uri.parse(data.getData().toString()));
+                        requestEditor(FlipUtil.processImageUri(getActivity().getApplicationContext(),data.getData()));
+//                        displayImage(FlipUtil.processImageUri(getActivity().getApplicationContext(),imageUri));
 
+                    }catch (Exception e){
+                        Timber.e("erorr getting path for image %s",e.getMessage());
+                    }
+                } else {
+
+                }
+            }
+        }
+
+        if (requestCode == GALLERY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                if (data.getData() != null) {
+
+                    requestEditor(FlipUtil.processImageUri(getActivity().getApplicationContext(),data.getData()));
+                }
+            }
+        }
 
     }
 
+    private void requestEditor(String venuFile) {
+        try {
 
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(ActionDate action) {
-        Timber.e("Date return %s",action.date);
+            imageFile = createImageFile();
+            imageUri = Uri.fromFile(imageFile);
+
+            if (imageUri != null) {
+
+            }
+            AdobeImageIntent.ForceCrop forceCropSettings = new AdobeImageIntent.ForceCrop.Builder()
+                    .addCropRatio("Square", "1:1")
+                    .addCropRatio("3:2", "3:2")
+                    .withSelectedIndex(0)
+                    .canInvert(true)
+                    .build();
+
+            Intent imageEditorIntent = new AdobeImageIntent.Builder(getActivity())
+                    .setData(Uri.parse(venuFile))
+                    .withOutputFormat(Bitmap.CompressFormat.JPEG) // output format
+                    .withOutputSize(MegaPixels.Mp5) // output size
+                    .withVibrationEnabled(true)
+                    .withOutput(imageUri)
+                    .withOutputQuality(90) // output quality
+                    .forceCrop(forceCropSettings)
+                    .build();
+
+            startActivityForResult(imageEditorIntent, REQ_CODE_CSDK_IMAGE_EDITOR);
+        } catch (Exception e) {
+        }
+    }
+
+    private void displayImage(String path){
+
+        if (path != null) {
+            Picasso.with(getContext())
+                    .load(path)
+                    .resize(400, 400)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                    .placeholder(R.drawable.placeholder_media)
+                    .error(R.drawable.placeholder_error_media)
+                    .noFade()
+                    .centerCrop()
+                    .into(mAvatar);
+        }
 
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
+    private void addAvatar(Uri uri){
+
+        progress = ProgressDialog.show(getActivity(), null,
+                getResources().getString(R.string.progress_connecting), true);
+        Bitmap bitmap;
+        try {
+
+            byte[] originalBytes;
+            byte[] compressBytes;
+            //get bitmap
+              bitmap =BitmapFactory.decodeFile(uri.getPath());
+
+            if (bitmap != null) {
+                originalBytes = ImageUitls.bitmap2Bytes(bitmap, Bitmap.CompressFormat.JPEG, 100);
+                compressBytes = ImageUitls.bitmap2Bytes(bitmap, Bitmap.CompressFormat.JPEG, 50);
+                ParseFile origImgs = new ParseFile(ParseUser.getCurrentUser().getUsername(), originalBytes);
+                ParseFile cmprImgs = new ParseFile(ParseUser.getCurrentUser().getUsername(), compressBytes);
+                cmprImgs.save();
+                origImgs.save();
+
+                ParseUser.getCurrentUser().put("avatar50",cmprImgs);
+                ParseUser.getCurrentUser().put("avatar100",origImgs);
+                ParseUser.getCurrentUser().saveInBackground(e -> {
+                    if (e==null){
+                        progress.dismiss();
+                    }else
+                        Log.e("ONBOARD", "addAvatar: erro"+e.getMessage() );
+                });
+
+                displayImage(origImgs.getUrl());
+                bitmap.recycle();
+            }
+        }catch (Exception e){
+            progress.dismiss();
+            Log.e("ONBOARD", "addAvatar: error"+e.getMessage() );
+        }
 
     }
 
-    @Override
-    public void onStop() {
-        EventBus.getDefault().unregister(this);
-        super.onStop();
-
-    }
 
 
     // TODO: Rename method, update argument and hook method into UI event

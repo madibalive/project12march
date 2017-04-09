@@ -1,6 +1,21 @@
 <resources>
     <string name="app_name">venu_alpha</string>
 
+
+    <string name="action_item_about_title">About</string>
+    <string name="action_item_help_title">Help</string>
+    <string name="action_item_flash_title">flash toggle</string>
+
+    <string name="has_help_shown_key">prefs_has_help_shown_key</string>
+
+    <string name="top_image_help_text">Swipe RIGHT to add image effects (&#38; swipe left to go to previous effect)</string>
+    <string name="bottom_image_help_text">Same here, Swipe RIGHT to add image effects (&#38; swipe left to go to previous effect)</string>
+    <string name="action_button_help_text">Tap here for actions</string>
+
+    <string name="action_button_help_title">Actions</string>
+    <string name="top_image_help_title">Image Effects Top</string>
+    <string name="bottom_image_help_title">Image Effects Bottom</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="parse_application_id">xtZi12Eeni8GisCpZhvJsF3pP1pHJpYlVrD8yeoM</string>
@@ -11,7 +26,6 @@
     <string name="application_key">1642638ea242e141ae2c476020f406b75</string>
     <string name="default_server_url">https://apps.applozic.com</string>
     <string name="default_media_location_folder">YOUR_APP_NAME</string>
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAkuRmCU-nm8OHWqp4r7j0OGnAtI3_Z9PE</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 

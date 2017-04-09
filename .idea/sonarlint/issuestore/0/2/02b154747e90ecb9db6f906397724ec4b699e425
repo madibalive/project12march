@@ -1,0 +1,38 @@
+
+Hsquid:UselessParenthesesCheck"!Remove those useless parentheses.(ãàé
+Msquid:UselessParenthesesCheck"!Remove those useless parentheses.(Å¼ÕÃıÿÿÿÿ
+Psquid:UnusedPrivateMethod"-Remove this unused private "BindView" method.(îƒ¸Æ
+Ysquid:UnusedPrivateMethod"1Remove this unused private "showOverflow" method.(‹¼îıúÿÿÿÿ
+3squid:S2178"Correct this "&" to "&&".(™ÅÂ®øÿÿÿÿ
+3squid:S2178"Correct this "&" to "&&".(ş¬óØúÿÿÿÿ
+3squid:S2178"Correct this "&" to "&&".(ç¸ñÅÿÿÿÿÿ
+<squid:S1659""Declare "mTag" on a separate line.(¯±§ÿÿÿÿÿ
+@squid:S1659"&Declare "mComment" on a separate line.(¯±§ÿÿÿÿÿ
+?squid:S1659"%Declare "mShared" on a separate line.(¯±§ÿÿÿÿÿ
+>squid:S1659"$Declare "mExtra" on a separate line.(¯±§ÿÿÿÿÿ
+>squid:S1659"$Declare "mShare" on a separate line.(¶àğÂÿÿÿÿÿ
+?squid:S2160"*Override this superclass' "equals" method.(½óŒä
+Hsquid:S1068".Remove this unused "showHandle" private field.(·¸²ƒúÿÿÿÿ
+ssquid:S1450"YRemove the "showHandle" field and declare it as a local variable in the relevant methods.(·¸²ƒúÿÿÿÿ
+`squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ù¾ã¢
+esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Ç¹÷€üÿÿÿÿ
+_squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(£Í„
+`squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(İÎÅƒ
+esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(íØ‡íùÿÿÿÿ
+esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(‘ô§”ùÿÿÿÿ
+g
+squid:S134"NRefactor this code to not nest more than 3 if/for/while/switch/try statements.(œó±ûÿÿÿÿ
+Bsquid:S1481"-Remove this unused "payloads" local variable.(ãàé
+@squid:S1481"&Remove this unused "i" local variable.(˜¯”ªşÿÿÿÿ
+@squid:S1481"&Remove this unused "i" local variable.(ØËÜÓúÿÿÿÿ
+gsquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(îƒ¸Æ
+?squid:S2201"*The return value of "concat" must be used.(”˜ÑŞ
+dsquid:S00100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(îƒ¸Æ
+?squid:S00108")Either remove or fill this block of code.(å¥‡
+Bsquid:S1604"(Make this anonymous inner class a lambda(×Ù¿¦üÿÿÿÿ
+Bsquid:S1604"(Make this anonymous inner class a lambda(Œ¹¾¶ÿÿÿÿÿ
+Bsquid:S1604"(Make this anonymous inner class a lambda(—ÊÌ‡ùÿÿÿÿ
+›squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ğ¸™áúÿÿÿÿ
+–squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ÿ«ƒÔ
+Qsquid:S1854"<Remove this useless assignment to local variable "payloads".(ãàé
+Xsquid:S1155">Use isEmpty() to check whether the collection is empty or not.(ç¸ñÅÿÿÿÿÿ

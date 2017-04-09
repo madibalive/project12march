@@ -7,12 +7,16 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Point;
+import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.ColorRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -316,6 +320,13 @@ public class ViewUtils {
                 (float)hi;
         Rect bounds = new Rect(0, 0, (int)(scale * wi), (int)(scale * hi));
         drawable.setBounds(bounds);
+        return drawable;
+    }
+
+    public static Drawable getTintedDrawable(Context context,Drawable res, @ColorRes int colorResId) {
+        Drawable drawable = DrawableCompat.wrap(res);
+        int color = ContextCompat.getColor(context, colorResId);
+        drawable.mutate().setColorFilter(color, PorterDuff.Mode.SRC_IN);
         return drawable;
     }
 

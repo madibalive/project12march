@@ -1,0 +1,87 @@
+
+csquid:S1192"GDefine a constant instead of duplicating this literal "dialog" 3 times.(—νΛ¥8―ξέο³+
+usquid:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(­—ΉΖ8―ξέο³+
+lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(τ°ª‹ύÿÿÿÿ8―ξέο³+
+_squid:S2583"CChange this condition so that it does not always evaluate to "true"(ΖΜφ“8―ξέο³+
+ysquid:S1450"XRemove the "tagHolder" field and declare it as a local variable in the relevant methods.(χΔ€ωÿÿÿÿ8―ξέο³+
+xsquid:S1450"WRemove the "imageUri" field and declare it as a local variable in the relevant methods.(Ψ°΄ώÿÿÿÿ8―ξέο³+
+msquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 23 to the 15 allowed.(Π—‡s8―ξέο³+
+esquid:S2259"DNullPointerException might be thrown as 'focusView' is nullable here(Μ‚ΓΕωÿÿÿÿ8―ξέο³+
+qsquid:S00122"TAt most one statement is allowed per line, but 2 statements were found on this line.(ΖΜφ“8―ξέο³+
+Nsquid:S1135"2Complete the task associated to this TODO comment.(Φ‡―Τ8―ξέο³+
+_squid:S2583"CChange this condition so that it does not always evaluate to "true"(δªΧέ8―ξέο³+
+Bsquid:S1068"-Remove this unused "btnInvite" private field.(δΫ―φ
+Ssquid:S1068"2Remove this unused "GALLERY_PICKER" private field.(Κ£Ξςύÿÿÿÿ8―ξέο³+
+Isquid:S1068"(Remove this unused "flag" private field.(τοΛ¬ύÿÿÿÿ8―ξέο³+
+_squid:S2583"CChange this condition so that it does not always evaluate to "true"(‚²λκ8―ξέο³+
+vsquid:UselessImportCheck"MRemove this unused import 'com.bumptech.glide.load.engine.DiskCacheStrategy'.(Ψµμ8―ξέο³+
+Nsquid:S1135"2Complete the task associated to this TODO comment.(Φ‡―Τ8―ξέο³+
+qsquid:S00122"TAt most one statement is allowed per line, but 2 statements were found on this line.(·Μ¶8―ξέο³+
+Zsquid:UnusedPrivateMethod"1Remove this unused private "attemptLogin" method.(Π—‡s8―ξέο³+
+zsquid:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ζ”οώÿÿÿÿ8―ξέο³+
+lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(‰Δεωώÿÿÿÿ8―ξέο³+
+gsquid:S1192"FDefine a constant instead of duplicating this literal "theme" 3 times.(»ΠθΩψÿÿÿÿ8―ξέο³+
+_squid:S2583"CChange this condition so that it does not always evaluate to "true"(ΖΜφ“8―ξέο³+
+Ksquid:S1172"/Remove this unused method parameter "aBoolean".(¤…ι8―ξέο³+
+Jsquid:S1068")Remove this unused "event" private field.(§κ–¦ÿÿÿÿÿ8―ξέο³+
+_squid:S2583"CChange this condition so that it does not always evaluate to "true"(‚²λκ8―ξέο³+
+ssquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 23 to the 15 allowed.(ΙΞΝούÿÿÿÿ8―ξέο³+
+ssquid:S1450"WRemove the "isverify" field and declare it as a local variable in the relevant methods.(Έ†ΕΒ8―ξέο³+
+Ksquid:S1068"0Remove this unused "loadCallBack" private field.(ΝΟΫ|8―ξέο³+
+_squid:S2583"CChange this condition so that it does not always evaluate to "true"(δªΧέ8―ξέο³+
+Asquid:S1166"%Either log or rethrow this exception.(”ύΎ8―ξέο³+
+tsquid:S1450"XRemove the "imageFile" field and declare it as a local variable in the relevant methods.(ώΖ·8©ηΧο³+
+Άsquid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ρΆ®Κψÿÿÿÿ8―ξέο³+
+bsquid:UselessImportCheck"4Remove this unused import 'com.parse.ParseGeoPoint'.(‘Ζά“ϊÿÿÿÿ8―ξέο³+
+Ssquid:S1135"2Complete the task associated to this TODO comment.(» ζÿÿÿÿÿ8―ξέο³+
+Asquid:S1166"%Either log or rethrow this exception.(”ύΎ8―ξέο³+
+Ssquid:S1068"2Remove this unused "progressDialog" private field.(·α…Ηωÿÿÿÿ8―ξέο³+
+xsquid:S1450"WRemove the "mPricing" field and declare it as a local variable in the relevant methods.(®‰αόÿÿÿÿ8―ξέο³+
+jsquid:S1871"IThis case's code block is the same as the block for the case on line 277.(Ωϋµιϋÿÿÿÿ8―ξέο³+
+_squid:S2583"CChange this condition so that it does not always evaluate to "true"(·Μ¶8―ξέο³+
+csquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(έά±8―ξέο³+
+U"squid:SwitchLastCaseIsDefaultCheck""Add a default case to this switch.(ΊΦ8―ξέο³+
+squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¤…ι8―ξέο³+
+Άsquid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ρΆ®Κψÿÿÿÿ8―ξέο³+
+Fsquid:S1172"*Remove this unused method parameter "uri".(ΛτΌ8―ξέο³+
+qsquid:S00122"TAt most one statement is allowed per line, but 2 statements were found on this line.(‚²λκ8―ξέο³+
+wsquid:S1450"VRemove the "address" field and declare it as a local variable in the relevant methods.(χ§ωÿÿÿÿ8―ξέο³+
+>squid:S1659""Declare "time" on a separate line.(‹ΏΏ‘8―ξέο³+
+qsquid:S00122"TAt most one statement is allowed per line, but 2 statements were found on this line.(‚²λκ8―ξέο³+
+hsquid:UselessImportCheck":Remove this unused import 'android.text.format.DateUtils'.(τυΛώÿÿÿÿ8―ξέο³+
+Asquid:S1166"%Either log or rethrow this exception.(”ύΎ8―ξέο³+
+ssquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(ΞΜÿÿÿÿÿ8―ξέο³+
+zsquid:S1609"_Annotate the "OnFragmentInteractionListener" interface with the @FunctionalInterface annotation(γψ¥>8―ξέο³+
+esquid:UselessImportCheck">Remove this unused import 'android.support.v4.util.TimeUtils'.(µ±Νμϊÿÿÿÿ
+Psquid:S1066"/Merge this if statement with the enclosing one.(±„‘‰ύÿÿÿÿ8―ξέο³+
+n
+squid:S134"NRefactor this code to not nest more than 3 if/for/while/switch/try statements.(΅»Άόωÿÿÿÿ8―ξέο³+
+Lsquid:S1172"+Remove this unused method parameter "mode".(ΊΜϋγψÿÿÿÿ8―ξέο³+
+~squid:S1450"]Remove the "progressDialog" field and declare it as a local variable in the relevant methods.(·α…Ηωÿÿÿÿ8―ξέο³+
+Lsquid:S1068"+Remove this unused "address" private field.(χ§ωÿÿÿÿ8―ξέο³+
+Asquid:S1068",Remove this unused "isverify" private field.(Έ†ΕΒ
+Nsquid:S1135"2Complete the task associated to this TODO comment.(Φ‡―Τ8―ξέο³+
+Esquid:S1068"0Remove this unused "TYPE_GENERAL" private field.(Ίν“λ
+Ksquid:S1066"/Merge this if statement with the enclosing one.(ϋΕηά8―ξέο³+
+Psquid:S1066"/Merge this if statement with the enclosing one.(ψψήΟόÿÿÿÿ8―ξέο³+
+Psquid:S1066"/Merge this if statement with the enclosing one.(±„‘‰ύÿÿÿÿ8―ξέο³+
+\squid:UnusedPrivateMethod"2Remove this unused private "displayToggle" method.(¤…ι8―ξέο³+
+Msquid:S1068",Remove this unused "mPricing" private field.(®‰αόÿÿÿÿ8―ξέο³+
+esquid:S1871"IThis case's code block is the same as the block for the case on line 277.(ΤΰκΔ8―ξέο³+
+zsquid:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(ηβξΐύÿÿÿÿ8―ξέο³+
+^squid:UselessImportCheck"5Remove this unused import 'com.bumptech.glide.Glide'.(Ρ…Λ8Κ»·ο³+
+9squid:S2386"Make this member "protected".(ωΘΕΠ8―ξέο³+
+rsquid:S00120"WRename this package name to match the regular expression '^[a-z]+(\.[a-z][a-z0-9]*)*$'.(οΗ›Κώÿÿÿÿ
+Hsquid:S1068".Remove this unused "requestBtn" private field.(λ©¤πϋÿÿÿÿ
+Fsquid:S00108")Either remove or fill this block of code.(ε¥‡8―ξέο³+
+qsquid:S00122"TAt most one statement is allowed per line, but 2 statements were found on this line.(δªΧέ8―ξέο³+
+Nsquid:S1068"-Remove this unused "tagHolder" private field.(χΔ€ωÿÿÿÿ8―ξέο³+
+qsquid:S00122"TAt most one statement is allowed per line, but 2 statements were found on this line.(ΖΜφ“8―ξέο³+
+Psquid:S1066"/Merge this if statement with the enclosing one.(±„‘‰ύÿÿÿÿ8°Ηέο³+
+Psquid:S1068"/Remove this unused "TYPE_INVITE" private field.(π΄πωÿÿÿÿ8―ξέο³+
+"squid:ClassVariableVisibilityCheck"VMake mCordinate a static final constant or non-public and provide accessors if needed.(Ξ»®‡ώÿÿÿÿ8―ξέο³+
+ssquid:S1450"WRemove the "mAddress" field and declare it as a local variable in the relevant methods.(έ΅άζ8―ξέο³+
+qsquid:S00122"TAt most one statement is allowed per line, but 2 statements were found on this line.(δªΧέ8―ξέο³+
+Bsquid:S1068"-Remove this unused "TYPE_PAID" private field.(ΰΕƒϋ
+Ksquid:S1068"*Remove this unused "submit" private field.(•­Ρωÿÿÿÿ8―ξέο³+
+Ssquid:S1135"2Complete the task associated to this TODO comment.(» ζÿÿÿÿÿ8―ξέο³+

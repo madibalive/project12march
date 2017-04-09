@@ -19,12 +19,12 @@
 
 
     <item>
-        <shape android:shape="rectangle">
+        <shape android:shape="rectangle" >
             <stroke
                 android:width="2dp"
                 android:color="@color/light_grey_300"
                 android:dashWidth="50px"
-                android:dashGap="50px"/>
+               />
             <corners android:radius="4dp" />
         </shape>
     </item>

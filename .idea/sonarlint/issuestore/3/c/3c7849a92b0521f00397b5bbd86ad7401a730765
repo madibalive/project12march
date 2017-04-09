@@ -1,0 +1,7 @@
+
+Rsquid:S1213"8Move this variable to comply with Java Code Conventions.(¨è¼øÿÿÿÿ
+Msquid:S1213"8Move this variable to comply with Java Code Conventions.(ÂÜÚ
+Osquid:S1213";Move this constructor to comply with Java Code Conventions.(êÄÛU
+…squid:S1319"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(şÁ®‰
+”squid:S1319"zThe type of the "privateUserList" object should be an interface such as "List" rather than the implementation "ArrayList".(ÿä âıÿÿÿÿ
+msquid:S00116"RRename this field "RotateX" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨è¼øÿÿÿÿ

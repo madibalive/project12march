@@ -12,9 +12,8 @@ import android.view.View;
 import com.example.madiba.venualpha.Actions.ActionEvantPageBuy;
 import com.example.madiba.venualpha.Actions.ActionNetwork;
 import com.example.madiba.venualpha.R;
-import com.example.madiba.venualpha.adapter.chateu.ChateuDefautConvoCell;
-import com.example.madiba.venualpha.adapter.chateu.ChateuGossipConvoCell;
-import com.example.madiba.venualpha.dailogs.UserListDialogFragment;
+import com.example.madiba.venualpha.chateu.adapter.ChateuDefautConvoCell;
+import com.example.madiba.venualpha.chateu.adapter.ChateuGossipConvoCell;
 import com.example.madiba.venualpha.models.MConversationItem;
 import com.example.madiba.venualpha.models.MdUserItem;
 import com.example.madiba.venualpha.util.NetUtils;
@@ -32,12 +31,13 @@ import me.tatarka.rxloader.RxLoaderManager;
 import me.tatarka.rxloader.RxLoaderObserver;
 import timber.log.Timber;
 
-public class ChateuListFragAct extends AppCompatActivity implements UserListDialogFragment.Listener {
+public class ChateuListFragAct extends AppCompatActivity   {
 
     private SimpleRecyclerView mRecyclerview;
     private View root;
     private  FloatingActionButton fab;
     RxLoaderManager loaderManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class ChateuListFragAct extends AppCompatActivity implements UserListDial
     }
 
     private void requestOpenConversation(@NonNull MConversationItem conversation) {
-        Intent intent = new Intent(ChateuListFragAct.this,ChateuFragAct.class);
+        Intent intent = new Intent(ChateuListFragAct.this,ChateuDefaultFragAct.class);
         intent.putExtra("conversationId",conversation.getObject().getObjectId());
         intent.putExtra("name",conversation.getName());
         intent.putExtra("avatar",conversation.getAvatar());
@@ -64,7 +64,7 @@ public class ChateuListFragAct extends AppCompatActivity implements UserListDial
     }
 
     private void requestOpenGossip(@NonNull MConversationItem conversation) {
-        Intent intent = new Intent(ChateuListFragAct.this,ChateuFragAct.class);
+        Intent intent = new Intent(ChateuListFragAct.this,ChateuDefaultFragAct.class);
         intent.putExtra("conversationId",conversation.getObject().getObjectId());
         intent.putExtra("name",conversation.getName());
         intent.putExtra("avatar",conversation.getAvatar());
@@ -73,7 +73,7 @@ public class ChateuListFragAct extends AppCompatActivity implements UserListDial
 
     private void requestCreateNewConversation() {
         if (NetUtils.hasInternetConnection(getApplicationContext())){
-             UserListDialogFragment.newInstance().show(getSupportFragmentManager(), "dialog");
+//             UserListDialogFragment.newInstance().show(getSupportFragmentManager(), "dialog");
 
         }
     }
@@ -85,7 +85,7 @@ public class ChateuListFragAct extends AppCompatActivity implements UserListDial
             convoCell.setOnCellClickListener2(new SimpleCell.OnCellClickListener2() {
                 @Override
                 public void onCellClicked(Object o, Object o2, Object o3) {
-                    startActivity(new Intent(ChateuListFragAct.this,ChateuFragAct.class));
+                    startActivity(new Intent(ChateuListFragAct.this,ChateuDefaultFragAct.class));
                 }
             });
             cells.add(convoCell);
@@ -158,10 +158,10 @@ public class ChateuListFragAct extends AppCompatActivity implements UserListDial
     }
 
 
-    @Override
-    public void onUserClicked(MdUserItem position) {
-
-    }
+//    @Override
+//    public void onUserClicked(MdUserItem position) {
+//
+//    }
 
     @Override
     public void onStart() {

@@ -2,12 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center_vertical"
-    android:padding="@dimen/dp_4"
-   >
+    android:padding="@dimen/dp_4">
 
-    <ImageView
-        android:id="@+id/ev_image"
+    <com.android.liuzhuang.rcimageview.RoundCornerImageView
+        app:rciv_radius="2dp"
+        android:id="@+id/image"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginRight="8dp"
@@ -15,9 +16,9 @@
 
     <TextView
         android:layout_marginRight="8dp"
-        android:layout_toRightOf="@id/ev_image"
+        android:layout_toRightOf="@id/image"
         android:text="22\nDEC"
-        android:id="@+id/ev_status"
+        android:id="@+id/date"
         android:background="@drawable/category_background_default"
         android:gravity="center"
         android:textColor="@color/white"
@@ -28,27 +29,18 @@
         android:layout_height="50dp" />
 
     <TextView
+        android:layout_centerVertical="true"
         android:gravity="center_vertical"
-        android:id="@+id/ev_title"
+        android:id="@+id/title"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/ev_status"
-        android:text="Event Title"
+        android:layout_toRightOf="@id/date"
+        android:text="Event Title\n#hasadsadsad"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="@android:color/black" />
 
-    <TextView
-        android:gravity="center_vertical"
-        android:id="@+id/ev_tag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ev_title"
-        android:layout_marginTop="2dp"
-        android:layout_toRightOf="@id/ev_status"
-        android:textColor="@color/venu_flat_color"
-        android:text="#event suprised"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
 
 
 </RelativeLayout>

@@ -86,6 +86,7 @@ public class TrendFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
         List<SimpleCell> cells = new ArrayList<>();
         cells.add(eventCellHolder);
+        cells.add(eventCellHolder);
         cells.add(memoryCellHolder);
 
         mRecyclerview.addCells(cells);

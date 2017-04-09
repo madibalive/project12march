@@ -9,14 +9,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.example.madiba.venualpha.R;
-import com.example.madiba.venualpha.adapter.chateu.ChateuGossipConvoCell;
-import com.example.madiba.venualpha.chateu.ChateuFragAct;
+import com.example.madiba.venualpha.chateu.adapter.ChateuGossipConvoCell;
+import com.example.madiba.venualpha.chateu.ChateuDefaultFragAct;
 import com.example.madiba.venualpha.chateu.ChateuGossipFragAct;
-import com.example.madiba.venualpha.chateu.ChateuListFragAct;
 import com.example.madiba.venualpha.models.MConversationItem;
 import com.example.madiba.venualpha.models.MdEventItem;
 import com.example.madiba.venualpha.util.TimeUitls;
-import com.jaychang.srv.SimpleCell;
 import com.jaychang.srv.SimpleRecyclerView;
 import com.parse.ParseObject;
 
@@ -43,7 +41,7 @@ public class GossipExploreActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category_explore);
+        setContentView(R.layout.activity_gossip_explore);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -65,7 +63,7 @@ public class GossipExploreActivity extends AppCompatActivity {
     }
 
     private void requestOpenConversation(@NonNull MdEventItem event) {
-        Intent intent = new Intent(GossipExploreActivity.this,ChateuFragAct.class);
+        Intent intent = new Intent(GossipExploreActivity.this,ChateuDefaultFragAct.class);
         Bundle bundle = new Bundle();
         intent.putExtra( "example", Parcels.wrap(event));
         startActivity(intent);

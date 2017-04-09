@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Point;
 import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
@@ -19,8 +20,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -393,11 +396,27 @@ public class MapEventsActivity extends FragmentActivity implements
 
         public MapEventAdapters(int layoutResId, List<ParseObject> data) {
             super(layoutResId, data);
+
         }
         @Override
         protected void convert(BaseViewHolder holder, final ParseObject request) {
-            ViewUtils.setHeightAndWidth(holder.itemView,340,270);
-            ViewUtils.setMargins(holder.itemView,10,10,10,10);
+
+            WindowManager wm = (WindowManager)mContext.getSystemService(Context.WINDOW_SERVICE);
+            Display display = wm.getDefaultDisplay();
+            Point size = new Point();
+            try {
+                display.getRealSize(size);
+            } catch (NoSuchMethodError err) {
+                display.getSize(size);
+            }
+//        RelativeLayout.LayoutParams updatedOriginalParams =new RelativeLayout.LayoutParams((int)(size.x/2.5),(int)(size.x/2));
+//
+//        holder.layout.setLayoutParams(updatedOriginalParams);
+
+            ViewUtils.setHeightAndWidth(holder.itemView,(int)(size.x/2),(int)(size.x/2.5));
+            ViewUtils.setMargins(holder.itemView,0,5,15,5);
+
+
         }
     }
 

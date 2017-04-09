@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.madiba.venualpha.R;
-import com.example.madiba.venualpha.adapter.EventItemCell;
+import com.example.madiba.venualpha.profiles.adapter.ProfileEventCell;
 import com.example.madiba.venualpha.models.MdEventItem;
 import com.jaychang.srv.OnLoadMoreListener;
 import com.jaychang.srv.SimpleRecyclerView;
@@ -33,7 +33,7 @@ public class UseEvantsPageFragment extends Fragment  implements SwipeRefreshLayo
     private int mode;
     private int state;
     private MdEventItem eventItem;
-    private RxLoader<List<EventItemCell>> eventxLoader;
+    private RxLoader<List<ProfileEventCell>> eventxLoader;
     private int delayMillis = 1000;
     private int mCurrentCounter = 0;
     private Date startDate,endDate;
@@ -83,6 +83,10 @@ public class UseEvantsPageFragment extends Fragment  implements SwipeRefreshLayo
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         swipeRefreshLayout.setOnRefreshListener(this);
+
+        for (int i = 0; i < 10; i++) {
+            recyclerView.addCells(new ProfileEventCell(new MdEventItem()));
+        }
     }
 
     @Override
@@ -110,9 +114,9 @@ public class UseEvantsPageFragment extends Fragment  implements SwipeRefreshLayo
 
         eventxLoader=  loaderManager.create(
                 LoaderProfileLoader.loadUserEvants(loadId,mCurrentCounter,startDate,endDate),
-                new RxLoaderObserver<List<EventItemCell>>() {
+                new RxLoaderObserver<List<ProfileEventCell>>() {
                     @Override
-                    public void onNext(List<EventItemCell> value) {
+                    public void onNext(List<ProfileEventCell> value) {
                         Timber.d("onnext");
                         new Handler().postDelayed(() -> {
                             if (value.size()>0) {

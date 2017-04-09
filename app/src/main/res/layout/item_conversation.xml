@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center_vertical"
     android:orientation="horizontal"
+    android:background="@color/white"
     android:padding="@dimen/dp_10">
 
     <com.example.madiba.venualpha.ui.stateimageview.StateImageView

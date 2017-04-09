@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 import com.example.madiba.venualpha.R;
 import com.example.madiba.venualpha.models.GlobalConstants;
 import com.example.madiba.venualpha.ui.StateButton;
+import com.example.madiba.venualpha.util.Iso2Phone;
 import com.example.madiba.venualpha.util.NetUtils;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
@@ -53,6 +55,7 @@ public class SignFragment extends Fragment {
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private EditText mPhoneView;
+    private EditText mCode;
     private EditText mUsername;
     private View mProgressView;
     private View mLoginFormView;
@@ -83,6 +86,7 @@ public class SignFragment extends Fragment {
         mEmailView = (AutoCompleteTextView) view.findViewById(R.id.signup_email);
         mPhoneView = (EditText) view.findViewById(R.id.signup_phone);
         mUsername = (EditText) view.findViewById(R.id.signup_username);
+        mCode = (EditText) view.findViewById(R.id.code);
         spinner = (Spinner) view.findViewById(R.id.country);
 //        gotoLogin = (StateButton) view.findViewById(R.id.signup_goto_login);
         mEmailSignInButton = (StateButton) view.findViewById(R.id.sign_up_btn);
@@ -96,17 +100,21 @@ public class SignFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        /*********** read indicative sim *************/
+        TelephonyManager telMgr =  (TelephonyManager)getContext().getSystemService(Context.TELEPHONY_SERVICE);
+
+        String simContryiso = telMgr.getSimCountryIso();
+        mCode.setText(Iso2Phone.getPhone(simContryiso));
 
         mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
             if (id == R.id.sign_up || id == EditorInfo.IME_NULL) {
-                attemptLogin();
                 return true;
             }
             return false;
         });
 
         mEmailSignInButton.setOnClickListener(view2 ->
-                onButtonPressed(3));
+                attemptLogin());
     }
 
     private void attemptLogin() {
@@ -115,74 +123,84 @@ public class SignFragment extends Fragment {
         mPasswordView.setError(null);
         mPhoneView.setError(null);
         mUsername.setError(null);
+        mCode.setError(null);
 
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
         String phone = mPhoneView.getText().toString();
+        String code = mCode.getText().toString();
         String username = mUsername.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
 
-        // Check for a valid password, if the user entered one.
         if (TextUtils.isEmpty(username)) {
             mUsername.setError("Username is empty");
             if (focusView==null) focusView = mUsername;
-            cancel = true;
+            focusView.requestFocus();
+            return;
         } else if (!isUserNameValid(username)) {
             mUsername.setError("min lenght is 5");
             if (focusView==null) focusView = mUsername;
-            cancel = true;
+            focusView.requestFocus();
+            return;
         }
+
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
             mEmailView.setError("Email is empty");
             if (focusView==null) focusView = mEmailView;
-            cancel = true;
+            focusView.requestFocus();
+            return;
         } else if (!isEmailValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
             if (focusView==null) focusView = mEmailView;
-            cancel = true;
+            focusView.requestFocus();
+            return;
         }
+
+
         // Check for a valid email address.
         if (TextUtils.isEmpty(password)) {
             mPasswordView.setError("Password is empty");
             if (focusView==null) focusView = mPasswordView;
-            cancel = true;
+            focusView.requestFocus();
+            return;
         } else if (!isPasswordValid(password)) {
             mPasswordView.setError("Min lenght is 8 ");
             if (focusView==null) focusView = mPasswordView;
-            cancel = true;
+            focusView.requestFocus();
+            return;
         }
 
         if (TextUtils.isEmpty(phone)) {
             mPhoneView.setError("Phone Contact is empty");
             if (focusView==null) focusView = mPhoneView;
-            cancel = true;
+            mPhoneView.requestFocus();
+            return;
         } else if (!isPhoneValid(phone)) {
             mPhoneView.setError("Must be more 10 number");
-            cancel = true;
+            mPhoneView.requestFocus();
+            return;
         }
 
-        if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
+        if (TextUtils.isEmpty(code)) {
+            mCode.setError("Phone Contact is empty");
+            if (focusView==null) focusView = mCode;
             focusView.requestFocus();
-            Timber.e("failed parse login ");
-
-        } else {
-
-            if (NetUtils.hasInternetConnection(getApplicationContext())){
-                Timber.e("staring parse login ");
-                progress = ProgressDialog.show(getActivity(), null,
-                        getResources().getString(R.string.progress_connecting), true);
-                userSignUp(username, email, password, phone);
-            }
+            return;
         }
 
 
+
+        if (NetUtils.hasInternetConnection(getApplicationContext())){
+            Timber.e("staring parse login ");
+            progress = ProgressDialog.show(getActivity(), null,
+                    getResources().getString(R.string.progress_connecting), true);
+            userSignUp(username, email, password, code+phone);
+        }
     }
 
 
@@ -203,7 +221,7 @@ public class SignFragment extends Fragment {
                 if (e != null) {
                     progress.dismiss();
                     // Show the error message
-                    Timber.d("error signing user : %s" ,e.getMessage());
+                    Log.e("Onboard", "done: error signing user : s" +e.getMessage());
                     Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
                 } else {
                     initSettings();
@@ -215,12 +233,15 @@ public class SignFragment extends Fragment {
     private void initSettings(){
         ParseInstallation installation = ParseInstallation.getCurrentInstallation();
         installation.put("user", ParseUser.getCurrentUser());
-        installation.put("user_id", ParseUser.getCurrentUser().getObjectId());
         installation.saveInBackground();
+
 
         ParseObject userRelations = new ParseObject(GlobalConstants.CLASS_USER_RELATION);
         userRelations.put("user", ParseUser.getCurrentUser());
         userRelations.saveInBackground();
+        progress.dismiss();
+
+        onButtonPressed(2);
     }
 
     private boolean isEmailValid(String email) {

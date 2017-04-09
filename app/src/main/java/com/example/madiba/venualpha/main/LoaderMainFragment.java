@@ -3,7 +3,7 @@ package com.example.madiba.venualpha.main;
 import com.example.madiba.venualpha.models.GlobalConstants;
 import com.example.madiba.venualpha.models.MdMemoryItem;
 import com.example.madiba.venualpha.models.TrendingModel;
-import com.example.madiba.venualpha.util.Generators.ModelGenerator;
+import com.example.madiba.venualpha.Generators.ModelGenerator;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;

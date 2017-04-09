@@ -83,10 +83,22 @@ dependencies {
     compile "com.android.support:support-v4:$supportLibraryVersion"
     compile "com.android.support:multidex:$multidexVersion"
     compile "com.android.support:support-v4:$supportLibraryVersion"
+
+
+
+
+
+    compile project(path: ':annca')
+    compile group: 'com.googlecode.libphonenumber', name: 'libphonenumber', version: '5.5'
+
+
     compile 'com.google.android.gms:play-services:10.0.1'
     compile 'com.android.support:appcompat-v7:25.1.1'
-
-
+    compile 'com.flurgle:camerakit:0.9.15'
+    compile 'jp.wasabeef:picasso-transformations:2.1.0'
+    compile 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.getkeepsafe.taptargetview:taptargetview:1.9.1'
     compile 'com.android.support:support-annotations:25.1.1'
     compile 'com.github.jaychang0917:SimpleRecyclerView:1.1.7'
     compile 'com.adobe.creativesdk.foundation:auth:0.9.1186'
@@ -113,7 +125,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.1.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
     compile 'com.google.android.gms:play-services-maps:10.0.1'
-
     testCompile 'junit:junit:4.12'
     annotationProcessor 'org.parceler:parceler:1.1.6'
 }

@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -15,10 +16,10 @@ import com.example.madiba.venualpha.Actions.ActionChateuEvent;
 import com.example.madiba.venualpha.Actions.ActionChateuMemory;
 import com.example.madiba.venualpha.Actions.ActionNetwork;
 import com.example.madiba.venualpha.R;
-import com.example.madiba.venualpha.adapter.chateu.ChateuMemoriesMsgCell;
-import com.example.madiba.venualpha.adapter.chateu.ChateuTextMsgCell;
-import com.example.madiba.venualpha.dailogs.NewChateuFragment;
+import com.example.madiba.venualpha.chateu.adapter.ChateuMemoriesMsgCell;
+import com.example.madiba.venualpha.chateu.adapter.ChateuTextMsgCell;
 import com.example.madiba.venualpha.models.GlobalConstants;
+import com.example.madiba.venualpha.ui.SwitchTextView;
 import com.example.madiba.venualpha.util.NetUtils;
 import com.example.madiba.venualpha.util.NotificationUtils;
 import com.jaychang.srv.OnLoadMoreListener;
@@ -54,6 +55,7 @@ public class ChateuGossipFragAct extends AppCompatActivity {
     private ParseObject toObject;
     private TextView mTimeLeft,mGossipTitle;
 
+    private SwitchTextView mUpVote;
     private RoundCornerImageView mavatar,mImageView;
 
     @Override
@@ -65,6 +67,7 @@ public class ChateuGossipFragAct extends AppCompatActivity {
         mavatar = (RoundCornerImageView) findViewById(R.id.avatar);
         mImageView = (RoundCornerImageView) findViewById(R.id.gossip_image);
         mTimeLeft = (TextView) findViewById(R.id.title);
+        mUpVote = (SwitchTextView) findViewById(R.id.upvotec);
         mGossipTitle = (TextView) findViewById(R.id.gossip_title);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -93,6 +96,18 @@ public class ChateuGossipFragAct extends AppCompatActivity {
                 mRecyclerview.setLoadMoreCompleted();
             }
         });
+
+        mUpVote.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getActionMasked()==MotionEvent.ACTION_UP){
+
+                    mUpVote.toggleSwitch();
+                }
+
+                return true;
+            }
+        });
     }
 
     private void initAdapter(){
@@ -108,17 +123,18 @@ public class ChateuGossipFragAct extends AppCompatActivity {
 
     private void requestEvent() {
         if (NetUtils.hasInternetConnection(getApplicationContext())){
-            NewChateuFragment requestDialog = new NewChateuFragment();
+            NewChateuDialog requestDialog = new NewChateuDialog();
             requestDialog.show(getSupportFragmentManager(),"request");
         }
     }
 
     private void requestMemories() {
         if (NetUtils.hasInternetConnection(getApplicationContext())){
-            NewChateuFragment requestDialog = new NewChateuFragment();
+            ChateuExtraMemoryDialog requestDialog = new ChateuExtraMemoryDialog();
             requestDialog.show(getSupportFragmentManager(),"request");
         }
     }
+
 
 
     private void addMessage(String message){

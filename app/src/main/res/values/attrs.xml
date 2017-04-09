@@ -168,13 +168,17 @@
     </declare-styleable>
 
 
-    <declare-styleable name="SwitchTextView">
-        <attr name="st_tint_color" format="color"/>
-        <attr name="st_animation_duration" format="integer"/>
-        <attr name="st_disabled_alpha" format="float"/>
-        <attr name="st_disabled_color" format="color"/>
-        <attr name="st_enabled" format="boolean"/>
+
+
+    <declare-styleable name="SwitchTextView" >
+        <attr name="leftImage" format="reference" />
+        <attr name="topImage" format="reference" />
+        <attr name="rightImage" format="reference" />
+        <attr name="bottomImage" format="reference" />
+        <attr name="imageWidth" format="dimension" />
+        <attr name="imageHeight" format="dimension" />
     </declare-styleable>
+
 
 
     <declare-styleable name="VariableLayout">

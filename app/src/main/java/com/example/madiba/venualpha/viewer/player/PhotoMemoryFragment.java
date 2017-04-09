@@ -16,11 +16,11 @@ import com.android.liuzhuang.rcimageview.RoundCornerImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.madiba.venualpha.R;
-import com.example.madiba.venualpha.dailogs.CommentDialog;
+import com.example.madiba.venualpha.comment.CommentDialog;
 import com.example.madiba.venualpha.models.MdEventItem;
 import com.example.madiba.venualpha.models.MdMediaItem;
 import com.example.madiba.venualpha.models.MdUserItem;
-import com.example.madiba.venualpha.profiles.UserPageV2Activity;
+import com.example.madiba.venualpha.profiles.UserPageActivity;
 
 import org.parceler.Parcels;
 
@@ -145,7 +145,7 @@ public class PhotoMemoryFragment extends Fragment {
         mAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(new Intent(getActivity(), UserPageV2Activity.class)));
+                startActivity(new Intent(new Intent(getActivity(), UserPageActivity.class)));
             }
         });
     }

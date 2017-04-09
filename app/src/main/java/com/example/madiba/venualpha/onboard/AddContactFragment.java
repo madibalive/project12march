@@ -14,6 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.android.liuzhuang.rcimageview.RoundCornerImageView;
 import com.bumptech.glide.Glide;
@@ -27,8 +30,11 @@ import com.example.madiba.venualpha.services.GeneralService;
 import com.example.madiba.venualpha.services.LoaderGeneral;
 import com.example.madiba.venualpha.ui.AnimateCheckBox;
 import com.example.madiba.venualpha.util.NetUtils;
+import com.example.madiba.venualpha.util.multichoicerecyclerview.MultiChoiceAdapter;
+import com.example.madiba.venualpha.util.multichoicerecyclerview.MultiChoiceRecyclerView;
 import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -54,8 +60,8 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 public class AddContactFragment extends Fragment implements FbLinkDailog.OnFragmentInteractionListener {
     private static final int RC_LOCATION_CONTACTS_PERM = 124;
     private static final int RC_SETTINGS_SCREEN = 125;
-    private RecyclerView mRecyclerview;
-    private MainAdapter mAdapter;
+    private MultiChoiceRecyclerView mRecyclerview;
+    private AddContactMultiAdapter mAdapter;
     private List<ParseUser> mDatas=new ArrayList<>();
     private ProgressDialog progress;
     private Boolean mEnableFb=false;
@@ -88,7 +94,7 @@ public class AddContactFragment extends Fragment implements FbLinkDailog.OnFragm
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root=inflater.inflate(R.layout.fragment_onboard_addusers, container, false);
-        mRecyclerview = (RecyclerView) root.findViewById(R.id.recyclerView);
+        mRecyclerview = (MultiChoiceRecyclerView) root.findViewById(R.id.recyclerView);
         close = (Button) root.findViewById(R.id.go);
         return root;
 
@@ -112,7 +118,7 @@ public class AddContactFragment extends Fragment implements FbLinkDailog.OnFragm
 
     }
     private void initAdapter() {
-        mAdapter = new MainAdapter(R.layout.item_person_selectable, mDatas);
+        mAdapter=new AddContactMultiAdapter(mDatas,getActivity());
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerview.setHasFixedSize(true);
         mRecyclerview.setAdapter(mAdapter);
@@ -140,13 +146,7 @@ public class AddContactFragment extends Fragment implements FbLinkDailog.OnFragm
         }
     }
 
-    private void addNewUsers(){
-        SingletonDataSource.getInstance().setOnboardUserList(mAdapter.returnData());
-        GeneralService.startActionOnboardAddUsers(getActivity().getApplicationContext());
 
-        // TODO: 3/1/2017 goto categories
-
-    }
     //    ///////////////////////////////////////////////////////
     //    NETWORKING OPERATION HERE //////////////////////////////
     //////////////////////////////////////////////////////////////
@@ -185,7 +185,7 @@ public class AddContactFragment extends Fragment implements FbLinkDailog.OnFragm
                         new Handler().postDelayed(() -> {
                             if (value.size()>0) {
 //                                mContactsFound.setText(String.format("%s found", String.valueOf(value.size())));
-                                mAdapter.setNewData(value);
+//                                mAdapter.setNewData(value);
                             }
 
                         },500);
@@ -212,48 +212,65 @@ public class AddContactFragment extends Fragment implements FbLinkDailog.OnFragm
 
 
 
+    private class AddContactMultiAdapter extends MultiChoiceAdapter<AddContactMultiAdapter.SampleCustomViewHolder> {
 
-    private class MainAdapter
-            extends BaseQuickAdapter<ParseUser> {
-        private Set<ParseUser> checkedSet = new HashSet<>();
+        List<ParseUser> messageV0s;
+        Context mContext;
 
-        MainAdapter(int layoutResId, List<ParseUser> data) {
-            super(layoutResId, data);
+        public AddContactMultiAdapter(List<ParseUser> messageV0s, Context context) {
+            this.messageV0s = messageV0s;
+            this.mContext = context;
         }
+
         @Override
-        protected void convert(BaseViewHolder holder, final ParseUser data) {
-            holder.setText(R.id.name, data.getUsername());
-            if (data.getParseFile("avatarSmall")!=null ){
-                Glide.with(mContext)
-                        .load(data.getParseFile("avatarSmall").getUrl())
-                        .crossFade()
-                        .placeholder(R.drawable.ic_default_avatar)
-                        .error(R.drawable.placeholder_error_media)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .centerCrop()
-                        .fallback(R.drawable.ic_default_avatar)
-                        .thumbnail(0.4f)
-                        .into(((RoundCornerImageView) holder.getView(R.id.avatar)));
-            }
-            final AnimateCheckBox checkBox = holder.getView(R.id.checkbox);
-
-            if(checkedSet.contains(data)){
-                checkBox.setChecked(true);
-            }else {
-                //checkBox.setChecked(false); //has animation
-                checkBox.setUncheckStatus();
-            }
-            checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                if (isChecked) {
-                    checkedSet.add(data);
-                } else {
-                    checkedSet.remove(data);
-                }
-            });
+        public SampleCustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            return new SampleCustomViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_person_checkable, parent, false));
         }
 
-        Set<ParseUser> returnData(){
-            return checkedSet;
+        @Override
+        public void onBindViewHolder(SampleCustomViewHolder holder, int position) {
+            super.onBindViewHolder(holder, position);
+//
+//        ParseUser currentItem = messageV0s.get(position);
+//        holder.name.setText(currentItem.getName());
+
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return messageV0s.size();
+        }
+
+        @Override
+        protected void setActive(View view, boolean state) {
+
+
+            ImageView imageView = (ImageView) view.findViewById(R.id.add);
+            RelativeLayout relativeLayout = (RelativeLayout) view.findViewById(R.id.container);
+            if(state){
+//            relativeLayout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorBackgroundLight));
+//            imageView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimaryDark));
+                imageView.setVisibility(View.VISIBLE);
+            }else{
+//            relativeLayout.setBackgroundColor(ContextCompat.getColor(mContext, android.R.color.transparent));
+//            imageView.setBackgroundColor(ContextCompat.getColor(mContext, android.R.color.transparent));
+                imageView.setVisibility(View.GONE);
+
+            }
+        }
+
+        public class SampleCustomViewHolder extends RecyclerView.ViewHolder{
+
+            public TextView name;
+            public ImageView radio;
+
+
+            public SampleCustomViewHolder(View itemView) {
+                super(itemView);
+                name = (TextView) itemView.findViewById(R.id.title);
+                radio = (ImageView) itemView.findViewById(R.id.add);
+            }
         }
     }
 

@@ -89,6 +89,17 @@
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
     </style>
 
+    <style name="AppTheme.Chat">
+        <item name="android:id">@id/toolbar</item>
+        <item name="android:background">@color/light_grey</item>
+
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
+    </style>
+
     <style name="Theme.Transparent" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
@@ -165,4 +176,9 @@
     </style>
 
     <color name="dark_evant_page">#211f2c</color>
+
+    <style name="AppTheme.ActionBar.TitleTextStyle" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
 </resources>

@@ -20,7 +20,7 @@ import com.android.liuzhuang.rcimageview.RoundCornerImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.madiba.venualpha.R;
-import com.example.madiba.venualpha.adapter.channel.ChVenuHighCell;
+import com.example.madiba.venualpha.channels.channel.ChVenuHighCell;
 import com.jaychang.srv.SimpleRecyclerView;
 
 import java.util.List;

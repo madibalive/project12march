@@ -50,7 +50,7 @@ public class UserEventActivity extends AppCompatActivity {
 
                 Fragment frg;
                 if (position==0){
-                    frg= UserEventsFragment.newInstance(10);
+                    frg= MyEventFragment.newInstance();
                 }else if (position==1){
                     frg = OtherEventFragment.newInstance();
                 }else if (position==2){

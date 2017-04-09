@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp_10"
-                android:text="Already have an account ? "
+                android:text="wrong code refresh? "
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
 
@@ -69,11 +69,20 @@
                 android:layout_height="wrap_content">
 
                 <Spinner
+                    android:visibility="gone"
                     android:id="@+id/country"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
                 </Spinner>
+
+                <EditText
+                    android:id="@+id/code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="XXX"
+                    android:inputType="phone"
+                    android:maxLines="1" />
 
                 <EditText
                     android:id="@+id/signup_phone"
@@ -96,9 +105,7 @@
                     android:id="@+id/sign_up_btn"
                     android:text="Continue "
                     android:padding="@dimen/padding_normal"
-                    app:normalBackgroundColor="@android:color/holo_green_light"
-                    app:normalStrokeColor="@android:color/holo_green_dark"
-                    app:normalStrokeWidth="2dp"
+                    app:normalBackgroundColor="@color/black_30"
                     app:normalTextColor="@color/white"
                     android:layout_margin="@dimen/dp_22"
                     app:pressedBackgroundColor="@color/venu_flat_color"

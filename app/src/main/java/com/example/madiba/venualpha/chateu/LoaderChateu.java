@@ -1,9 +1,11 @@
 package com.example.madiba.venualpha.chateu;
 
+import com.example.madiba.venualpha.chateu.adapter.ChateuEventExtraCell;
+import com.example.madiba.venualpha.chateu.adapter.ChateuMemoriesExtraCell;
 import com.example.madiba.venualpha.models.GlobalConstants;
-import com.example.madiba.venualpha.models.ModelEventGoingContainer;
+import com.example.madiba.venualpha.Generators.ModelGenerator;
+import com.example.madiba.venualpha.viewusers.ViewUserCell;
 import com.jaychang.srv.SimpleCell;
-import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
@@ -23,14 +25,14 @@ import timber.log.Timber;
 
 public class LoaderChateu {
 
-    public static Observable<ModelEventGoingContainer> loadGoingSample(String id, String className){
-        return Observable.create(new Observable.OnSubscribe<ModelEventGoingContainer>() {
+    public static Observable<List<ViewUserCell>> loadContacts(){
+        return Observable.create(new Observable.OnSubscribe<List<ViewUserCell>>() {
             @Override
-            public void call(Subscriber<? super ModelEventGoingContainer> subscriber) {
-                ModelEventGoingContainer data = new ModelEventGoingContainer();
+            public void call(Subscriber<? super List<ViewUserCell>> subscriber) {
+                List<ViewUserCell> data = new ArrayList<ViewUserCell>();
                 // Init query
                 ParseQuery<ParseObject> query = ParseQuery.getQuery(GlobalConstants.CLASS_COMMENT);
-                query.whereEqualTo("event", ParseObject.createWithoutData(className,id));
+                query.whereEqualTo("event", ParseUser.getCurrentUser());
                 query.include("from");
                 query.setLimit(8);
                 query.orderByAscending("createdAt");
@@ -38,31 +40,12 @@ public class LoaderChateu {
 
 
                 ParseQuery<ParseObject> followersQuery = ParseQuery.getQuery(GlobalConstants.CLASS_FOLLOW);
-                followersQuery.whereEqualTo("from", ParseUser.getCurrentUser());
+                followersQuery.whereNotEqualTo("from", ParseUser.getCurrentUser());
 
                 //non private query
                 query.whereMatchesKeyInQuery(GlobalConstants.FROM, "to", followersQuery);
 
                 try {
-                    data.setGlbalList(query.find());
-                    if (data.getGlbalList().size()>8){
-
-                        ParseQuery<ParseObject> queryCountG = ParseQuery.getQuery(GlobalConstants.CLASS_COMMENT);
-                        queryCountG.whereEqualTo("event", ParseObject.createWithoutData(className,id));
-                        data.setGlobalCount(queryCountG.count());
-                    }
-
-                    query.whereMatchesKeyInQuery(GlobalConstants.FROM, "to", followersQuery);
-                    query.setLimit(4);
-                    data.setFriendsList(query.find());
-                    if (data.getGlbalList().size()>4){
-
-
-                        ParseQuery<ParseObject> queryCountG = ParseQuery.getQuery(GlobalConstants.CLASS_COMMENT);
-                        queryCountG.whereEqualTo("event", ParseObject.createWithoutData(className,id));
-                        queryCountG.whereMatchesKeyInQuery(GlobalConstants.FROM, "to", followersQuery);
-                        data.setFriendsCount(queryCountG.count());
-                    }
 
                     subscriber.onNext(data);
                     // save to local store
@@ -70,7 +53,7 @@ public class LoaderChateu {
 
 
 
-                } catch (ParseException e) {
+                } catch (Exception e) {
                     subscriber.onError(e);
                 }
 
@@ -87,7 +70,7 @@ public class LoaderChateu {
                 List<SimpleCell> cells = new ArrayList<>();
 
                 ParseQuery<ParseObject> query = ParseQuery.getQuery(GlobalConstants.CLASS_EVENT);
-                query.whereEqualTo("to", ParseObject.createWithoutData(className,id));
+                query.whereEqualTo("to", ParseUser.getCurrentUser());
                 query.include("from");
                 query.orderByAscending("createdAt");
 
@@ -122,7 +105,7 @@ public class LoaderChateu {
 
                     // Init query
                     ParseQuery<ParseObject> query = ParseQuery.getQuery(GlobalConstants.CLASS_MEDIA);
-//                    query.whereEqualTo("to", ParseObject.createWithoutData(className,id));
+//                    query.whereEqualTo("to", ParseUser.getCurrentUser());
                     query.include("from");
                     query.setLimit(4);
                     query.orderByAscending("createdAt");
@@ -152,6 +135,51 @@ public class LoaderChateu {
                 }catch (Exception e){
                     subscriber.onError(e);
                 }
+            }
+        }).subscribeOn(Schedulers.io());
+    }
+
+    public static Observable<List<ChateuMemoriesExtraCell>> loadUserGallery(){
+        return Observable.create((Observable.OnSubscribe<List<ChateuMemoriesExtraCell>>) subscriber -> {
+
+            List<ChateuMemoriesExtraCell> cells = new ArrayList<>();
+            ParseQuery<ParseObject> query = ParseQuery.getQuery(GlobalConstants.CLASS_NOTIFICATION);
+            query.whereEqualTo("to", ParseUser.getCurrentUser());
+            query.orderByAscending("Created");
+            query.setLimit(50);
+            try {
+
+                for (ParseObject object : query.find()) {
+                    ChateuMemoriesExtraCell cell = new ChateuMemoriesExtraCell(ModelGenerator.generateMemmory(object));
+                    cells.add(cell);
+                }
+                subscriber.onNext(cells);
+                subscriber.onCompleted();
+            }catch (Exception e){
+                subscriber.onError(e);
+            }
+        }).subscribeOn(Schedulers.io());
+    }
+
+    public static Observable<List<ChateuEventExtraCell>> loadUserEvants(){
+        return Observable.create((Observable.OnSubscribe<List<ChateuEventExtraCell>>) subscriber -> {
+
+            List<ChateuEventExtraCell> cells = new ArrayList<>();
+            ParseQuery<ParseObject> query = ParseQuery.getQuery(GlobalConstants.CLASS_NOTIFICATION);
+            query.whereEqualTo("to", ParseUser.getCurrentUser());
+            query.orderByAscending("Created");
+            query.setLimit(50);
+
+            try {
+
+                for (ParseObject object : query.find()) {
+                    ChateuEventExtraCell cell = new ChateuEventExtraCell(ModelGenerator.generateEvent(object));
+                    cells.add(cell);
+                }
+                subscriber.onNext(cells);
+                subscriber.onCompleted();
+            }catch (Exception e){
+                subscriber.onError(e);
             }
         }).subscribeOn(Schedulers.io());
     }

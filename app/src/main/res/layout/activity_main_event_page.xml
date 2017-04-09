@@ -43,7 +43,7 @@
                         android:layout_margin="@dimen/padding_normal"
                         android:src="@drawable/ic_chat_2"
                         android:background="@android:color/transparent"
-                        android:layout_gravity="bottom|right"
+                        android:layout_gravity="right"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -51,9 +51,8 @@
                         android:id="@+id/interaction_layout"
                         android:background="@color/white"
                         android:layout_gravity="bottom|right"
-                        android:layout_marginRight="40dp"
-                        android:layout_marginBottom="@dimen/padding_normal"
-                        android:layout_marginLeft="@dimen/padding_normal"
+                        android:layout_marginBottom="@dimen/dp_4"
+
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:layout_width="wrap_content"
@@ -124,29 +123,35 @@
                     android:orientation="horizontal">
 
 
-                    <TextView
+                    <com.example.madiba.venualpha.ui.SwitchTextView
                         android:layout_marginRight="@dimen/dp_10"
                         android:layout_alignParentLeft="true"
                         android:id="@+id/event_trackin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/ic_star"
+                        app:leftImage="@drawable/ic_star"
+                        app:imageHeight="30dp"
+                        app:imageWidth="30dp"
+                        android:textStyle="bold"
+
                         android:drawablePadding="@dimen/dp_4"
-                        android:drawableStart="@drawable/ic_star"
                         android:layout_centerVertical="true"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:gravity="center"
                         android:text="120k" />
 
-                    <TextView
+                    <com.example.madiba.venualpha.ui.SwitchTextView
                         android:layout_marginRight="@dimen/dp_10"
                         android:layout_toRightOf="@id/event_trackin"
                         android:id="@+id/event_cmts"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/ic_chat"
-                        android:drawablePadding="8dp"
-                        android:drawableStart="@drawable/ic_chat"
+                        app:leftImage="@drawable/ic_chat"
+                        app:imageHeight="30dp"
+                        app:imageWidth="30dp"
+                        android:drawablePadding="@dimen/dp_4"
+                        android:textStyle="bold"
+
                         android:layout_centerVertical="true"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:gravity="center"
@@ -165,13 +170,13 @@
                         android:layout_alignParentRight="true"
                         android:minHeight="0dp"
                         android:minWidth="0dp"
-                        android:padding="6dp"
+                        android:padding="10dp"
                         app:sradius="@dimen/dp_4"
-                        android:text="Accept Invite gh 50"
+                        android:text="Accept Invite"
                         android:layout_centerVertical="true"
                         android:gravity="center"
                         app:normalBackgroundColor="@color/venu_blue"
-                        android:textAllCaps="false"
+                        android:textStyle="bold"
                         android:textColor="@color/white"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:layout_width="wrap_content"
@@ -190,6 +195,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:descendantFocusability="blocksDescendants"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_normal"
@@ -366,6 +372,7 @@
 
 
             <HorizontalScrollView
+                android:visibility="gone"
                 android:id="@+id/session_tags_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -382,7 +389,14 @@
                     android:minHeight="70dp" />
             </HorizontalScrollView>
 
-
+            <com.jaychang.srv.SimpleRecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                app:srv_layoutMode="grid"
+                app:srv_gridSpanSequence="32"
+                />
 
 
             <TextView

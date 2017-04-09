@@ -12,14 +12,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.madiba.venualpha.R;
+import com.example.madiba.venualpha.util.multichoicerecyclerview.MultiChoiceRecyclerView;
+import com.parse.ParseObject;
+import com.example.madiba.venualpha.post.MediaPost.SelectMultipleAdapter;
 import com.example.madiba.venualpha.services.LoaderGeneral;
 import com.example.madiba.venualpha.ui.AnimateCheckBox;
 import com.example.madiba.venualpha.util.NetUtils;
+import com.example.madiba.venualpha.util.multichoicerecyclerview.MultiChoiceAdapter;
 import com.parse.ParseObject;
 
 import java.util.ArrayList;
@@ -36,7 +42,7 @@ import timber.log.Timber;
 public class PendingInvitesFragment extends Fragment {
     public static final int index =5;
 
-    private RecyclerView mRecyclerview;
+    private MultiChoiceRecyclerView mRecyclerview;
     private MainAdapter mAdapter;
     private List<ParseObject> mDatas=new ArrayList<>();
 
@@ -61,7 +67,7 @@ public class PendingInvitesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View root=inflater.inflate(R.layout.fragment_onboard_pendinginvites, container, false);
         mNext = (Button) root.findViewById(R.id.go);
-        mRecyclerview = (RecyclerView) root.findViewById(R.id.recyclerView);
+        mRecyclerview = (MultiChoiceRecyclerView) root.findViewById(R.id.recyclerView);
         mTitle = (TextView) root.findViewById(R.id.title);
         return root;
     }
@@ -75,30 +81,16 @@ public class PendingInvitesFragment extends Fragment {
 
     }
     private void initAdapter() {
-        mAdapter = new MainAdapter(R.layout.item_notif_extended, mDatas);
+        mAdapter=new MainAdapter(mDatas,getActivity());
+        mRecyclerview.setRecyclerColumnNumber(1);
+
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerview.setHasFixedSize(true);
         mRecyclerview.setAdapter(mAdapter);
-
-        mAdapter.setOnRecyclerViewItemChildClickListener((baseQuickAdapter, view, i) -> {
-//            if (view.getId()== R.id.action_delete){
-//                accept(i);
-//            }
-        });
+        mRecyclerview.setSingleClickMode(true);
 
     }
 
-    private void accept(int pos){
-        try {
-//            GeneralService.startActionSetGoing(getActivity(),mAdapter.getItem(pos).getObjectId(),mAdapter.getItem(pos).getClassName());
-            mAdapter.remove(pos);
-            mAdapter.notifyItemRemoved(pos);
-
-        }catch (IndexOutOfBoundsException e){
-            Timber.e("error deleting object %s",e.getMessage());
-        }
-
-    }
 
     void initload(){
         loaderManager.create(
@@ -108,8 +100,8 @@ public class PendingInvitesFragment extends Fragment {
                     public void onNext(List<ParseObject> value) {
                         Timber.d("onnext");
                         new Handler().postDelayed(() -> {
-                            if (value.size()>0)
-                                mAdapter.setNewData(value);
+//                            if (value.size()>0)
+//                                mAdapter.setNewData(value);
                         },500);
                     }
 
@@ -137,42 +129,70 @@ public class PendingInvitesFragment extends Fragment {
     }
 
 
-    private class MainAdapter
-            extends BaseQuickAdapter<ParseObject> {
-        private Set<ParseObject> checkedSet = new HashSet<>();
+    public class MainAdapter extends MultiChoiceAdapter<SampleCustomViewHolder> {
 
-        public MainAdapter(int layoutResId, List<ParseObject> data) {
-            super(layoutResId, data);
+        List<ParseObject> messageV0s;
+        Context mContext;
+
+        public MainAdapter(List<ParseObject> messageV0s, Context context) {
+            this.messageV0s = messageV0s;
+            this.mContext = context;
         }
+
         @Override
-        protected void convert(BaseViewHolder holder, final ParseObject data) {
-            holder.setText(R.id.ot_i_location, data.getString("categoryName"))
-                    .setText(R.id.ot_i_order_item,data.getString("number"))
-                    .setVisible(R.id.accept,false)
-                    .setVisible(R.id.checkbox,true);
-
-
-            final AnimateCheckBox checkBox = ((AnimateCheckBox) holder.getView(R.id.checkbox));
-
-            if(checkedSet.contains(data)){
-                checkBox.setChecked(true);
-            }else {
-                //checkBox.setChecked(false); //has animation
-                checkBox.setUncheckStatus();
-            }
-            checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                if (isChecked) {
-                    checkedSet.add(data);
-                } else {
-                    checkedSet.remove(data);
-                }
-            });
+        public SampleCustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            return new SampleCustomViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_person_checkable, parent, false));
         }
 
-        public Set<ParseObject> returnData(){
-            return checkedSet;
+        @Override
+        public void onBindViewHolder(SampleCustomViewHolder holder, int position) {
+            super.onBindViewHolder(holder, position);
+//
+//        ParseObject currentItem = messageV0s.get(position);
+//        holder.name.setText(currentItem.getName());
+
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return messageV0s.size();
+        }
+
+        @Override
+        protected void setActive(View view, boolean state) {
+
+
+            ImageView imageView = (ImageView) view.findViewById(R.id.add);
+            RelativeLayout relativeLayout = (RelativeLayout) view.findViewById(R.id.container);
+            if(state){
+//            relativeLayout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorBackgroundLight));
+//            imageView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimaryDark));
+                imageView.setVisibility(View.VISIBLE);
+            }else{
+//            relativeLayout.setBackgroundColor(ContextCompat.getColor(mContext, android.R.color.transparent));
+//            imageView.setBackgroundColor(ContextCompat.getColor(mContext, android.R.color.transparent));
+                imageView.setVisibility(View.GONE);
+
+            }
+        }
+
+    }
+    public class SampleCustomViewHolder extends RecyclerView.ViewHolder{
+
+        public TextView name;
+        public ImageView radio;
+//        public RoundCornerImageView avatar;
+
+
+        public SampleCustomViewHolder(View itemView) {
+            super(itemView);
+            name = (TextView) itemView.findViewById(R.id.title);
+            radio = (ImageView) itemView.findViewById(R.id.add);
+//            avatar = (RoundCornerImageView) itemView.findViewById(R.id.avatar);
         }
     }
+
 
     @Override
     public void onPause() {

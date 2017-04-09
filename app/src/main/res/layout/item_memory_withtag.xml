@@ -10,7 +10,8 @@
     >
 
     <com.android.liuzhuang.rcimageview.RoundCornerImageView
-        app:rciv_radius="@dimen/dp_4"
+        app:rciv_radius="2dp"
+        android:src="@color/venu_pink"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

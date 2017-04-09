@@ -23,39 +23,50 @@
 
             <RelativeLayout
                 style="@style/AppTheme.Toolbar"
-                android:padding="@dimen/padding_normal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_normal">
 
                 <ImageView
                     android:id="@+id/close"
-                    android:src="@drawable/ic_close"
                     android:layout_width="30dp"
-                    android:layout_height="30dp" />
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_close" />
 
+                <ImageView
+                    android:id="@+id/flipside"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginRight="21dp"
+                    android:src="@drawable/ic_compare_arrows_black_24dp"
+                    android:tint="@color/venu_flat_color"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@+id/camera"
+                    android:layout_toStartOf="@+id/camera" />
 
                 <ImageView
                     android:id="@+id/camera"
-                    android:src="@drawable/ic_camera"
-                    android:tint="@color/venu_flat_color"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_alignParentTop="true"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginRight="22dp"
                     android:layout_toLeftOf="@+id/video"
                     android:layout_toStartOf="@+id/video"
-                    android:layout_marginRight="22dp"
-                    android:layout_marginEnd="22dp" />
+                    android:src="@drawable/ic_camera"
+                    android:tint="@color/venu_flat_color" />
 
 
                 <ImageView
                     android:id="@+id/video"
-                    android:src="@drawable/ic_videocam"
-                    android:tint="@color/venu_flat_color"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
+                    android:layout_alignParentTop="true"
+                    android:src="@drawable/ic_videocam"
+                    android:tint="@color/venu_flat_color" />
 
 
             </RelativeLayout>

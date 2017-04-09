@@ -1,6 +1,6 @@
 <TextView
     android:padding="@dimen/padding_normal"
-    android:id="@+id/gossip_title"
+    android:id="@+id/title"
     android:paddingBottom="@dimen/dp_4"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

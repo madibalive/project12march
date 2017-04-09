@@ -11,6 +11,7 @@
         android:id="@+id/status"
         android:text="'@Steve Share"
         android:paddingTop="@dimen/dp_4"
+        android:paddingBottom="@dimen/dp_4"
         android:layout_width="match_parent"
         android:textSize="@dimen/app_text_size_small"
         android:layout_height="wrap_content" />
@@ -47,11 +48,6 @@
         android:text="#technologoicalrevolution "
         android:textSize="15sp" />
 
-
-
-
-
-
     <ImageButton
         android:layout_alignTop="@id/avatar"
         android:id="@+id/overflow_btn"
@@ -68,7 +64,6 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="match_parent">
-
 
 
         <com.example.madiba.venualpha.ui.stateimageview.StateImageView

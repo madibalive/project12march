@@ -1,0 +1,18 @@
+
+S"squid:SwitchLastCaseIsDefaultCheck""Add a default case to this switch.(¼œóÛüÿÿÿÿ
+vsquid:S1188"\Reduce this anonymous class number of lines from 27 to at most 20, or make it a named class.(—¥µ¥ûÿÿÿÿ
+~squid:S1450"dRemove the "mSectionsPagerAdapter" field and declare it as a local variable in the relevant methods.(İÅışÿÿÿÿ
+ssquid:S1450"YRemove the "mViewPager" field and declare it as a local variable in the relevant methods.(Õîµıúÿÿÿÿ
+esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(‹Í›•ûÿÿÿÿ
+`squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(•„ƒö
+esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(‚ûí”ÿÿÿÿÿ
+esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ñó¹­øÿÿÿÿ
+esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ö¨ÍÜúÿÿÿÿ
+usquid:S1488"`Immediately return this expression instead of assigning it to the temporary variable "rootView".(âƒÙÆ
+–squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(„˜®’
+›squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ù¾¼èøÿÿÿÿ
+–squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ü¹
+–squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(´ÑÆ
+†squid:UselessImportCheck"_Remove this unused import 'io.github.memfis19.annca.internal.configuration.AnncaConfiguration'.(ˆ¬Ã«ùÿÿÿÿ
+qsquid:UselessImportCheck"ORemove this unused import 'android.support.design.widget.FloatingActionButton'.(„Ÿ¹¼
+dsquid:MaximumInheritanceDepth"=This class has 11 parents which is greater than 5 authorized.(ó¡‚­

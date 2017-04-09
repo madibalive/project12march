@@ -1,0 +1,44 @@
+
+Msquid:UselessParenthesesCheck"!Remove those useless parentheses.(ÚîÓ¯øÿÿÿÿ
+[squid:S2184"FCast one of the operands of this multiplication operation to a "long".(“…Šñ
+Ssquid:UnusedPrivateMethod"+Remove this unused private "reload" method.(Çşİ£üÿÿÿÿ
+Usquid:UnusedPrivateMethod"2Remove this unused private "requestUpdate" method.(ê´×Ï
+Ssquid:UnusedPrivateMethod"1Remove this unused private "getImageFile" method.(¨Ì>
+Ysquid:UnusedPrivateMethod"6Remove this unused private "addItemDecoration" method.(¶Ïá—
+@squid:S3398"&Move this method into "HeaderAdapter".(Ü¯Ùúÿÿÿÿ
+:squid:S1659"%Declare "mCamera" on a separate line.(¯ùà
+9squid:S1659"$Declare "mVideo" on a separate line.(¯ùà
+<squid:S1659"'Declare "mFlipSide" on a separate line.(¯ùà
+8squid:S1659"#Declare "mNext" on a separate line.(¯ùà
+=squid:S1659"(Declare "mMainRview" on a separate line.(ãùç¬
+Asquid:S1659"'Declare "mEditText" on a separate line.(•…Õùÿÿÿÿ
+Gsquid:S1068"-Remove this unused "mEditText" private field.(•…Õùÿÿÿÿ
+Dsquid:S1068"/Remove this unused "isFirstLoad" private field.(Äÿ»ú
+Lsquid:S1068"2Remove this unused "cameraImageUri" private field.(¼ÂØÛùÿÿÿÿ
+Msquid:S1068"3Remove this unused "editingVenufile" private field.(ì…Îşÿÿÿÿ
+osquid:S1450"ZRemove the "mainAdapter" field and declare it as a local variable in the relevant methods.(§¾ëİ
+osquid:S1450"ZRemove the "isFirstLoad" field and declare it as a local variable in the relevant methods.(Äÿ»ú
+msquid:S1450"XRemove the "imageFile" field and declare it as a local variable in the relevant methods.(şŠÆ·
+wsquid:S1450"]Remove the "cameraImageUri" field and declare it as a local variable in the relevant methods.(¼ÂØÛùÿÿÿÿ
+esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ê¥Éïúÿÿÿÿ
+`squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Ãí¥ê
+a
+squid:S134"NRefactor this code to not nest more than 3 if/for/while/switch/try statements.(ÀÉå>
+]squid:HiddenFieldCheck"=Rename "imageFile" which hides the field declared at line 74.(Úñé¦
+lsquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 22 to the 15 allowed.(ÉÎÍïıÿÿÿÿ
+:squid:S1166"%Either log or rethrow this exception.(”ı¾
+:squid:S1166"%Either log or rethrow this exception.(”ı¾
+:squid:S1166"%Either log or rethrow this exception.(”ı¾
+:squid:S1166"%Either log or rethrow this exception.(”ı¾
+:squid:S1166"%Either log or rethrow this exception.(ï­£Ä
+?squid:S00108")Either remove or fill this block of code.(”ı¾
+Asquid:S1602",Remove useless curly braces around statement(·Ú»˜
+Bsquid:S1604"(Make this anonymous inner class a lambda(”ìååÿÿÿÿÿ
+=squid:S1604"(Make this anonymous inner class a lambda(í°˜
+\squid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(İŒÜ±
+›squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Çşİ£üÿÿÿÿ
+=squid:S1185"(Remove this method to simply inherit it.(ßìê¯
+msquid:S00120"WRename this package name to match the regular expression '^[a-z]+(\.[a-z][a-z0-9]*)*$'.(´øÿ
+=squid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+=squid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+Ssquid:S1155">Use isEmpty() to check whether the collection is empty or not.(ß·ŒÍ

@@ -1,0 +1,29 @@
+
+Dsquid:S1068"(Remove this unused "urls" private field.(Şã­ö8€´†ï³+
+Asquid:S1166"%Either log or rethrow this exception.(”ı¾8š™ï³+
+Fsquid:S00108")Either remove or fill this block of code.(”ı¾8š™ï³+
+ssquid:S1450"WRemove the "fromType" field and declare it as a local variable in the relevant methods.(Éÿ°è8µï³+
+osquid:S1450"URemove the "mCount" field and declare it as a local variable in the relevant methods.(½âßÒÿÿÿÿÿ
+Ysquid:UselessImportCheck"7Remove this unused import 'android.widget.AdapterView'.(¶¾éæ
+tsquid:S1450"XRemove the "singleUlr" field and declare it as a local variable in the relevant methods.(¸É´8š™ï³+
+Hsquid:S1068",Remove this unused "fromType" private field.(Éÿ°è8”·ıî³+
+lsquid:S1450"WRemove the "mAdapter" field and declare it as a local variable in the relevant methods.(¹¸¯¾
+Psquid:UselessImportCheck".Remove this unused import 'timber.log.Timber'.(ÈÊÖ 
+gsquid:UselessImportCheck"@Remove this unused import 'com.jaychang.srv.SimpleRecyclerView'.(œ¢ÚÅıÿÿÿÿ
+jsquid:S1450"URemove the "mClose" field and declare it as a local variable in the relevant methods.(®°€­
+?squid:S1068"*Remove this unused "mClose" private field.(®°€­
+Dsquid:S1068"*Remove this unused "mCount" private field.(½âßÒÿÿÿÿÿ
+Tsquid:UselessParenthesesCheck"!Remove those useless parentheses.(÷ñ·Úşÿÿÿÿ8š™ï³+
+isquid:S1450"TRemove the "mSend" field and declare it as a local variable in the relevant methods.(íÜéâ
+tsquid:UselessImportCheck"RRemove this unused import 'com.example.madiba.venualpha.Actions.ActionMemoryStop'.(¤¹Î“
+Isquid:S1604"(Make this anonymous inner class a lambda(¡¤‡‚ÿÿÿÿÿ8š™ï³+
+xsquid:S00116"]Rename this field "RecentMemoCallback" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ìä¹ûÿÿÿÿ
+?squid:S00108")Either remove or fill this block of code.(¾•„ä
+>squid:S1068")Remove this unused "mSend" private field.(íÜéâ
+Isquid:S1068"-Remove this unused "singleUlr" private field.(¸É´8”·ıî³+
+[squid:UselessImportCheck"-Remove this unused import 'android.util.Log'.(Ô¦Ø²øÿÿÿÿ8€´†ï³+
+?squid:S00108")Either remove or fill this block of code.(å¥‡
+=squid:S1068"(Remove this unused "mNew" private field.(†ÉÜå
+msquid:S00120"WRename this package name to match the regular expression '^[a-z]+(\.[a-z][a-z0-9]*)*$'.(´øÿ
+Zsquid:UselessImportCheck"8Remove this unused import 'com.jaychang.srv.SimpleCell'.(ÊÜåÉ
+osquid:S1450"SRemove the "urls" field and declare it as a local variable in the relevant methods.(Şã­ö8½“†ï³+

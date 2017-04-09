@@ -1,0 +1,25 @@
+
+Ssquid:UnusedPrivateMethod"1Remove this unused private "attemptLogin" method.(Ð—‡s
+=squid:S1659"#Declare "mLink" on a separate line.(˜³çºúÿÿÿÿ
+Gsquid:S1068"2Remove this unused "ARG_ITEM_COUNT" private field.(›ÉÊÇ
+Fsquid:S1068",Remove this unused "ARG_ITEM" private field.(‚”½ýÿÿÿÿ
+>squid:S1068")Remove this unused "datas" private field.(¿¾¹ü
+Jsquid:S1068"0Remove this unused "recyclerView" private field.(¿á© ýÿÿÿÿ
+Nsquid:S1068"4Remove this unused "mColorsContainer" private field.(Ç²µÙúÿÿÿÿ
+`squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(‹‚Š‚
+esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(…Ü„øÿÿÿÿ
+esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(®„»¯ùÿÿÿÿ
+`squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ÙõÆ¼
+esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(²÷ðÿÿÿÿÿ
+`squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Ìð¾Š
+esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ
+`squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(˜¡¤
+esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(£ïµ˜ÿÿÿÿÿ
+`squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Î©“¥
+esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(à‹Ç—úÿÿÿÿ
+Gsquid:S1135"2Complete the task associated to this TODO comment.(„¶ÍÀ
+Gsquid:S1135"2Complete the task associated to this TODO comment.(Çù†
+:squid:S1166"%Either log or rethrow this exception.(¶Ù š
+Bsquid:S1604"(Make this anonymous inner class a lambda(™Ð ªýÿÿÿÿ
+Bsquid:S1604"(Make this anonymous inner class a lambda(µË¾Ÿýÿÿÿÿ
+\squid:UselessImportCheck"5Remove this unused import 'android.widget.ImageView'.(ú¯ëàüÿÿÿÿ

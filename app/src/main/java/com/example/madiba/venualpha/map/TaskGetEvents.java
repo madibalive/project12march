@@ -1,7 +1,7 @@
 package com.example.madiba.venualpha.map;
 
 import com.example.madiba.venualpha.models.MdEventItem;
-import com.example.madiba.venualpha.util.Generators.ModelGenerator;
+import com.example.madiba.venualpha.Generators.ModelGenerator;
 import com.google.android.gms.maps.model.LatLng;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;

@@ -32,7 +32,7 @@ public class ExpandableLinearLayout extends LinearLayout implements ExpandableLa
      * @see #defaultChildIndex
      * @see #defaultPosition
      */
-    private boolean defaultExpanded;
+    private boolean defaultExpanded=false;
     /**
      * You cannot define {@link #defaultExpanded}, {@link #defaultChildIndex}
      * and {@link #defaultPosition} at the same time.
@@ -94,7 +94,6 @@ public class ExpandableLinearLayout extends LinearLayout implements ExpandableLa
         final TypedArray a = context.obtainStyledAttributes(
                 attrs, R.styleable.expandableLayout, defStyleAttr, 0);
         duration = a.getInteger(R.styleable.expandableLayout_ael_duration, DEFAULT_DURATION);
-        defaultExpanded = a.getBoolean(R.styleable.expandableLayout_ael_expanded, DEFAULT_EXPANDED);
         defaultChildIndex = a.getInteger(R.styleable.expandableLayout_ael_defaultChildIndex,
                 Integer.MAX_VALUE);
         defaultPosition = a.getDimensionPixelSize(R.styleable.expandableLayout_ael_defaultPosition,

@@ -1,0 +1,22 @@
+
+S"squid:SwitchLastCaseIsDefaultCheck""Add a default case to this switch.(¦ÓÜ”ùÿÿÿÿ
+]squid:S1871"HThis case's code block is the same as the block for the case on line 92.(úâğ
+esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(°€„çúÿÿÿÿ
+`squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(†€éˆ
+`squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(†€éˆ
+]squid:S2583"CChange this condition so that it does not always evaluate to "true"(ï¼ÕËùÿÿÿÿ
+asquid:S1226"GIntroduce a new variable instead of reusing the parameter "firstImage".(®¼˜øÿÿÿÿ
+bsquid:S1226"HIntroduce a new variable instead of reusing the parameter "secondImage".(•ú¾ ûÿÿÿÿ
+]squid:S1226"CIntroduce a new variable instead of reusing the parameter "bitmap".(×ı¥Êüÿÿÿÿ
+Tsquid:S1118":Add a private constructor to hide the implicit public one.(»€ßõüÿÿÿÿ
+?squid:S1166"%Either log or rethrow this exception.(äí¯ÿÿÿÿÿ
+?squid:S1166"%Either log or rethrow this exception.(É˜Ùúÿÿÿÿ
+Ysquid:S1854"?Remove this useless assignment to local variable "secondImage".(•ú¾ ûÿÿÿÿ
+Xsquid:S1854">Remove this useless assignment to local variable "firstImage".(®¼˜øÿÿÿÿ
+Rsquid:S1854"=Remove this useless assignment to local variable "imagePath".(…¯¥©
+Tsquid:S1854":Remove this useless assignment to local variable "bitmap".(×ı¥Êüÿÿÿÿ
+lsquid:S00117"VRename this local variable name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(•ïÅè
+qsquid:S00117"VRename this local variable name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(é®×¡ùÿÿÿÿ
+lsquid:S00117"VRename this local variable name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ãÆô¼
+O
+squid:S899";Do something with the "boolean" value returned by "delete".(Ç“Û·

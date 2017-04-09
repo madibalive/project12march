@@ -32,7 +32,9 @@ public class TrendEventCellHolder extends SimpleCell<MdTrendEvents, TrendEventCe
 
   @Override
   protected void onBindViewHolder(ViewHolder holder, int position, Context context, Object payload) {
+    holder.recyclerView.removeAllCells();
     holder.recyclerView.addCells(getItem().getTrendEventCells());
+
   }
 
 

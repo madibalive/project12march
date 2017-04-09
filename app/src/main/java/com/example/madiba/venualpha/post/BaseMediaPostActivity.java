@@ -3,11 +3,10 @@ package com.example.madiba.venualpha.post;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.example.madiba.venualpha.R;
 import com.example.madiba.venualpha.models.VenuFile;
-import com.example.madiba.venualpha.post.MediaPost.AddHashagFragment;
+import com.example.madiba.venualpha.post.MediaPost.FragmentAddHashagFragment;
 import com.example.madiba.venualpha.post.MediaPost.PickerFragment;
 
 import java.util.List;
@@ -32,7 +31,7 @@ public class BaseMediaPostActivity extends AppCompatActivity implements
     @Override
     public void multImage(List<VenuFile> venuFiles) {
 
-        Fragment frg = AddHashagFragment.newInstance(venuFiles);
+        Fragment frg = FragmentAddHashagFragment.newInstance(venuFiles);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, frg)
                 .addToBackStack("main")
@@ -46,7 +45,11 @@ public class BaseMediaPostActivity extends AppCompatActivity implements
 
     @Override
     public void singleVideo(VenuFile venuFile) {
-
+        Fragment frg = FragmentAddHashagFragment.newInstance(venuFile);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, frg)
+                .addToBackStack("main")
+                .commit();
     }
 
     @Override
